@@ -2,6 +2,10 @@ export interface Relic {
   id: string
   name: string
   description: string
+  /** Skills this relic strongly helps train */
+  majorSkills: string[]
+  /** Skills this relic partially helps train */
+  minorSkills: string[]
 }
 
 export interface RelicTier {
@@ -18,16 +22,22 @@ export const relicTiers: RelicTier[] = [
         id: 'endless-harvest',
         name: 'Endless Harvest',
         description: 'Resources from fishing, woodcutting, and mining are doubled and sent directly to the bank.',
+        majorSkills: ['fishing', 'woodcutting', 'mining'],
+        minorSkills: [],
       },
       {
         id: 'barbarian-gathering',
         name: 'Barbarian Gathering',
         description: 'Grants a knapsack. Gather resources bare-handed at the equivalent of crystal tool speed.',
+        majorSkills: ['mining', 'fishing', 'woodcutting'],
+        minorSkills: ['strength'],
       },
       {
         id: 'abundance',
         name: 'Abundance',
         description: 'All non-combat skills boosted by 10. Gain 2× XP per drop and earn 2× coins per XP gained.',
+        majorSkills: ['herblore', 'crafting', 'smithing', 'fletching'],
+        minorSkills: ['cooking', 'firemaking', 'farming', 'construction', 'runecraft'],
       },
     ],
   },
@@ -38,11 +48,15 @@ export const relicTiers: RelicTier[] = [
         id: 'hotfoot',
         name: 'Hotfoot',
         description: 'Grants searing boots. Auto-cooks fish and auto-smelts ore with 100% success rate.',
+        majorSkills: ['cooking', 'smithing'],
+        minorSkills: ['fishing', 'mining'],
       },
       {
         id: 'woodsman',
         name: 'Woodsman',
         description: 'Auto-burns logs while woodcutting. 100% hunter success rate with double loot and XP.',
+        majorSkills: ['firemaking', 'hunter', 'woodcutting'],
+        minorSkills: [],
       },
     ],
   },
@@ -53,6 +67,8 @@ export const relicTiers: RelicTier[] = [
         id: 'evil-eye',
         name: 'Evil Eye',
         description: 'Grants a teleportation item to access any boss or raid entrance in your unlocked regions.',
+        majorSkills: [],
+        minorSkills: [],
       },
     ],
   },
@@ -63,6 +79,8 @@ export const relicTiers: RelicTier[] = [
         id: 'conniving-clues',
         name: 'Conniving Clues',
         description: 'Clue rewards grant teleportation contracts. 1-in-4 chance opened caskets contain another clue.',
+        majorSkills: [],
+        minorSkills: ['crafting'],
       },
     ],
   },
@@ -73,11 +91,15 @@ export const relicTiers: RelicTier[] = [
         id: 'natures-accord',
         name: "Nature's Accord",
         description: 'Grants a fairy mushroom for teleportation. Farming patches yield 10× resources and never die.',
+        majorSkills: ['farming'],
+        minorSkills: ['herblore'],
       },
       {
         id: 'larcenist',
         name: 'Larcenist',
         description: '100% thieving success. Auto-pickpocket and auto-steal. Pickpocketing and stall loot is 10×.',
+        majorSkills: ['thieving'],
+        minorSkills: [],
       },
     ],
   },
@@ -88,6 +110,8 @@ export const relicTiers: RelicTier[] = [
         id: 'culling-spree',
         name: 'Culling Spree',
         description: 'Choose slayer tasks from 3 options. 50% superior creature spawn chance with free slayer perks.',
+        majorSkills: ['slayer'],
+        minorSkills: ['attack', 'strength', 'defence', 'ranged', 'magic', 'hitpoints'],
       },
     ],
   },
@@ -98,6 +122,8 @@ export const relicTiers: RelicTier[] = [
         id: 'reloaded',
         name: 'Reloaded',
         description: 'Choose one additional relic from any previously available tier.',
+        majorSkills: [],
+        minorSkills: [],
       },
     ],
   },
@@ -108,11 +134,15 @@ export const relicTiers: RelicTier[] = [
         id: 'minion',
         name: 'Minion',
         description: 'Summons a combat minion for 30 minutes with configurable looting behaviour.',
+        majorSkills: [],
+        minorSkills: ['attack', 'strength', 'ranged', 'magic'],
       },
       {
         id: 'flask-of-fervour',
         name: 'Flask of Fervour',
         description: 'Restores HP, prayer, and special attack. Deals typeless AoE damage around you on use.',
+        majorSkills: [],
+        minorSkills: ['prayer', 'hitpoints'],
       },
     ],
   },

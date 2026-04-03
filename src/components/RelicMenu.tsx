@@ -1,9 +1,16 @@
-import { Popover, Stack, Text, Title } from '@mantine/core'
+import { HoverCard, Stack, Text, Title } from '@mantine/core'
 import { relicTiers, type Relic } from '../data/relics'
+import { skills } from '../data/skills'
 
-function RelicIcon({ relic }: { relic: Relic }) {
-  // Abbreviated label for the icon placeholder.
-  // Replace with <img> pointing to a self-hosted sprite once assets are available.
+const skillMap = Object.fromEntries(skills.map(s => [s.id, s]))
+
+interface RelicIconProps {
+  relic: Relic
+  isSelected: boolean
+  onToggle: () => void
+}
+
+function RelicIcon({ relic, isSelected, onToggle }: RelicIconProps) {
   const abbr = relic.name
     .split(' ')
     .map(w => w[0])
@@ -12,13 +19,17 @@ function RelicIcon({ relic }: { relic: Relic }) {
     .toUpperCase()
 
   return (
-    <Popover position="bottom" withArrow={false} offset={6} withinPortal>
-      <Popover.Target>
-        <button className="relic-icon-btn" aria-label={relic.name}>
+    <HoverCard position="bottom" withArrow={false} offset={6} withinPortal openDelay={150} closeDelay={100}>
+      <HoverCard.Target>
+        <button
+          className={`relic-icon-btn${isSelected ? ' relic-icon-btn--selected' : ''}`}
+          aria-label={relic.name}
+          onClick={onToggle}
+        >
           {abbr}
         </button>
-      </Popover.Target>
-      <Popover.Dropdown className="relic-popover">
+      </HoverCard.Target>
+      <HoverCard.Dropdown className="relic-popover">
         <Stack gap="xs">
           <Text c="osrsYellow.5" fw="bold" size="sm">
             {relic.name}
@@ -26,13 +37,43 @@ function RelicIcon({ relic }: { relic: Relic }) {
           <Text c="white" size="xs">
             {relic.description}
           </Text>
+          {(relic.majorSkills.length > 0 || relic.minorSkills.length > 0) && (
+            <hr className="divider" style={{ margin: '2px 0' }} />
+          )}
+          {relic.majorSkills.length > 0 && (
+            <div className="skill-solve-row">
+              <Text c="osrsYellow.5" size="xs">Major</Text>
+              <div className="skill-solve-icons">
+                {relic.majorSkills.map(id => {
+                  const s = skillMap[id]
+                  return s ? <img key={id} src={s.iconUrl} alt={s.name} title={s.name} className="skill-solve-icon" /> : null
+                })}
+              </div>
+            </div>
+          )}
+          {relic.minorSkills.length > 0 && (
+            <div className="skill-solve-row">
+              <Text c="osrsGold.5" size="xs">Minor</Text>
+              <div className="skill-solve-icons">
+                {relic.minorSkills.map(id => {
+                  const s = skillMap[id]
+                  return s ? <img key={id} src={s.iconUrl} alt={s.name} title={s.name} className="skill-solve-icon" /> : null
+                })}
+              </div>
+            </div>
+          )}
         </Stack>
-      </Popover.Dropdown>
-    </Popover>
+      </HoverCard.Dropdown>
+    </HoverCard>
   )
 }
 
-export function RelicMenu() {
+interface Props {
+  selectedRelics: Record<string, string>
+  onToggleRelic: (tier: number, relicId: string) => void
+}
+
+export function RelicMenu({ selectedRelics, onToggleRelic }: Props) {
   return (
     <Stack gap="md">
       <div>
@@ -51,7 +92,12 @@ export function RelicMenu() {
                 <div className="relic-tier-node" />
                 <div className="relic-tier-icons">
                   {options.map(relic => (
-                    <RelicIcon key={relic.id} relic={relic} />
+                    <RelicIcon
+                      key={relic.id}
+                      relic={relic}
+                      isSelected={selectedRelics[String(tier)] === relic.id}
+                      onToggle={() => onToggleRelic(tier, relic.id)}
+                    />
                   ))}
                 </div>
               </div>

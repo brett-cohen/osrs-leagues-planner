@@ -17,6 +17,10 @@ export interface Region {
   mapX: number
   /** Percentage from top edge of the map image (0–100) */
   mapY: number
+  /** Skills this region strongly helps train */
+  majorSkills: string[]
+  /** Skills this region partially helps train */
+  minorSkills: string[]
 }
 
 export const regions: Region[] = [
@@ -28,6 +32,8 @@ export const regions: Region[] = [
     iconUrl: 'https://oldschool.runescape.wiki/images/Kourend_Area_Badge.png',
     mapX: 19.7,
     mapY: 33.7,
+    majorSkills: ['farming', 'runecraft', 'woodcutting', 'mining'],
+    minorSkills: ['slayer', 'prayer', 'construction', 'fishing'],
   },
   {
     id: 'fremennik',
@@ -37,6 +43,8 @@ export const regions: Region[] = [
     iconUrl: 'https://oldschool.runescape.wiki/images/Fremennik_Area_Badge.png',
     mapX: 52.7,
     mapY: 29.2,
+    majorSkills: ['crafting', 'slayer'],
+    minorSkills: ['fishing', 'mining', 'agility', 'construction'],
   },
   {
     id: 'wilderness',
@@ -46,6 +54,8 @@ export const regions: Region[] = [
     iconUrl: 'https://oldschool.runescape.wiki/images/Wilderness_Area_Badge.png',
     mapX: 73.6,
     mapY: 23.4,
+    majorSkills: ['prayer', 'mining'],
+    minorSkills: ['slayer', 'agility', 'thieving'],
   },
   {
     id: 'varlamore',
@@ -55,6 +65,8 @@ export const regions: Region[] = [
     iconUrl: 'https://oldschool.runescape.wiki/images/Varlamore_Area_Badge.png',
     mapX: 19.7,
     mapY: 68.5,
+    majorSkills: ['hunter', 'agility'],
+    minorSkills: ['prayer', 'mining', 'crafting'],
   },
   {
     id: 'asgarnia',
@@ -64,6 +76,8 @@ export const regions: Region[] = [
     iconUrl: 'https://oldschool.runescape.wiki/images/Asgarnia_Area_Badge.png',
     mapX: 63.8,
     mapY: 43.7,
+    majorSkills: ['smithing', 'mining', 'prayer', 'construction'],
+    minorSkills: ['crafting', 'farming', 'agility'],
   },
   {
     id: 'tirannwn',
@@ -73,6 +87,8 @@ export const regions: Region[] = [
     iconUrl: 'https://oldschool.runescape.wiki/images/Tirannwn_Area_Badge.png',
     mapX: 39.9,
     mapY: 58.5,
+    majorSkills: ['agility', 'mining', 'crafting', 'herblore'],
+    minorSkills: ['thieving', 'fletching', 'farming', 'hunter'],
   },
   {
     id: 'kandarin',
@@ -82,6 +98,8 @@ export const regions: Region[] = [
     iconUrl: 'https://oldschool.runescape.wiki/images/Kandarin_Area_Badge.png',
     mapX: 50.4,
     mapY: 56.3,
+    majorSkills: ['fishing', 'thieving', 'farming', 'herblore'],
+    minorSkills: ['agility', 'cooking', 'fletching', 'crafting'],
   },
   {
     id: 'morytania',
@@ -91,6 +109,8 @@ export const regions: Region[] = [
     iconUrl: 'https://oldschool.runescape.wiki/images/Morytania_Area_Badge.png',
     mapX: 85.4,
     mapY: 50.4,
+    majorSkills: ['prayer', 'agility', 'slayer'],
+    minorSkills: ['farming', 'crafting', 'firemaking'],
   },
   {
     id: 'karamja',
@@ -100,6 +120,8 @@ export const regions: Region[] = [
     iconUrl: 'https://oldschool.runescape.wiki/images/Karamja_Area_Badge.png',
     mapX: 61.0,
     mapY: 74.7,
+    majorSkills: ['firemaking', 'mining'],
+    minorSkills: ['fishing', 'agility', 'woodcutting'],
   },
   {
     id: 'desert',
@@ -109,5 +131,7 @@ export const regions: Region[] = [
     iconUrl: 'https://oldschool.runescape.wiki/images/Desert_Area_Badge.png',
     mapX: 77.7,
     mapY: 78.3,
+    majorSkills: ['thieving', 'prayer'],
+    minorSkills: ['mining', 'crafting', 'agility', 'firemaking'],
   },
 ]

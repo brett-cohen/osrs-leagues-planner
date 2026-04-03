@@ -564,6 +564,69 @@ img {
 }
 
 /* ============================================================
+   Skill Solve Rows (used in region / relic hover cards)
+   ============================================================ */
+
+.skill-solve-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.skill-solve-icons {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+
+.skill-solve-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* ============================================================
+   Skill Grid
+   ============================================================ */
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 2px;
+  width: fit-content;
+  background-color: var(--mantine-color-osrsBrown-9);
+  border: 2px solid;
+  border-color:
+    var(--mantine-color-osrsBrown-8)
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-8);
+  padding: 2px;
+}
+
+.skill-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 36px;
+  height: 36px;
+  background-color: var(--mantine-color-osrsBrown-8);
+}
+
+.skill-cell-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.skill-cell-status {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  display: flex;
+  line-height: 0;
+}
+
+/* ============================================================
    Relic Track
    ============================================================ */
 
@@ -646,6 +709,16 @@ img {
   line-height: 1.2;
   padding: 2px;
   user-select: none;
+}
+
+.relic-icon-btn--selected {
+  border-color:
+    var(--mantine-color-osrsYellow-5)
+    var(--mantine-color-osrsYellow-5)
+    var(--mantine-color-osrsYellow-5)
+    var(--mantine-color-osrsYellow-5);
+  color: var(--mantine-color-osrsYellow-5);
+  box-shadow: 0 0 6px rgba(255, 255, 0, 0.5);
 }
 
 .relic-icon-btn:hover {

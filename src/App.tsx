@@ -16,6 +16,11 @@ function App() {
     defaultValue: [],
   })
 
+  const [selectedRelics, setSelectedRelics] = useLocalStorage<Record<string, string>>({
+    key: 'osrs-leagues-selected-relics',
+    defaultValue: {},
+  })
+
   function handleToggleRegion(id: string) {
     setSelectedRegions(prev => {
       if (prev.includes(id)) return prev.filter(r => r !== id)
@@ -24,12 +29,29 @@ function App() {
     })
   }
 
+  function handleToggleRelic(tier: number, relicId: string) {
+    setSelectedRelics(prev => {
+      const key = String(tier)
+      if (prev[key] === relicId) {
+        const next = { ...prev }
+        delete next[key]
+        return next
+      }
+      return { ...prev, [key]: relicId }
+    })
+  }
+
   return (
     <>
       <NavBar current={page} onChange={setPage} />
       <div className="app-content">
         {page === 'unlocks' && (
-          <UnlocksPage selectedRegions={selectedRegions} onToggleRegion={handleToggleRegion} />
+          <UnlocksPage
+            selectedRegions={selectedRegions}
+            onToggleRegion={handleToggleRegion}
+            selectedRelics={selectedRelics}
+            onToggleRelic={handleToggleRelic}
+          />
         )}
         {page === 'route' && <RoutePage selectedRegions={selectedRegions} />}
         {page === 'config' && <ConfigPage />}

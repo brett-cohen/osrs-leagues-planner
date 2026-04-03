@@ -2,14 +2,17 @@ import { Stack, Text, Title } from '@mantine/core'
 import { RegionMap } from '../components/RegionMap'
 import { RegionSummary } from '../components/RegionSummary'
 import { RelicMenu } from '../components/RelicMenu'
+import { SkillGrid } from '../components/SkillGrid'
 import { LEAGUE_NAME } from '../data/regions'
 
 interface Props {
   selectedRegions: string[]
   onToggleRegion: (id: string) => void
+  selectedRelics: Record<string, string>
+  onToggleRelic: (tier: number, relicId: string) => void
 }
 
-export function UnlocksPage({ selectedRegions, onToggleRegion }: Props) {
+export function UnlocksPage({ selectedRegions, onToggleRegion, selectedRelics, onToggleRelic }: Props) {
   return (
     <Stack gap="xl">
       <div>
@@ -34,7 +37,12 @@ export function UnlocksPage({ selectedRegions, onToggleRegion }: Props) {
         </div>
       </Stack>
       <hr className="divider" />
-      <RelicMenu />
+      <RelicMenu selectedRelics={selectedRelics} onToggleRelic={onToggleRelic} />
+      <hr className="divider" />
+      <Stack gap="md">
+        <Title order={2}>Skills</Title>
+        <SkillGrid selectedRegions={selectedRegions} selectedRelics={selectedRelics} />
+      </Stack>
     </Stack>
   )
 }
