@@ -70,6 +70,61 @@ img {
 }
 
 /* ============================================================
+   Region Map
+   ============================================================ */
+
+.region-map {
+  position: relative;
+  line-height: 0; /* collapse whitespace under the img */
+}
+
+.region-map-img {
+  width: 100%;
+  display: block;
+  image-rendering: auto; /* override global pixelated — this is a photo-quality map */
+}
+
+/* Absolutely positioned anchor for each region marker.
+   transform centres the button on the coordinate point. */
+.region-marker-anchor {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.region-marker {
+  font-family: 'RuneScape', monospace;
+  font-size: 9px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  padding: 3px 5px;
+  background-color: rgba(13, 7, 0, 0.82);
+  border: 1px solid;
+  user-select: none;
+  transition: background-color 80ms;
+}
+
+.region-marker--start {
+  color: var(--mantine-color-osrsYellow-5);
+  border-color: var(--mantine-color-osrsYellow-5);
+}
+
+.region-marker--auto {
+  color: var(--mantine-color-green-4);
+  border-color: var(--mantine-color-green-6);
+}
+
+.region-marker--unlockable {
+  color: var(--mantine-color-osrsGold-4);
+  border-color: var(--mantine-color-osrsBrown-4);
+}
+
+.region-marker:hover {
+  background-color: rgba(45, 31, 14, 0.92);
+}
+
+/* ============================================================
    Relic Track
    ============================================================ */
 
