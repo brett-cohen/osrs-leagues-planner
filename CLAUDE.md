@@ -57,6 +57,28 @@ Other available fonts (Quill, Fairy, Surok, etc.) can be added as additional `@f
 - Use `image-rendering: pixelated` on all icons and sprites
 
 
+## Data Persistence
+
+There is no backend. All user data MUST be persisted to `localStorage` — if it isn't saved, it's lost on refresh.
+
+- Every piece of user state (selected regions, relic choices, task completions, plan name, etc.) must be written to `localStorage` on change
+- Use `mantine/hooks` `useLocalStorage` hook as the default mechanism — it handles serialisation and keeps state in sync
+- For complex nested state, serialise the whole plan object as a single JSON key rather than scattering many individual keys
+- Always read from `localStorage` on mount so the app restores exactly where the user left off
+
+## Sharing & Export
+
+The app must support rich export and sharing features — this is a core part of the product, not an afterthought.
+
+**Planned export surfaces:**
+- **Shareable URL** — encode an entire plan as a compressed, base64 URL parameter so users can share a link that opens the exact plan in someone else's browser (no server required)
+- **Full plan export** — export the complete character plan (regions, relics, task selections) as a JSON file for backup or import
+- **Task route export** — export just the ordered task list as plain text or CSV for use outside the app (e.g. as a checklist)
+- **Import** — accept a previously exported JSON file or paste a share URL to load a plan
+
+**Encoding approach for share URLs:**
+Compress plan JSON → `pako` (or similar) deflate → base64 → URL param. Keep the schema versioned so old share links remain decodable after data model changes.
+
 ## Tech Stack
 
 - **React 18** with TypeScript (strict mode)
