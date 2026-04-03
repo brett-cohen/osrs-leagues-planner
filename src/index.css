@@ -18,6 +18,78 @@
   font-display: block;
 }
 
+/* ============================================================
+   Nav
+   ============================================================ */
+
+:root {
+  --app-nav-height: 44px;
+}
+
+.app-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--app-nav-height);
+  background-color: #000;
+  border-bottom: 2px solid var(--mantine-color-osrsBrown-7);
+}
+
+.app-nav-inner {
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--mantine-spacing-xl);
+  display: flex;
+  align-items: stretch;
+  gap: var(--mantine-spacing-xs);
+}
+
+.app-nav-logo {
+  display: flex;
+  align-items: center;
+  padding-right: var(--mantine-spacing-md);
+  margin-right: var(--mantine-spacing-xs);
+  border-right: 1px solid var(--mantine-color-osrsBrown-7);
+  color: var(--mantine-color-osrsYellow-5);
+  font-family: 'RuneScape', monospace;
+  font-weight: bold;
+  font-size: var(--mantine-font-size-sm);
+  white-space: nowrap;
+}
+
+.app-nav-tabs {
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  color: var(--mantine-color-osrsGold-5);
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-sm);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.nav-item--active {
+  color: var(--mantine-color-osrsYellow-5);
+  border-bottom-color: var(--mantine-color-osrsYellow-5);
+}
+
+.nav-item:hover:not(.nav-item--active) {
+  color: #fff;
+}
+
 /* Global overrides that live outside the Mantine theme */
 
 body {

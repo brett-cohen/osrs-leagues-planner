@@ -1,4 +1,4 @@
-#root {
+.app-content {
   max-width: 1200px;
   margin: 0 auto;
   padding: var(--mantine-spacing-xl);
@@ -19,5 +19,5 @@
   width: 190px;
   flex-shrink: 0;
   position: sticky;
-  top: var(--mantine-spacing-xl);
+  top: calc(var(--app-nav-height) + var(--mantine-spacing-xl));
 }
