@@ -85,43 +85,90 @@ img {
 }
 
 /* Absolutely positioned anchor for each region marker.
-   transform centres the button on the coordinate point. */
+   transform centres the button on the coordinate point.
+   filter lives here so drop-shadow radiates outside the clip-path on the button. */
 .region-marker-anchor {
   position: absolute;
   transform: translate(-50%, -50%);
   z-index: 1;
+  transition: filter 80ms;
 }
 
+.region-marker-anchor:has(.region-marker--start) {
+  filter: drop-shadow(0 0 7px rgba(255, 255, 0, 0.9));
+}
+.region-marker-anchor:has(.region-marker--auto) {
+  filter: drop-shadow(0 0 7px rgba(0, 200, 80, 0.9));
+}
+.region-marker-anchor:has(.region-marker--selected) {
+  filter: drop-shadow(0 0 7px rgba(255, 152, 31, 0.9));
+}
+.region-marker-anchor:has(.region-marker:hover) {
+  filter: drop-shadow(0 0 7px rgba(255, 255, 200, 0.9));
+}
+
+/* Transparent hotspot sized to cover the badge icons embedded in the map image.
+   No visible content — the map already renders the icons.
+   Status glow and hover glow use box-shadow against the underlying image. */
 .region-marker {
-  font-family: 'RuneScape', monospace;
-  font-size: 9px;
-  line-height: 1;
-  white-space: nowrap;
+  background: transparent;
+  border: none;
+  padding: 0;
   cursor: pointer;
-  padding: 3px 5px;
-  background-color: rgba(13, 7, 0, 0.82);
-  border: 1px solid;
+  display: block;
+  position: relative;
+  width: 44px;
+  height: 56px;
   user-select: none;
+}
+
+/* Shield overlay — clip-path lives here so the anchor's drop-shadow
+   sees a fully-defined shield alpha channel including the diagonal edges */
+.region-marker::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 72%, 50% 100%, 0% 72%);
+  background: transparent;
   transition: background-color 80ms;
 }
 
-.region-marker--start {
-  color: var(--mantine-color-osrsYellow-5);
-  border-color: var(--mantine-color-osrsYellow-5);
+.region-marker--start::before {
+  background-color: rgba(255, 255, 0, 0.15);
+}
+.region-marker--auto::before {
+  background-color: rgba(0, 200, 80, 0.15);
 }
 
-.region-marker--auto {
-  color: var(--mantine-color-green-4);
-  border-color: var(--mantine-color-green-6);
+.region-marker--selected::before {
+  background-color: rgba(255, 152, 31, 0.15);
 }
 
-.region-marker--unlockable {
-  color: var(--mantine-color-osrsGold-4);
-  border-color: var(--mantine-color-osrsBrown-4);
+.region-marker--debug::before {
+  background-color: rgba(255, 0, 0, 0.35);
+  outline: 1px solid red;
 }
 
-.region-marker:hover {
-  background-color: rgba(45, 31, 14, 0.92);
+.region-marker:hover::before {
+  background-color: rgba(255, 255, 200, 0.15);
+}
+
+/* ============================================================
+   Region Summary
+   ============================================================ */
+
+.region-summary-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.region-summary-icon {
+  width: 24px;
+  height: 30px;
+  object-fit: contain;
+  flex-shrink: 0;
+  image-rendering: pixelated;
 }
 
 /* ============================================================

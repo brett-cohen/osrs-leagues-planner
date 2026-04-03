@@ -1,9 +1,8 @@
 export const LEAGUE_NAME = 'Leagues VI: Demonic Pacts'
 
-// Map image used as the background for region overlays.
-// Source: oldschool.runescape.wiki — swap with a self-hosted copy if needed.
-export const MAP_IMAGE_URL =
-  'https://oldschool.runescape.wiki/images/Get_Ready_For_Leagues_VI-_Demonic_Pacts_-_April_15th_(5).png'
+// Self-hosted clean map image — place the file at public/map.png
+// import.meta.env.BASE_URL resolves to /osrs-leagues-planner/ in production
+export const MAP_IMAGE_URL = `${import.meta.env.BASE_URL}map.png`
 
 export type RegionStatus = 'start' | 'auto' | 'unlockable'
 
@@ -12,91 +11,103 @@ export interface Region {
   name: string
   status: RegionStatus
   highlights: string[]
-  /** Percentage from left edge of the map image */
+  /** Wiki badge image URL */
+  iconUrl: string
+  /** Percentage from left edge of the map image (0–100) */
   mapX: number
-  /** Percentage from top edge of the map image */
+  /** Percentage from top edge of the map image (0–100) */
   mapY: number
 }
 
 export const regions: Region[] = [
   {
-    id: 'varlamore',
-    name: 'Varlamore',
-    status: 'start',
-    highlights: ['Fortis Colosseum', 'Moons of Peril', 'Vardorvis', 'Hunter Guild'],
-    mapX: 36,
-    mapY: 76,
-  },
-  {
-    id: 'karamja',
-    name: 'Karamja',
-    status: 'auto',
-    highlights: ['Fight Caves / TzHaar', 'Brimhaven Dungeon', 'Shilo Village', 'Mor Ul Rek'],
-    mapX: 24,
-    mapY: 64,
-  },
-  {
-    id: 'asgarnia',
-    name: 'Asgarnia',
+    id: 'zeah',
+    name: 'Kebos & Kourend',
     status: 'unlockable',
-    highlights: ['God Wars Dungeon', 'Falador', 'Dwarven Mine', 'Troll Stronghold'],
-    mapX: 34,
-    mapY: 43,
-  },
-  {
-    id: 'desert',
-    name: 'Kharidian Desert',
-    status: 'unlockable',
-    highlights: ['Necropolis', 'Ruins of Unkah', 'Bandit Camp', 'Bedabin Camp'],
-    mapX: 55,
-    mapY: 60,
-  },
-  {
-    id: 'kandarin',
-    name: 'Kandarin',
-    status: 'unlockable',
-    highlights: ['Barbarian Assault', 'Ardougne', 'Catherby', 'Ape Atoll'],
-    mapX: 22,
-    mapY: 37,
+    highlights: ['Chambers of Xeric', 'Mount Karuulm', 'Catacombs of Kourend', 'Sarachnis'],
+    iconUrl: 'https://oldschool.runescape.wiki/images/Kourend_Area_Badge.png',
+    mapX: 19.7,
+    mapY: 33.7,
   },
   {
     id: 'fremennik',
     name: 'Fremennik Province',
     status: 'unlockable',
     highlights: ['Waterbirth Island', 'Keldagrim', 'Lunar Isle', 'Ungael'],
-    mapX: 57,
-    mapY: 20,
-  },
-  {
-    id: 'zeah',
-    name: 'Kebos & Kourend',
-    status: 'unlockable',
-    highlights: ['Chambers of Xeric', 'Mount Karuulm', 'Catacombs of Kourend', 'Sarachnis'],
-    mapX: 14,
-    mapY: 74,
-  },
-  {
-    id: 'morytania',
-    name: 'Morytania',
-    status: 'unlockable',
-    highlights: ['Theatre of Blood', 'Darkmeyer', "Mos Le'Harmless", 'Barrows'],
-    mapX: 68,
-    mapY: 42,
-  },
-  {
-    id: 'tirannwn',
-    name: 'Tirannwn',
-    status: 'unlockable',
-    highlights: ['The Gauntlet', 'Zulrah', 'Prifddinas', 'Zalcano'],
-    mapX: 10,
-    mapY: 44,
+    iconUrl: 'https://oldschool.runescape.wiki/images/Fremennik_Area_Badge.png',
+    mapX: 52.7,
+    mapY: 29.2,
   },
   {
     id: 'wilderness',
     name: 'Wilderness',
     status: 'unlockable',
     highlights: ['Ferox Enclave', 'Mage Arena', "Rogues' Castle", 'Wilderness Bosses'],
-    mapX: 44,
-    mapY: 10,
+    iconUrl: 'https://oldschool.runescape.wiki/images/Wilderness_Area_Badge.png',
+    mapX: 73.6,
+    mapY: 23.4,
+  },
+  {
+    id: 'varlamore',
+    name: 'Varlamore',
+    status: 'start',
+    highlights: ['Fortis Colosseum', 'Moons of Peril', 'Vardorvis', 'Hunter Guild'],
+    iconUrl: 'https://oldschool.runescape.wiki/images/Varlamore_Area_Badge.png',
+    mapX: 19.7,
+    mapY: 68.5,
+  },
+  {
+    id: 'asgarnia',
+    name: 'Asgarnia',
+    status: 'unlockable',
+    highlights: ['God Wars Dungeon', 'Falador', 'Dwarven Mine', 'Troll Stronghold'],
+    iconUrl: 'https://oldschool.runescape.wiki/images/Asgarnia_Area_Badge.png',
+    mapX: 63.8,
+    mapY: 43.7,
+  },
+  {
+    id: 'tirannwn',
+    name: 'Tirannwn',
+    status: 'unlockable',
+    highlights: ['The Gauntlet', 'Zulrah', 'Prifddinas', 'Zalcano'],
+    iconUrl: 'https://oldschool.runescape.wiki/images/Tirannwn_Area_Badge.png',
+    mapX: 39.9,
+    mapY: 58.5,
+  },
+  {
+    id: 'kandarin',
+    name: 'Kandarin',
+    status: 'unlockable',
+    highlights: ['Barbarian Assault', 'Ardougne', 'Catherby', 'Ape Atoll'],
+    iconUrl: 'https://oldschool.runescape.wiki/images/Kandarin_Area_Badge.png',
+    mapX: 50.4,
+    mapY: 56.3,
+  },
+  {
+    id: 'morytania',
+    name: 'Morytania',
+    status: 'unlockable',
+    highlights: ['Theatre of Blood', 'Darkmeyer', "Mos Le'Harmless", 'Barrows'],
+    iconUrl: 'https://oldschool.runescape.wiki/images/Morytania_Area_Badge.png',
+    mapX: 85.4,
+    mapY: 50.4,
+  },
+  {
+    id: 'karamja',
+    name: 'Karamja',
+    status: 'auto',
+    highlights: ['Fight Caves / TzHaar', 'Brimhaven Dungeon', 'Shilo Village', 'Mor Ul Rek'],
+    iconUrl: 'https://oldschool.runescape.wiki/images/Karamja_Area_Badge.png',
+    mapX: 61.0,
+    mapY: 74.7,
+  },
+  {
+    id: 'desert',
+    name: 'Kharidian Desert',
+    status: 'unlockable',
+    highlights: ['Necropolis', 'Ruins of Unkah', 'Bandit Camp', 'Bedabin Camp'],
+    iconUrl: 'https://oldschool.runescape.wiki/images/Desert_Area_Badge.png',
+    mapX: 77.7,
+    mapY: 78.3,
   },
 ]

@@ -1,5 +1,8 @@
-import { Popover, Stack, Text, Title } from '@mantine/core'
+import { HoverCard, Stack, Text } from '@mantine/core'
 import { MAP_IMAGE_URL, regions, type Region, type RegionStatus } from '../data/regions'
+
+// Set to true to show all hotspot boxes and enable click-to-log coordinates.
+const DEBUG_COORDS = false
 
 const STATUS_LABEL: Record<RegionStatus, string> = {
   start:      'Starting Region',
@@ -7,27 +10,53 @@ const STATUS_LABEL: Record<RegionStatus, string> = {
   unlockable: 'Unlockable',
 }
 
-function RegionMarker({ region }: { region: Region }) {
+const STATUS_COLOR: Record<RegionStatus, string> = {
+  start:      'osrsYellow.5',
+  auto:       'green.4',
+  unlockable: 'osrsGold.5',
+}
+
+interface RegionMapProps {
+  selectedIds: string[]
+  onToggleRegion: (id: string) => void
+}
+
+interface RegionMarkerProps {
+  region: Region
+  isSelected: boolean
+  onToggle: () => void
+}
+
+function RegionMarker({ region, isSelected, onToggle }: RegionMarkerProps) {
+  const isSelectable = region.status === 'unlockable'
+
+  const markerClass = [
+    'region-marker',
+    `region-marker--${region.status}`,
+    isSelected ? 'region-marker--selected' : '',
+    DEBUG_COORDS ? 'region-marker--debug' : '',
+  ].filter(Boolean).join(' ')
+
   return (
     <div
-      className={`region-marker-anchor`}
+      className="region-marker-anchor"
       style={{ left: `${region.mapX}%`, top: `${region.mapY}%` }}
     >
-      <Popover position="top" withArrow={false} offset={6} withinPortal>
-        <Popover.Target>
+      <HoverCard position="top" withArrow={false} offset={4} withinPortal openDelay={150} closeDelay={100}>
+        <HoverCard.Target>
           <button
-            className={`region-marker region-marker--${region.status}`}
+            className={markerClass}
             aria-label={region.name}
-          >
-            {region.name}
-          </button>
-        </Popover.Target>
-        <Popover.Dropdown className="relic-popover">
+            onClick={isSelectable ? onToggle : undefined}
+            style={isSelectable ? undefined : { cursor: 'default' }}
+          />
+        </HoverCard.Target>
+        <HoverCard.Dropdown className="relic-popover">
           <Stack gap="xs">
             <Text c="osrsYellow.5" fw="bold" size="sm">
               {region.name}
             </Text>
-            <Text c="osrsGold.5" size="xs">
+            <Text c={STATUS_COLOR[region.status]} size="xs">
               {STATUS_LABEL[region.status]}
             </Text>
             <hr className="divider" style={{ margin: '2px 0' }} />
@@ -35,33 +64,41 @@ function RegionMarker({ region }: { region: Region }) {
               <Text key={h} c="white" size="xs">· {h}</Text>
             ))}
           </Stack>
-        </Popover.Dropdown>
-      </Popover>
+        </HoverCard.Dropdown>
+      </HoverCard>
     </div>
   )
 }
 
-export function RegionMap() {
+function handleMapClick(e: React.MouseEvent<HTMLDivElement>) {
+  const rect = e.currentTarget.getBoundingClientRect()
+  const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1)
+  const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1)
+  console.log(`mapX: ${x}, mapY: ${y}`)
+}
+
+export function RegionMap({ selectedIds, onToggleRegion }: RegionMapProps) {
   return (
-    <Stack gap="md">
-      <div>
-        <Title order={2}>Regions</Title>
-        <Text c="osrsGold.5" size="sm">
-          Start in Varlamore · Karamja auto-unlocked · Choose up to 3 more
-        </Text>
-      </div>
-      <div className="panel" style={{ padding: 0, overflow: 'hidden' }}>
-        <div className="region-map">
-          <img
-            src={MAP_IMAGE_URL}
-            alt="Gielinor — Leagues VI regions"
-            className="region-map-img"
+    <div className="panel" style={{ padding: 0, overflow: 'hidden' }}>
+      <div
+        className="region-map"
+        onClick={DEBUG_COORDS ? handleMapClick : undefined}
+        style={DEBUG_COORDS ? { cursor: 'crosshair' } : undefined}
+      >
+        <img
+          src={MAP_IMAGE_URL}
+          alt="Gielinor — Leagues VI regions"
+          className="region-map-img"
+        />
+        {regions.map(region => (
+          <RegionMarker
+            key={region.id}
+            region={region}
+            isSelected={selectedIds.includes(region.id)}
+            onToggle={() => onToggleRegion(region.id)}
           />
-          {regions.map(region => (
-            <RegionMarker key={region.id} region={region} />
-          ))}
-        </div>
+        ))}
       </div>
-    </Stack>
+    </div>
   )
 }
