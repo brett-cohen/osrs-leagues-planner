@@ -31,7 +31,7 @@ function App() {
         {page === 'unlocks' && (
           <UnlocksPage selectedRegions={selectedRegions} onToggleRegion={handleToggleRegion} />
         )}
-        {page === 'route' && <RoutePage />}
+        {page === 'route' && <RoutePage selectedRegions={selectedRegions} />}
         {page === 'config' && <ConfigPage />}
       </div>
     </>

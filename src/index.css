@@ -142,6 +142,326 @@ img {
 }
 
 /* ============================================================
+   OSRS Modal
+   ============================================================ */
+
+.osrs-modal {
+  background-color: var(--mantine-color-osrsBrown-7) !important;
+  border: 2px solid !important;
+  border-color:
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-8)
+    var(--mantine-color-osrsBrown-8)
+    var(--mantine-color-osrsBrown-4) !important;
+  border-radius: 0 !important;
+}
+
+.osrs-modal-header {
+  background-color: var(--mantine-color-osrsBrown-7) !important;
+  border-bottom: 1px solid var(--mantine-color-osrsBrown-8) !important;
+  padding-bottom: var(--mantine-spacing-xs) !important;
+}
+
+.osrs-modal-title {
+  color: var(--mantine-color-osrsYellow-5) !important;
+  font-family: 'RuneScape', monospace !important;
+  font-weight: bold !important;
+}
+
+.osrs-modal-close {
+  color: var(--mantine-color-osrsGold-5) !important;
+  border-radius: 0 !important;
+}
+
+.osrs-modal-close:hover {
+  background-color: var(--mantine-color-osrsBrown-8) !important;
+  color: var(--mantine-color-osrsYellow-5) !important;
+}
+
+.osrs-input {
+  background-color: var(--mantine-color-osrsBrown-9) !important;
+  border-color: var(--mantine-color-osrsBrown-6) !important;
+  color: #fff !important;
+  font-family: 'RuneScape', monospace !important;
+  border-radius: 0 !important;
+}
+
+.osrs-input:focus {
+  border-color: var(--mantine-color-osrsYellow-5) !important;
+}
+
+.osrs-select {
+  background-color: var(--mantine-color-osrsBrown-9);
+  border: 1px solid var(--mantine-color-osrsBrown-6);
+  color: var(--mantine-color-osrsYellow-5);
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-xs);
+  padding: 4px 8px;
+  cursor: pointer;
+  outline: none;
+  margin-left: auto;
+}
+
+.osrs-select:focus {
+  border-color: var(--mantine-color-osrsYellow-5);
+}
+
+/* ============================================================
+   Route Page
+   ============================================================ */
+
+.route-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mantine-spacing-xl);
+}
+
+.route-stats {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.route-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 var(--mantine-spacing-xl);
+}
+
+.route-stat-value {
+  color: var(--mantine-color-osrsYellow-5);
+  font-family: 'RuneScape', monospace;
+  font-weight: bold;
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.route-stat-label {
+  color: var(--mantine-color-osrsGold-5);
+  font-family: 'RuneScape', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.route-stat-divider {
+  width: 1px;
+  height: 40px;
+  background-color: var(--mantine-color-osrsBrown-6);
+}
+
+.route-empty {
+  padding: var(--mantine-spacing-md);
+}
+
+.route-step-list {
+  padding: var(--mantine-spacing-xs);
+  display: flex;
+  flex-direction: column;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.route-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 4px;
+  border-bottom: 1px solid var(--mantine-color-osrsBrown-8);
+}
+
+.route-step:last-child {
+  border-bottom: none;
+}
+
+.route-step-num {
+  color: var(--mantine-color-osrsGold-5);
+  font-family: 'RuneScape', monospace;
+  font-size: 11px;
+  min-width: 22px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.route-step-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.route-step-name {
+  color: #fff;
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-xs);
+}
+
+.route-step-tags {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.route-step-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--mantine-color-osrsBrown-5);
+  color: #fff;
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-xs);
+  padding: 2px 4px;
+  outline: none;
+  min-width: 0;
+}
+
+.route-step-input:focus {
+  border-bottom-color: var(--mantine-color-osrsYellow-5);
+}
+
+.route-step-remove {
+  background: transparent;
+  border: none;
+  color: var(--mantine-color-red-6);
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  opacity: 0.45;
+  flex-shrink: 0;
+}
+
+.route-step-remove:hover {
+  opacity: 1;
+}
+
+.route-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.route-add-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.route-add-btn {
+  width: 40px;
+  height: 40px;
+  background-color: var(--mantine-color-osrsBrown-8);
+  border: 2px solid;
+  border-color:
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mantine-color-osrsYellow-5);
+}
+
+.route-add-btn:hover {
+  border-color:
+    var(--mantine-color-osrsYellow-5)
+    var(--mantine-color-osrsBrown-7)
+    var(--mantine-color-osrsBrown-7)
+    var(--mantine-color-osrsYellow-5);
+}
+
+/* ─── Tags ─────────────────────────────────────────────────── */
+
+.step-tag {
+  font-family: 'RuneScape', monospace;
+  font-size: 9px;
+  padding: 1px 5px;
+  white-space: nowrap;
+}
+
+.step-tag--region { color: var(--mantine-color-osrsGold-5); }
+.step-tag--pts    { color: var(--mantine-color-osrsYellow-5); }
+
+.step-tag--diff.step-tag--easy   { color: #00c800; }
+.step-tag--diff.step-tag--medium { color: #6688ff; }
+.step-tag--diff.step-tag--hard   { color: #ff4444; }
+.step-tag--diff.step-tag--elite  { color: #cc44ff; }
+.step-tag--diff.step-tag--master { color: #ff9800; }
+
+/* ─── Task search modal ────────────────────────────────────── */
+
+.task-filter-row {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.diff-btn {
+  padding: 3px 8px;
+  background-color: var(--mantine-color-osrsBrown-8);
+  border: 1px solid var(--mantine-color-osrsBrown-6);
+  font-family: 'RuneScape', monospace;
+  font-size: 10px;
+  cursor: pointer;
+  opacity: 0.45;
+}
+
+.diff-btn--on {
+  opacity: 1;
+  border-color: currentColor;
+}
+
+.diff-btn--easy   { color: #00c800; }
+.diff-btn--medium { color: #6688ff; }
+.diff-btn--hard   { color: #ff4444; }
+.diff-btn--elite  { color: #cc44ff; }
+.diff-btn--master { color: #ff9800; }
+
+.task-search-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-search-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--mantine-color-osrsBrown-8);
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.task-search-row:hover {
+  background-color: var(--mantine-color-osrsBrown-8);
+}
+
+.task-search-name {
+  color: #fff;
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-xs);
+  flex: 1;
+  min-width: 0;
+}
+
+.task-search-meta {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ============================================================
    Region Map
    ============================================================ */
 
