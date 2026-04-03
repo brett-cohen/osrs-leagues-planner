@@ -30,26 +30,34 @@ The core of the app: players want to plan which regions to unlock and which reli
 
 The app is themed after the OSRS in-game UI: dark/black backgrounds, yellow primary text, brown panels with beveled borders, retro pixel font. No rounded corners anywhere.
 
-**Font:** "Press Start 2P" (Google Fonts) — the standard retro pixel web font. For a more authentic feel, the actual RuneScape bitmap fonts (Plain 11/12) are available at https://github.com/RuneStar/fonts (CC0). To self-host: download the TTF, place in `public/fonts/`, add an `@font-face` rule in `index.css`.
+**Component library:** Mantine v7 (`@mantine/core`, `@mantine/hooks`). Always forced to dark mode via `forceColorScheme="dark"` on `MantineProvider`.
 
-**Design tokens** live in `src/index.css` as CSS custom properties:
-- `--color-yellow` `#ffff00` — primary text (headings, highlights)
-- `--color-gold` `#ff981f` — secondary text (subheadings, links)
-- `--color-white` `#ffffff` — body text
-- `--color-panel-bg` `#2d1f0e` — panel/widget background
-- `--color-border-hi` `#8b7355` / `--color-border-lo` `#1a0f00` — bevel borders
+**Theme:** `src/theme.ts` — all design tokens are defined here via Mantine's `createTheme()`:
+- `primaryColor: 'osrsYellow'` — `#ffff00` at shade 5
+- `osrsGold` — `#ff981f` at shade 5, used for secondary/links
+- `osrsBrown` — 10-shade panel palette; shades 4/8 are the bevel border hi/lo values
+- `defaultRadius: 0` + all radius scale entries set to `'0'` — no rounded corners anywhere
+- `fontFamily`: `'Press Start 2P'` loaded from Google Fonts in `index.html`
+
+**Global CSS** (`src/index.css`) handles only things Mantine can't:
+- `body` background + disable font smoothing for crisp pixel rendering
+- `img { image-rendering: pixelated }` for sprites and icons
+- `.panel` / `.panel-inset` — characteristic OSRS raised/sunken bevel using `--mantine-color-osrsBrown-{4,8}` CSS vars
+- `.divider` — double-line bevel rule
 
 **Rules:**
 - Never use `border-radius` — OSRS has sharp corners everywhere
-- Use `.panel` / `.panel-inset` classes for the characteristic raised/sunken bevel effect
+- Use Mantine's `c` prop (e.g. `c="osrsGold.5"`) for text colors rather than inline styles
+- Use `.panel` / `.panel-inset` CSS classes for the bevel panel effect
 - Use `image-rendering: pixelated` on all icons and sprites
-- Disable font smoothing (`-webkit-font-smoothing: none`) to keep pixel fonts crisp
-- Use text utility classes (`.text-yellow`, `.text-gold`, `.text-white`, etc.) rather than inline color styles
+
+**Font note:** For the authentic RuneScape bitmap font (Plain 11/12), download from https://github.com/RuneStar/fonts (CC0), place TTF in `public/fonts/`, and add an `@font-face` rule in `index.css`.
 
 ## Tech Stack
 
 - **React 18** with TypeScript (strict mode)
 - **Vite 5** for bundling and dev server
+- **Mantine v7** component library (forced dark mode)
 - **GitHub Pages** for hosting (deployed via GitHub Actions on push to `main`)
 
 ## Commands
@@ -78,10 +86,11 @@ GitHub Pages source must be set to **GitHub Actions** in repo settings (Settings
 
 ```
 src/
+  theme.ts        # Mantine theme (all design tokens)
+  main.tsx        # entry point — MantineProvider lives here
   App.tsx         # root component
-  main.tsx        # entry point
-  index.css       # global styles
-  App.css         # app-level styles
+  App.css         # app-level layout styles
+  index.css       # global overrides (bevel panels, image rendering, font smoothing)
   assets/         # static assets imported by components
 public/           # assets served as-is (not processed by Vite)
 ```

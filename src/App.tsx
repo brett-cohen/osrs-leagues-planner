@@ -1,9 +1,10 @@
+import { Title } from '@mantine/core'
 import './App.css'
 
 function App() {
   return (
     <div>
-      <h1>OSRS Leagues Planner</h1>
+      <Title order={1}>OSRS Leagues Planner</Title>
     </div>
   )
 }

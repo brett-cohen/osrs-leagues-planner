@@ -1,62 +1,8 @@
-/* ============================================================
-   OSRS Design Tokens
-   ============================================================ */
-:root {
-  /* Background */
-  --color-bg:              #000000;
-  --color-panel-bg:        #2d1f0e;
-  --color-panel-bg-light:  #3d2b1f;
-
-  /* Bevel borders — lighter top-left, darker bottom-right */
-  --color-border-hi:       #8b7355;
-  --color-border-lo:       #1a0f00;
-
-  /* Text */
-  --color-yellow:          #ffff00;  /* primary highlight — item names, headings */
-  --color-gold:            #ff981f;  /* secondary — XP drops, subheadings */
-  --color-white:           #ffffff;  /* regular body text */
-  --color-muted:           #736445;  /* disabled / de-emphasised */
-  --color-red:             #cc0000;  /* danger / negative */
-  --color-green:           #00aa00;  /* success / positive */
-
-  /* Typography */
-  --font-primary:          'Press Start 2P', monospace;
-  --font-size-base:        11px;
-  --line-height:           1.8;
-
-  /* Spacing scale */
-  --space-1:  4px;
-  --space-2:  8px;
-  --space-3:  12px;
-  --space-4:  16px;
-  --space-6:  24px;
-  --space-8:  32px;
-}
-
-/* ============================================================
-   Reset
-   ============================================================ */
-*, *::before, *::after {
-  box-sizing: border-box;
-  border-radius: 0;   /* OSRS uses no rounded corners */
-  margin: 0;
-  padding: 0;
-}
-
-/* ============================================================
-   Base
-   ============================================================ */
-html {
-  font-size: var(--font-size-base);
-}
+/* Global overrides that live outside the Mantine theme */
 
 body {
-  font-family: var(--font-primary);
-  line-height: var(--line-height);
-  background-color: var(--color-bg);
-  color: var(--color-yellow);
-  min-height: 100vh;
-  /* Disable font smoothing — keeps pixel font crisp */
+  background-color: #000000;
+  /* Disable font smoothing so pixel fonts stay crisp */
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: unset;
 }
@@ -66,51 +12,39 @@ img {
   image-rendering: pixelated;
 }
 
-a {
-  color: var(--color-gold);
-  text-decoration: none;
-}
-a:hover {
-  color: var(--color-yellow);
-  text-decoration: underline;
-}
-
 /* ============================================================
    OSRS Panel Components
+   Bevel effect: lighter border on top-left, darker on bottom-right
    ============================================================ */
 
-/* Raised panel — lighter border top-left, darker bottom-right */
+/* Raised panel */
 .panel {
-  background-color: var(--color-panel-bg);
+  background-color: var(--mantine-color-osrsBrown-7);
   border: 2px solid;
-  border-color: var(--color-border-hi) var(--color-border-lo)
-                var(--color-border-lo) var(--color-border-hi);
-  padding: var(--space-3);
+  border-color:
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-8)
+    var(--mantine-color-osrsBrown-8)
+    var(--mantine-color-osrsBrown-4);
+  padding: var(--mantine-spacing-md);
 }
 
-/* Inset panel — reversed bevel (sunken) */
+/* Inset / sunken panel */
 .panel-inset {
-  background-color: var(--color-panel-bg);
+  background-color: var(--mantine-color-osrsBrown-7);
   border: 2px solid;
-  border-color: var(--color-border-lo) var(--color-border-hi)
-                var(--color-border-hi) var(--color-border-lo);
-  padding: var(--space-3);
+  border-color:
+    var(--mantine-color-osrsBrown-8)
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-8);
+  padding: var(--mantine-spacing-md);
 }
 
-/* Divider */
+/* Divider — double-line bevel rule */
 .divider {
   border: none;
-  border-top: 1px solid var(--color-border-lo);
-  border-bottom: 1px solid var(--color-border-hi);
-  margin: var(--space-3) 0;
+  border-top: 1px solid var(--mantine-color-osrsBrown-8);
+  border-bottom: 1px solid var(--mantine-color-osrsBrown-4);
+  margin: var(--mantine-spacing-md) 0;
 }
-
-/* ============================================================
-   Text Utilities
-   ============================================================ */
-.text-yellow { color: var(--color-yellow); }
-.text-gold   { color: var(--color-gold);   }
-.text-white  { color: var(--color-white);  }
-.text-muted  { color: var(--color-muted);  }
-.text-red    { color: var(--color-red);    }
-.text-green  { color: var(--color-green);  }
