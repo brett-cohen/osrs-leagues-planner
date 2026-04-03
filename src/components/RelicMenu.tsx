@@ -1,18 +1,34 @@
-import { SimpleGrid, Stack, Text, Title } from '@mantine/core'
+import { Popover, Stack, Text, Title } from '@mantine/core'
 import { relicTiers, type Relic } from '../data/relics'
 
-function RelicCard({ relic }: { relic: Relic }) {
+function RelicIcon({ relic }: { relic: Relic }) {
+  // Abbreviated label for the icon placeholder.
+  // Replace with <img> pointing to a self-hosted sprite once assets are available.
+  const abbr = relic.name
+    .split(' ')
+    .map(w => w[0])
+    .join('')
+    .slice(0, 3)
+    .toUpperCase()
+
   return (
-    <div className="panel-inset">
-      <Stack gap="xs">
-        <Text c="osrsYellow.5" fw="bold" size="sm">
-          {relic.name}
-        </Text>
-        <Text c="white" size="xs">
-          {relic.description}
-        </Text>
-      </Stack>
-    </div>
+    <Popover position="bottom" withArrow={false} offset={6} withinPortal>
+      <Popover.Target>
+        <button className="relic-icon-btn" aria-label={relic.name}>
+          {abbr}
+        </button>
+      </Popover.Target>
+      <Popover.Dropdown className="relic-popover">
+        <Stack gap="xs">
+          <Text c="osrsYellow.5" fw="bold" size="sm">
+            {relic.name}
+          </Text>
+          <Text c="white" size="xs">
+            {relic.description}
+          </Text>
+        </Stack>
+      </Popover.Dropdown>
+    </Popover>
   )
 }
 
@@ -22,26 +38,27 @@ export function RelicMenu() {
       <div>
         <Title order={2}>Relics</Title>
         <Text c="osrsGold.5" size="sm">
-          8 tiers · choose one relic per tier · some options not yet revealed
+          8 tiers · choose one relic per tier
         </Text>
       </div>
-      <Stack gap="sm">
-        {relicTiers.map(({ tier, options }) => (
-          <div key={tier} className="panel">
-            <Stack gap="sm">
-              <Text c="osrsYellow.5" fw="bold">
-                Tier {tier}
-              </Text>
-              <hr className="divider" />
-              <SimpleGrid cols={{ base: 1, sm: options.length > 1 ? 2 : 1, lg: options.length }}>
-                {options.map(relic => (
-                  <RelicCard key={relic.id} relic={relic} />
-                ))}
-              </SimpleGrid>
-            </Stack>
+      <div className="panel">
+        <div className="relic-track">
+          <div className="relic-track-line" />
+          <div className="relic-track-tiers">
+            {relicTiers.map(({ tier, options }) => (
+              <div key={tier} className="relic-track-tier">
+                <span className="relic-tier-label">Tier {tier}</span>
+                <div className="relic-tier-node" />
+                <div className="relic-tier-icons">
+                  {options.map(relic => (
+                    <RelicIcon key={relic.id} relic={relic} />
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </Stack>
+        </div>
+      </div>
     </Stack>
   )
 }
