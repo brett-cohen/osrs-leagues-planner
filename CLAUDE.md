@@ -1,6 +1,30 @@
 # OSRS Leagues Planner
 
-A static web app for planning Old School RuneScape leagues content.
+A static web app for planning Old School RuneScape (OSRS) Leagues runs.
+
+## Domain: OSRS Leagues
+
+Leagues is a temporary OSRS game mode built around decision-making, tradeoffs, and route planning.
+
+### Tasks
+- Players complete tasks ranging in difficulty: Easy, Medium, Hard, Elite, Master
+- Each task awards a set number of points
+- Tasks are the primary driver of progression — completing them unlocks regions and earns points for relics
+
+### Regions
+- Players start with 1 region unlocked, plus 1 forced unlock (e.g. Tutorial Island / starter area)
+- Completing enough tasks allows unlocking up to 3 additional regions (4 total)
+- Region choice is a major strategic decision — it determines what content is accessible
+
+### Relics
+- Points accumulated from tasks are spent to unlock relic tiers
+- There are 8 tiers of relics
+- Each tier presents 2–3 options; players pick exactly one
+- Relics provide powerful, game-changing passive effects
+- Relic choices are permanent and have cascading effects on what tasks/content are viable
+
+### Planning Problem
+The core of the app: players want to plan which regions to unlock and which relics to choose *before* committing in-game, since choices are hard or impossible to reverse. A good planner helps reason about task point totals, region synergies, and relic combos.
 
 ## Tech Stack
 
