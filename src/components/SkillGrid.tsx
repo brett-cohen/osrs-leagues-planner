@@ -15,16 +15,16 @@ function getSolveStatus(
   const activeRegions = regions.filter(r => activeRegionIds.has(r.id))
   const activeRelics = allRelics.filter(r => activeRelicIds.has(r.id))
 
-  const regionMajor = activeRegions.some(r => r.majorSkills.includes(skillId))
+  const hasRegion = activeRegions.some(r => r.skills.includes(skillId))
   const relicMajor = activeRelics.some(r => r.majorSkills.includes(skillId))
-
-  if (regionMajor && relicMajor) return 'star'
-  if (regionMajor || relicMajor) return 'major'
-
-  const regionMinor = activeRegions.some(r => r.minorSkills.includes(skillId))
   const relicMinor = activeRelics.some(r => r.minorSkills.includes(skillId))
 
-  if (regionMinor || relicMinor) return 'minor'
+  // Major + any other source → gold star
+  if (relicMajor && (relicMinor || hasRegion)) return 'star'
+  // Major only → green check
+  if (relicMajor) return 'major'
+  // Minor or region → yellow check
+  if (relicMinor || hasRegion) return 'minor'
 
   return 'none'
 }

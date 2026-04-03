@@ -19,14 +19,18 @@ function RelicIcon({ relic, isSelected, onToggle }: RelicIconProps) {
           aria-label={relic.name}
           onClick={onToggle}
         >
-          <img src={relic.iconUrl} alt={relic.name} className="relic-icon-img" />
+          {relic.iconUrl
+            ? <img src={relic.iconUrl} alt={relic.name} className="relic-icon-img" />
+            : <span className="relic-icon-placeholder">{relic.name === '???' ? '?' : relic.name.split(' ').map(w => w[0]).join('').slice(0, 3).toUpperCase()}</span>
+          }
         </button>
       </HoverCard.Target>
       <HoverCard.Dropdown className="relic-popover">
         <Stack gap="xs">
-          <a href={relic.wikiUrl} target="_blank" rel="noopener noreferrer" className="popover-wiki-link">
-            {relic.name}
-          </a>
+          {relic.wikiUrl
+            ? <a href={relic.wikiUrl} target="_blank" rel="noopener noreferrer" className="popover-wiki-link">{relic.name}</a>
+            : <Text c="osrsYellow.5" fw="bold" size="sm">{relic.name}</Text>
+          }
           <Text c="white" size="xs">
             {relic.description}
           </Text>

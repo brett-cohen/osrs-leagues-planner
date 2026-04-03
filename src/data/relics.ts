@@ -64,6 +64,15 @@ export const relicTiers: RelicTier[] = [
         minorSkills: ['fishing', 'mining'],
       },
       {
+        id: 'friendly-forager',
+        name: 'Friendly Forager',
+        description: "Grants the forager's pouch. Gathering from Woodcutting, Fishing, Mining, and Hunter stores a random grimy herb. Functions as a herb sack. All Herblore items processed at once, 90% chance to save secondaries, potions created with 4 doses.",
+        iconUrl: '',
+        wikiUrl: 'https://oldschool.runescape.wiki/w/Friendly_Forager_(Demonic_Pacts_League)',
+        majorSkills: ['herblore'],
+        minorSkills: ['woodcutting', 'fishing', 'mining', 'hunter'],
+      },
+      {
         id: 'woodsman',
         name: 'Woodsman',
         description: 'Auto-burns logs while woodcutting. 100% hunter success rate with double loot and XP.',
@@ -77,6 +86,7 @@ export const relicTiers: RelicTier[] = [
   {
     tier: 3,
     options: [
+      { id: 'unrevealed-3a', name: '???', description: 'Not yet revealed.', iconUrl: '', wikiUrl: '', majorSkills: [], minorSkills: [] },
       {
         id: 'evil-eye',
         name: 'Evil Eye',
@@ -86,11 +96,13 @@ export const relicTiers: RelicTier[] = [
         majorSkills: [],
         minorSkills: [],
       },
+      { id: 'unrevealed-3b', name: '???', description: 'Not yet revealed.', iconUrl: '', wikiUrl: '', majorSkills: [], minorSkills: [] },
     ],
   },
   {
     tier: 4,
     options: [
+      { id: 'unrevealed-4a', name: '???', description: 'Not yet revealed.', iconUrl: '', wikiUrl: '', majorSkills: [], minorSkills: [] },
       {
         id: 'conniving-clues',
         name: 'Conniving Clues',
@@ -100,6 +112,7 @@ export const relicTiers: RelicTier[] = [
         majorSkills: [],
         minorSkills: ['crafting'],
       },
+      { id: 'unrevealed-4b', name: '???', description: 'Not yet revealed.', iconUrl: '', wikiUrl: '', majorSkills: [], minorSkills: [] },
     ],
   },
   {
@@ -123,11 +136,14 @@ export const relicTiers: RelicTier[] = [
         majorSkills: ['thieving'],
         minorSkills: [],
       },
+      { id: 'unrevealed-5a', name: '???', description: 'Not yet revealed.', iconUrl: '', wikiUrl: '', majorSkills: [], minorSkills: [] },
     ],
   },
   {
     tier: 6,
     options: [
+      { id: 'unrevealed-6a', name: '???', description: 'Not yet revealed.', iconUrl: '', wikiUrl: '', majorSkills: [], minorSkills: [] },
+      { id: 'unrevealed-6b', name: '???', description: 'Not yet revealed.', iconUrl: '', wikiUrl: '', majorSkills: [], minorSkills: [] },
       {
         id: 'culling-spree',
         name: 'Culling Spree',
@@ -151,11 +167,13 @@ export const relicTiers: RelicTier[] = [
         majorSkills: [],
         minorSkills: [],
       },
+      { id: 'unrevealed-7a', name: '???', description: 'Not yet revealed.', iconUrl: '', wikiUrl: '', majorSkills: [], minorSkills: [] },
     ],
   },
   {
     tier: 8,
     options: [
+      { id: 'unrevealed-8a', name: '???', description: 'Not yet revealed.', iconUrl: '', wikiUrl: '', majorSkills: [], minorSkills: [] },
       {
         id: 'minion',
         name: 'Minion',

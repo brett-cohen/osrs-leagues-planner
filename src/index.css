@@ -735,6 +735,13 @@ img {
   image-rendering: auto;
 }
 
+.relic-icon-placeholder {
+  font-family: 'RuneScape', monospace;
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--mantine-color-osrsBrown-5);
+}
+
 .relic-icon-btn--selected {
   border-color:
     var(--mantine-color-osrsYellow-5)

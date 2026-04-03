@@ -19,10 +19,8 @@ export interface Region {
   mapY: number
   /** OSRS wiki URL for more info */
   wikiUrl: string
-  /** Skills this region strongly helps train */
-  majorSkills: string[]
-  /** Skills this region partially helps train */
-  minorSkills: string[]
+  /** Skills associated with this region */
+  skills: string[]
 }
 
 export const regions: Region[] = [
@@ -35,8 +33,7 @@ export const regions: Region[] = [
     mapX: 19.7,
     mapY: 33.7,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Great_Kourend',
-    majorSkills: ['farming', 'runecraft', 'woodcutting', 'mining'],
-    minorSkills: ['slayer', 'prayer', 'construction', 'fishing'],
+    skills: ['farming', 'runecraft', 'woodcutting', 'mining', 'slayer', 'prayer', 'construction', 'fishing'],
   },
   {
     id: 'fremennik',
@@ -47,8 +44,7 @@ export const regions: Region[] = [
     mapX: 52.7,
     mapY: 29.2,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Fremennik_Province',
-    majorSkills: ['crafting', 'slayer'],
-    minorSkills: ['fishing', 'mining', 'agility', 'construction'],
+    skills: ['crafting', 'slayer', 'fishing', 'mining', 'agility', 'construction'],
   },
   {
     id: 'wilderness',
@@ -59,8 +55,7 @@ export const regions: Region[] = [
     mapX: 73.6,
     mapY: 23.4,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Wilderness',
-    majorSkills: ['prayer', 'mining'],
-    minorSkills: ['slayer', 'agility', 'thieving'],
+    skills: ['prayer', 'mining', 'slayer', 'agility', 'thieving'],
   },
   {
     id: 'varlamore',
@@ -71,8 +66,7 @@ export const regions: Region[] = [
     mapX: 19.7,
     mapY: 68.5,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Varlamore',
-    majorSkills: ['hunter', 'agility'],
-    minorSkills: ['prayer', 'mining', 'crafting'],
+    skills: ['hunter', 'agility', 'prayer', 'mining', 'crafting'],
   },
   {
     id: 'asgarnia',
@@ -83,8 +77,7 @@ export const regions: Region[] = [
     mapX: 63.8,
     mapY: 43.7,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Asgarnia',
-    majorSkills: ['smithing', 'mining', 'prayer', 'construction'],
-    minorSkills: ['crafting', 'farming', 'agility'],
+    skills: ['smithing', 'mining', 'prayer', 'construction', 'crafting', 'farming', 'agility'],
   },
   {
     id: 'tirannwn',
@@ -95,8 +88,7 @@ export const regions: Region[] = [
     mapX: 39.9,
     mapY: 58.5,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Tirannwn',
-    majorSkills: ['agility', 'mining', 'crafting', 'herblore'],
-    minorSkills: ['thieving', 'fletching', 'farming', 'hunter'],
+    skills: ['agility', 'mining', 'crafting', 'herblore', 'thieving', 'fletching', 'farming', 'hunter'],
   },
   {
     id: 'kandarin',
@@ -107,8 +99,7 @@ export const regions: Region[] = [
     mapX: 50.4,
     mapY: 56.3,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Kandarin',
-    majorSkills: ['fishing', 'thieving', 'farming', 'herblore'],
-    minorSkills: ['agility', 'cooking', 'fletching', 'crafting'],
+    skills: ['fishing', 'thieving', 'farming', 'herblore', 'agility', 'cooking', 'fletching', 'crafting'],
   },
   {
     id: 'morytania',
@@ -119,8 +110,7 @@ export const regions: Region[] = [
     mapX: 85.4,
     mapY: 50.4,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Morytania',
-    majorSkills: ['prayer', 'agility', 'slayer'],
-    minorSkills: ['farming', 'crafting', 'firemaking'],
+    skills: ['prayer', 'agility', 'slayer', 'farming', 'crafting', 'firemaking'],
   },
   {
     id: 'karamja',
@@ -131,8 +121,7 @@ export const regions: Region[] = [
     mapX: 61.0,
     mapY: 74.7,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Karamja',
-    majorSkills: ['firemaking', 'mining'],
-    minorSkills: ['fishing', 'agility', 'woodcutting'],
+    skills: ['firemaking', 'mining', 'fishing', 'agility', 'woodcutting'],
   },
   {
     id: 'desert',
@@ -143,7 +132,6 @@ export const regions: Region[] = [
     mapX: 77.7,
     mapY: 78.3,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Kharidian_Desert',
-    majorSkills: ['thieving', 'prayer'],
-    minorSkills: ['mining', 'crafting', 'agility', 'firemaking'],
+    skills: ['thieving', 'prayer', 'mining', 'crafting', 'agility', 'firemaking'],
   },
 ]

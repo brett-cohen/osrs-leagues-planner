@@ -66,30 +66,19 @@ function RegionMarker({ region, isSelected, onToggle }: RegionMarkerProps) {
             {region.highlights.map(h => (
               <Text key={h} c="white" size="xs">· {h}</Text>
             ))}
-            {(region.majorSkills.length > 0 || region.minorSkills.length > 0) && (
-              <hr className="divider" style={{ margin: '2px 0' }} />
-            )}
-            {region.majorSkills.length > 0 && (
-              <div className="skill-solve-row">
-                <Text c="osrsYellow.5" size="xs">Major</Text>
-                <div className="skill-solve-icons">
-                  {region.majorSkills.map(id => {
-                    const s = skillMap[id]
-                    return s ? <img key={id} src={s.iconUrl} alt={s.name} title={s.name} className="skill-solve-icon" /> : null
-                  })}
+            {region.skills.length > 0 && (
+              <>
+                <hr className="divider" style={{ margin: '2px 0' }} />
+                <div className="skill-solve-row">
+                  <Text c="osrsGold.5" size="xs">Skills</Text>
+                  <div className="skill-solve-icons">
+                    {region.skills.map(id => {
+                      const s = skillMap[id]
+                      return s ? <img key={id} src={s.iconUrl} alt={s.name} title={s.name} className="skill-solve-icon" /> : null
+                    })}
+                  </div>
                 </div>
-              </div>
-            )}
-            {region.minorSkills.length > 0 && (
-              <div className="skill-solve-row">
-                <Text c="osrsGold.5" size="xs">Minor</Text>
-                <div className="skill-solve-icons">
-                  {region.minorSkills.map(id => {
-                    const s = skillMap[id]
-                    return s ? <img key={id} src={s.iconUrl} alt={s.name} title={s.name} className="skill-solve-icon" /> : null
-                  })}
-                </div>
-              </div>
+              </>
             )}
           </Stack>
         </HoverCard.Dropdown>
