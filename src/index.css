@@ -1,68 +1,116 @@
+/* ============================================================
+   OSRS Design Tokens
+   ============================================================ */
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Background */
+  --color-bg:              #000000;
+  --color-panel-bg:        #2d1f0e;
+  --color-panel-bg-light:  #3d2b1f;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Bevel borders — lighter top-left, darker bottom-right */
+  --color-border-hi:       #8b7355;
+  --color-border-lo:       #1a0f00;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Text */
+  --color-yellow:          #ffff00;  /* primary highlight — item names, headings */
+  --color-gold:            #ff981f;  /* secondary — XP drops, subheadings */
+  --color-white:           #ffffff;  /* regular body text */
+  --color-muted:           #736445;  /* disabled / de-emphasised */
+  --color-red:             #cc0000;  /* danger / negative */
+  --color-green:           #00aa00;  /* success / positive */
+
+  /* Typography */
+  --font-primary:          'Press Start 2P', monospace;
+  --font-size-base:        11px;
+  --line-height:           1.8;
+
+  /* Spacing scale */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-6:  24px;
+  --space-8:  32px;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+/* ============================================================
+   Reset
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  border-radius: 0;   /* OSRS uses no rounded corners */
+  margin: 0;
+  padding: 0;
 }
-a:hover {
-  color: #535bf2;
+
+/* ============================================================
+   Base
+   ============================================================ */
+html {
+  font-size: var(--font-size-base);
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  font-family: var(--font-primary);
+  line-height: var(--line-height);
+  background-color: var(--color-bg);
+  color: var(--color-yellow);
   min-height: 100vh;
+  /* Disable font smoothing — keeps pixel font crisp */
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Pixel-perfect rendering for sprites and icons */
+img {
+  image-rendering: pixelated;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+a {
+  color: var(--color-gold);
+  text-decoration: none;
 }
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+a:hover {
+  color: var(--color-yellow);
+  text-decoration: underline;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* ============================================================
+   OSRS Panel Components
+   ============================================================ */
+
+/* Raised panel — lighter border top-left, darker bottom-right */
+.panel {
+  background-color: var(--color-panel-bg);
+  border: 2px solid;
+  border-color: var(--color-border-hi) var(--color-border-lo)
+                var(--color-border-lo) var(--color-border-hi);
+  padding: var(--space-3);
 }
+
+/* Inset panel — reversed bevel (sunken) */
+.panel-inset {
+  background-color: var(--color-panel-bg);
+  border: 2px solid;
+  border-color: var(--color-border-lo) var(--color-border-hi)
+                var(--color-border-hi) var(--color-border-lo);
+  padding: var(--space-3);
+}
+
+/* Divider */
+.divider {
+  border: none;
+  border-top: 1px solid var(--color-border-lo);
+  border-bottom: 1px solid var(--color-border-hi);
+  margin: var(--space-3) 0;
+}
+
+/* ============================================================
+   Text Utilities
+   ============================================================ */
+.text-yellow { color: var(--color-yellow); }
+.text-gold   { color: var(--color-gold);   }
+.text-white  { color: var(--color-white);  }
+.text-muted  { color: var(--color-muted);  }
+.text-red    { color: var(--color-red);    }
+.text-green  { color: var(--color-green);  }

@@ -26,6 +26,26 @@ Leagues is a temporary OSRS game mode built around decision-making, tradeoffs, a
 ### Planning Problem
 The core of the app: players want to plan which regions to unlock and which relics to choose *before* committing in-game, since choices are hard or impossible to reverse. A good planner helps reason about task point totals, region synergies, and relic combos.
 
+## Styling
+
+The app is themed after the OSRS in-game UI: dark/black backgrounds, yellow primary text, brown panels with beveled borders, retro pixel font. No rounded corners anywhere.
+
+**Font:** "Press Start 2P" (Google Fonts) — the standard retro pixel web font. For a more authentic feel, the actual RuneScape bitmap fonts (Plain 11/12) are available at https://github.com/RuneStar/fonts (CC0). To self-host: download the TTF, place in `public/fonts/`, add an `@font-face` rule in `index.css`.
+
+**Design tokens** live in `src/index.css` as CSS custom properties:
+- `--color-yellow` `#ffff00` — primary text (headings, highlights)
+- `--color-gold` `#ff981f` — secondary text (subheadings, links)
+- `--color-white` `#ffffff` — body text
+- `--color-panel-bg` `#2d1f0e` — panel/widget background
+- `--color-border-hi` `#8b7355` / `--color-border-lo` `#1a0f00` — bevel borders
+
+**Rules:**
+- Never use `border-radius` — OSRS has sharp corners everywhere
+- Use `.panel` / `.panel-inset` classes for the characteristic raised/sunken bevel effect
+- Use `image-rendering: pixelated` on all icons and sprites
+- Disable font smoothing (`-webkit-font-smoothing: none`) to keep pixel fonts crisp
+- Use text utility classes (`.text-yellow`, `.text-gold`, `.text-white`, etc.) rather than inline color styles
+
 ## Tech Stack
 
 - **React 18** with TypeScript (strict mode)
