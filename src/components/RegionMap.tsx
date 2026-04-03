@@ -56,9 +56,9 @@ function RegionMarker({ region, isSelected, onToggle }: RegionMarkerProps) {
         </HoverCard.Target>
         <HoverCard.Dropdown className="relic-popover">
           <Stack gap="xs">
-            <Text c="osrsYellow.5" fw="bold" size="sm">
+            <a href={region.wikiUrl} target="_blank" rel="noopener noreferrer" className="popover-wiki-link">
               {region.name}
-            </Text>
+            </a>
             <Text c={STATUS_COLOR[region.status]} size="xs">
               {STATUS_LABEL[region.status]}
             </Text>

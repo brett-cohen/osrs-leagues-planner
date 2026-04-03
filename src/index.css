@@ -564,6 +564,23 @@ img {
 }
 
 /* ============================================================
+   Popover Wiki Link
+   ============================================================ */
+
+.popover-wiki-link {
+  color: var(--mantine-color-osrsYellow-5);
+  font-family: 'RuneScape', monospace;
+  font-weight: bold;
+  font-size: var(--mantine-font-size-sm);
+  text-decoration: none;
+}
+
+.popover-wiki-link:hover {
+  text-decoration: underline;
+  color: var(--mantine-color-osrsGold-5);
+}
+
+/* ============================================================
    Skill Solve Rows (used in region / relic hover cards)
    ============================================================ */
 
@@ -639,14 +656,14 @@ img {
 .relic-track-tiers {
   display: flex;
   position: relative;
-  min-width: 560px;
+  min-width: 700px;
 }
 
 /* Horizontal connecting line — runs between the centres of the
    first and last tier nodes (half a tier-column inset each side) */
 .relic-track-line {
   position: absolute;
-  top: 27px; /* tier-label(16px) + gap(6px) + half-node(5px) */
+  top: 33px; /* tier-label(20px) + gap(6px) + half-node(7px) */
   left: calc(100% / 16);
   right: calc(100% / 16);
   height: 2px;
@@ -663,16 +680,16 @@ img {
 }
 
 .relic-tier-label {
-  height: 16px;
-  font-size: 9px;
+  height: 20px;
+  font-size: 11px;
   color: var(--mantine-color-osrsGold-5);
   white-space: nowrap;
-  line-height: 16px;
+  line-height: 20px;
 }
 
 .relic-tier-node {
-  width: 10px;
-  height: 10px;
+  width: 14px;
+  height: 14px;
   background-color: var(--mantine-color-osrsYellow-5);
   border: 1px solid var(--mantine-color-osrsBrown-4);
   position: relative;
@@ -684,13 +701,13 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
 /* Individual relic icon button — styled like an OSRS item slot */
 .relic-icon-btn {
-  width: 36px;
-  height: 36px;
+  width: 54px;
+  height: 54px;
   background-color: var(--mantine-color-osrsBrown-8);
   border: 2px solid;
   border-color:
@@ -702,13 +719,20 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 3px;
   color: var(--mantine-color-osrsYellow-5);
   font-family: 'RuneScape', monospace;
-  font-size: 8px;
+  font-size: 10px;
   text-align: center;
   line-height: 1.2;
-  padding: 2px;
   user-select: none;
+}
+
+.relic-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: auto;
 }
 
 .relic-icon-btn--selected {

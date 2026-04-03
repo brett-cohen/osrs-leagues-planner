@@ -11,13 +11,6 @@ interface RelicIconProps {
 }
 
 function RelicIcon({ relic, isSelected, onToggle }: RelicIconProps) {
-  const abbr = relic.name
-    .split(' ')
-    .map(w => w[0])
-    .join('')
-    .slice(0, 3)
-    .toUpperCase()
-
   return (
     <HoverCard position="bottom" withArrow={false} offset={6} withinPortal openDelay={150} closeDelay={100}>
       <HoverCard.Target>
@@ -26,14 +19,14 @@ function RelicIcon({ relic, isSelected, onToggle }: RelicIconProps) {
           aria-label={relic.name}
           onClick={onToggle}
         >
-          {abbr}
+          <img src={relic.iconUrl} alt={relic.name} className="relic-icon-img" />
         </button>
       </HoverCard.Target>
       <HoverCard.Dropdown className="relic-popover">
         <Stack gap="xs">
-          <Text c="osrsYellow.5" fw="bold" size="sm">
+          <a href={relic.wikiUrl} target="_blank" rel="noopener noreferrer" className="popover-wiki-link">
             {relic.name}
-          </Text>
+          </a>
           <Text c="white" size="xs">
             {relic.description}
           </Text>
