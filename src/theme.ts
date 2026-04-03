@@ -43,8 +43,8 @@ const osrsBrown: MantineColorsTuple = [
 ]
 
 export const theme = createTheme({
-  fontFamily: "'Press Start 2P', monospace",
-  fontFamilyMonospace: "'Press Start 2P', monospace",
+  fontFamily: "'RuneScape', monospace",
+  fontFamilyMonospace: "'RuneScape', monospace",
 
   primaryColor: 'osrsYellow',
   primaryShade: 5,
@@ -71,7 +71,7 @@ export const theme = createTheme({
   // Map Mantine's semantic heading sizes to something readable
   // at the small pixel font size
   headings: {
-    fontFamily: "'Press Start 2P', monospace",
+    fontFamily: "'RuneScape', monospace",
     sizes: {
       h1: { fontSize: '1.5rem', lineHeight: '1.6' },
       h2: { fontSize: '1.2rem', lineHeight: '1.6' },

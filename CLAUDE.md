@@ -37,7 +37,12 @@ The app is themed after the OSRS in-game UI: dark/black backgrounds, yellow prim
 - `osrsGold` — `#ff981f` at shade 5, used for secondary/links
 - `osrsBrown` — 10-shade panel palette; shades 4/8 are the bevel border hi/lo values
 - `defaultRadius: 0` + all radius scale entries set to `'0'` — no rounded corners anywhere
-- `fontFamily`: `'Press Start 2P'` loaded from Google Fonts in `index.html`
+- `fontFamily`: `'RuneScape'` — self-hosted via `@font-face` in `index.css`
+
+**Fonts:** Official OSRS bitmap fonts are self-hosted in `public/fonts/ttf/`. The two in use:
+- `RuneScape-Plain-12.ttf` → `font-weight: normal` — body text, UI labels
+- `RuneScape-Bold-12.ttf` → `font-weight: bold` — headings
+Other available fonts (Quill, Fairy, Surok, etc.) can be added as additional `@font-face` entries if needed.
 
 **Global CSS** (`src/index.css`) handles only things Mantine can't:
 - `body` background + disable font smoothing for crisp pixel rendering
@@ -51,7 +56,6 @@ The app is themed after the OSRS in-game UI: dark/black backgrounds, yellow prim
 - Use `.panel` / `.panel-inset` CSS classes for the bevel panel effect
 - Use `image-rendering: pixelated` on all icons and sprites
 
-**Font note:** For the authentic RuneScape bitmap font (Plain 11/12), download from https://github.com/RuneStar/fonts (CC0), place TTF in `public/fonts/`, and add an `@font-face` rule in `index.css`.
 
 ## Tech Stack
 

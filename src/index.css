@@ -1,3 +1,23 @@
+/* ============================================================
+   OSRS Fonts (self-hosted from public/fonts/ttf/)
+   ============================================================ */
+
+@font-face {
+  font-family: 'RuneScape';
+  src: url('/osrs-leagues-planner/fonts/ttf/RuneScape-Plain-12.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'RuneScape';
+  src: url('/osrs-leagues-planner/fonts/ttf/RuneScape-Bold-12.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: block;
+}
+
 /* Global overrides that live outside the Mantine theme */
 
 body {
