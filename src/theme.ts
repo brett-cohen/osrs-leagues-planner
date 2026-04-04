@@ -46,6 +46,14 @@ export const theme = createTheme({
   fontFamily: "'RuneScape', monospace",
   fontFamilyMonospace: "'RuneScape', monospace",
 
+  fontSizes: {
+    xs: '14px',
+    sm: '16px',
+    md: '18px',
+    lg: '20px',
+    xl: '24px',
+  },
+
   primaryColor: 'osrsYellow',
   primaryShade: 5,
 
@@ -73,10 +81,10 @@ export const theme = createTheme({
   headings: {
     fontFamily: "'RuneScape', monospace",
     sizes: {
-      h1: { fontSize: '1.5rem', lineHeight: '1.6' },
-      h2: { fontSize: '1.2rem', lineHeight: '1.6' },
-      h3: { fontSize: '1rem',   lineHeight: '1.6' },
-      h4: { fontSize: '0.85rem', lineHeight: '1.6' },
+      h1: { fontSize: '2rem', lineHeight: '1.4' },
+      h2: { fontSize: '1.5rem', lineHeight: '1.4' },
+      h3: { fontSize: '1.25rem', lineHeight: '1.4' },
+      h4: { fontSize: '1.1rem', lineHeight: '1.4' },
     },
   },
 

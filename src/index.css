@@ -292,7 +292,7 @@ img {
 .route-step-num {
   color: var(--mantine-color-osrsGold-5);
   font-family: 'RuneScape', monospace;
-  font-size: 11px;
+  font-size: 16px;
   min-width: 22px;
   text-align: right;
   flex-shrink: 0;
@@ -309,7 +309,7 @@ img {
 .route-step-name {
   color: #fff;
   font-family: 'RuneScape', monospace;
-  font-size: var(--mantine-font-size-xs);
+  font-size: var(--mantine-font-size-sm);
 }
 
 .route-step-tags {
@@ -326,7 +326,7 @@ img {
   border-bottom: 1px solid var(--mantine-color-osrsBrown-5);
   color: #fff;
   font-family: 'RuneScape', monospace;
-  font-size: var(--mantine-font-size-xs);
+  font-size: var(--mantine-font-size-sm);
   padding: 2px 4px;
   outline: none;
   min-width: 0;
@@ -392,7 +392,7 @@ img {
 
 .step-tag {
   font-family: 'RuneScape', monospace;
-  font-size: 9px;
+  font-size: 14px;
   padding: 1px 5px;
   white-space: nowrap;
 }
@@ -416,11 +416,11 @@ img {
 }
 
 .diff-btn {
-  padding: 3px 8px;
+  padding: 4px 10px;
   background-color: var(--mantine-color-osrsBrown-8);
   border: 1px solid var(--mantine-color-osrsBrown-6);
   font-family: 'RuneScape', monospace;
-  font-size: 10px;
+  font-size: 15px;
   cursor: pointer;
   opacity: 0.45;
 }
@@ -462,7 +462,7 @@ img {
 .task-search-name {
   color: #fff;
   font-family: 'RuneScape', monospace;
-  font-size: var(--mantine-font-size-xs);
+  font-size: var(--mantine-font-size-sm);
   flex: 1;
   min-width: 0;
 }
@@ -694,7 +694,7 @@ img {
 
 .relic-tier-label {
   height: 20px;
-  font-size: 11px;
+  font-size: 14px;
   color: var(--mantine-color-osrsGold-5);
   white-space: nowrap;
   line-height: 20px;
