@@ -1,4 +1,4 @@
-import { IconLockOpen, IconRoute, IconSettings } from '@tabler/icons-react'
+import { IconExternalLink, IconLoader2, IconLockOpen, IconRoute, IconSettings } from '@tabler/icons-react'
 import type { ReactNode } from 'react'
 
 export type Page = 'unlocks' | 'route' | 'config'
@@ -12,9 +12,11 @@ const NAV_ITEMS: { page: Page; label: string; icon: ReactNode }[] = [
 interface Props {
   current: Page
   onChange: (page: Page) => void
+  onExport: () => void
+  exporting?: boolean
 }
 
-export function NavBar({ current, onChange }: Props) {
+export function NavBar({ current, onChange, onExport, exporting }: Props) {
   return (
     <nav className="app-nav">
       <div className="app-nav-inner">
@@ -31,6 +33,13 @@ export function NavBar({ current, onChange }: Props) {
             </button>
           ))}
         </div>
+        <button className="nav-export-btn" onClick={onExport} disabled={exporting} title="Export character summary as PNG">
+          {exporting
+            ? <IconLoader2 size={16} stroke={1.5} className="spin" />
+            : <IconExternalLink size={16} stroke={1.5} />
+          }
+          <span>{exporting ? 'Exporting…' : 'Share Summary'}</span>
+        </button>
       </div>
     </nav>
   )

@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useLocalStorage } from '@mantine/hooks'
 import { NavBar, type Page } from './components/NavBar'
+import { CharacterSummary, type CharacterSummaryHandle } from './components/CharacterSummary'
 import { UnlocksPage } from './pages/UnlocksPage'
 import { RoutePage } from './pages/RoutePage'
 import { ConfigPage } from './pages/ConfigPage'
@@ -17,6 +18,15 @@ const MAX_REGIONS = 3
 
 function App() {
   const [page, setPage] = useState<Page>('unlocks')
+  const summaryRef = useRef<CharacterSummaryHandle>(null)
+  const [exporting, setExporting] = useState(false)
+
+  async function handleExport() {
+    if (!summaryRef.current || exporting) return
+    setExporting(true)
+    await summaryRef.current.exportPng()
+    setExporting(false)
+  }
 
   const [selectedRegions, setSelectedRegions] = useLocalStorage<string[]>({
     key: 'osrs-leagues-selected-regions',
@@ -60,7 +70,14 @@ function App() {
 
   return (
     <>
-      <NavBar current={page} onChange={setPage} />
+      <NavBar current={page} onChange={setPage} onExport={handleExport} exporting={exporting} />
+      <CharacterSummary
+        ref={summaryRef}
+        selectedRegions={selectedRegions}
+        selectedRelics={selectedRelics}
+        equipment={equipment}
+        skillOverrides={skillOverrides}
+      />
       <div className="app-content">
         {page === 'unlocks' && (
           <UnlocksPage

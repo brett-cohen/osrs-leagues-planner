@@ -47,6 +47,7 @@ type EditTarget =
 
 export function ConfigPage({ skillOverrides, onChangeOverrides }: Props) {
   const [editing, setEditing] = useState<EditTarget | null>(null)
+  const [confirmReset, setConfirmReset] = useState(false)
 
   const currentSkills = editing
     ? skillOverrides[editing.overrideKey] ?? editing.defaultSkills
@@ -84,9 +85,19 @@ export function ConfigPage({ skillOverrides, onChangeOverrides }: Props) {
   return (
     <>
       <Stack gap="xl">
-        <div>
-          <Title order={1}>Config</Title>
-          <Text c="osrsGold.5">Customize skill tags for regions and relics</Text>
+        <div className="route-header">
+          <div>
+            <Title order={1}>Config</Title>
+            <Text c="osrsGold.5">Customize skill tags for regions and relics</Text>
+          </div>
+          {Object.keys(skillOverrides).length > 0 && (
+            <button
+              className="config-reset-all-btn"
+              onClick={() => setConfirmReset(true)}
+            >
+              Reset All to Defaults
+            </button>
+          )}
         </div>
         <hr className="divider" />
 
@@ -203,6 +214,42 @@ export function ConfigPage({ skillOverrides, onChangeOverrides }: Props) {
             )}
           </Stack>
         )}
+      </Modal>
+
+      <Modal
+        opened={confirmReset}
+        onClose={() => setConfirmReset(false)}
+        title="Reset All Overrides"
+        size="sm"
+        classNames={{
+          content: 'osrs-modal',
+          header: 'osrs-modal-header',
+          title: 'osrs-modal-title',
+          close: 'osrs-modal-close',
+        }}
+      >
+        <Stack gap="md">
+          <Text c="white" size="sm">
+            This will reset all custom skill tags back to their defaults. This cannot be undone.
+          </Text>
+          <div className="config-confirm-btns">
+            <button
+              className="config-confirm-btn config-confirm-btn--danger"
+              onClick={() => {
+                onChangeOverrides(() => ({}))
+                setConfirmReset(false)
+              }}
+            >
+              Reset All
+            </button>
+            <button
+              className="config-confirm-btn"
+              onClick={() => setConfirmReset(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        </Stack>
       </Modal>
     </>
   )

@@ -118,7 +118,7 @@ export const gearItems: GearItem[] = [
   item("Armadyl crossbow",       'ranged-weapon', 'asgarnia'),
   item("Staff of the dead",      'magic-weapon',  'asgarnia'),
   item("Zaryte crossbow",        'ranged-weapon', 'asgarnia'),
-  item("Godsword (any)",         'melee-weapon',  'asgarnia'),
+  item("Armadyl godsword",        'spec-weapon',   'asgarnia'),
   item("Torva full helm",        'head',          'asgarnia'),
   item("Torva platebody",        'body',          'asgarnia'),
   item("Torva platelegs",        'legs',          'asgarnia'),

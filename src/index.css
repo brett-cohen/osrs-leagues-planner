@@ -86,6 +86,40 @@
   border-bottom-color: var(--mantine-color-osrsYellow-5);
 }
 
+.nav-export-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  padding: 0 12px;
+  background: none;
+  border: 1px solid var(--mantine-color-osrsBrown-5);
+  color: var(--mantine-color-osrsGold-5);
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  height: 30px;
+  align-self: center;
+}
+
+.nav-export-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+.nav-export-btn:hover:not(:disabled) {
+  border-color: var(--mantine-color-osrsYellow-5);
+  color: var(--mantine-color-osrsYellow-5);
+}
+
 .nav-item:hover:not(.nav-item--active) {
   color: #fff;
 }
@@ -1003,6 +1037,236 @@ img {
   right: 1px;
   display: flex;
   line-height: 0;
+}
+
+/* ============================================================
+   Character Summary Export
+   ============================================================ */
+
+.summary-card--offscreen {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+}
+
+.summary-card {
+  width: 720px;
+  padding: 16px;
+  background-color: #1a0f00;
+  border: 3px solid;
+  border-color:
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-8)
+    var(--mantine-color-osrsBrown-8)
+    var(--mantine-color-osrsBrown-4);
+  font-family: 'RuneScape', monospace;
+}
+
+.summary-title {
+  color: var(--mantine-color-osrsYellow-5);
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.summary-subtitle {
+  color: var(--mantine-color-osrsGold-5);
+  font-size: 15px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* ─── Relic row (top) ──────────────────────────────────────── */
+
+.summary-relic-row {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 12px;
+  border: 1px solid var(--mantine-color-osrsBrown-7);
+  background-color: var(--mantine-color-osrsBrown-9);
+}
+
+.summary-relic-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 2px;
+}
+
+.summary-relic-tier {
+  color: var(--mantine-color-osrsGold-5);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.summary-relic-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  image-rendering: auto;
+}
+
+.summary-relic-placeholder {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--mantine-color-osrsBrown-5);
+  background-color: var(--mantine-color-osrsBrown-8);
+}
+
+.summary-relic-name {
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  line-height: 1.1;
+  max-width: 72px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.summary-relic-empty {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mantine-color-osrsBrown-6);
+  font-size: 16px;
+}
+
+/* ─── Bottom 3-column layout ───────────────────────────────── */
+
+.summary-bottom {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.summary-bottom-col {
+  flex-shrink: 0;
+}
+
+.summary-bottom-col--equip {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.summary-section-label {
+  color: var(--mantine-color-osrsGold-5);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--mantine-color-osrsBrown-7);
+  padding-bottom: 2px;
+}
+
+/* ─── Regions (bottom left) ────────────────────────────────── */
+
+.summary-regions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.summary-region-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.summary-region-icon {
+  width: 36px;
+  height: 44px;
+  object-fit: contain;
+}
+
+.summary-region-name {
+  color: #fff;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+/* ─── Equipment (bottom middle) ────────────────────────────── */
+
+.summary-equip-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 44px);
+  gap: 2px;
+}
+
+.summary-equip-cell {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--mantine-color-osrsBrown-8);
+  border: 1px solid var(--mantine-color-osrsBrown-7);
+}
+
+.summary-equip-cell-icon {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  image-rendering: auto;
+}
+
+.summary-equip-cell-icon--empty {
+  opacity: 0.25;
+}
+
+.summary-weapons-row {
+  display: flex;
+  gap: 2px;
+  margin-top: 4px;
+}
+
+/* ─── Skills (bottom right) ────────────────────────────────── */
+
+.summary-skill-grid {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 2px;
+}
+
+.summary-skill-cell {
+  width: 36px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: var(--mantine-color-osrsBrown-8);
+}
+
+.summary-skill-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.summary-skill-status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  line-height: 0;
+}
+
+.summary-watermark {
+  color: var(--mantine-color-osrsBrown-6);
+  font-size: 11px;
+  text-align: right;
+  margin-top: 6px;
 }
 
 /* ============================================================
