@@ -469,6 +469,138 @@ img {
   background-color: var(--mantine-color-osrsBrown-6);
 }
 
+/* ─── Route tabs ───────────────────────────────────────────── */
+
+.route-tabs {
+  display: flex;
+  gap: 2px;
+  align-items: stretch;
+}
+
+.route-tab {
+  display: flex;
+  align-items: center;
+  background-color: var(--mantine-color-osrsBrown-8);
+  border: 2px solid;
+  border-color:
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-4);
+}
+
+.route-tab--active {
+  border-color: var(--mantine-color-osrsYellow-5);
+  background-color: var(--mantine-color-osrsBrown-7);
+}
+
+.route-tab-btn {
+  background: none;
+  border: none;
+  color: var(--mantine-color-osrsGold-5);
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-sm);
+  padding: 6px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.route-tab--active .route-tab-btn {
+  color: var(--mantine-color-osrsYellow-5);
+}
+
+.route-tab-btn:hover {
+  color: var(--mantine-color-osrsYellow-5);
+}
+
+.route-tab-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--mantine-color-osrsYellow-5);
+  color: var(--mantine-color-osrsYellow-5);
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-sm);
+  padding: 6px 12px;
+  outline: none;
+  width: 100px;
+}
+
+.route-tab-close {
+  background: none;
+  border: none;
+  color: var(--mantine-color-osrsBrown-5);
+  cursor: pointer;
+  padding: 4px 6px 4px 0;
+  display: flex;
+  align-items: center;
+}
+
+.route-tab-close:hover {
+  color: var(--mantine-color-red-5);
+}
+
+.route-tab-add {
+  background-color: var(--mantine-color-osrsBrown-8);
+  border: 2px solid;
+  border-color:
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-4);
+  color: var(--mantine-color-osrsGold-5);
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-md);
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+.route-tab-add:hover {
+  color: var(--mantine-color-osrsYellow-5);
+  border-color: var(--mantine-color-osrsYellow-5);
+}
+
+/* ─── Import slot picker ───────────────────────────────────── */
+
+.import-slot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.import-slot-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: var(--mantine-color-osrsBrown-8);
+  border: 2px solid;
+  border-color:
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-4);
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.import-slot-btn:hover {
+  border-color: var(--mantine-color-osrsYellow-5);
+}
+
+.import-slot-name {
+  color: var(--mantine-color-osrsYellow-5);
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-sm);
+}
+
+.import-slot-info {
+  color: var(--mantine-color-osrsGold-5);
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-xs);
+}
+
 .route-empty {
   padding: var(--mantine-spacing-md);
 }
@@ -572,7 +704,7 @@ img {
 .route-footer {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .route-add-btns {

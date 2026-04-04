@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useLocalStorage } from '@mantine/hooks'
 import { Modal, ScrollArea, Stack, Text, TextInput, Title } from '@mantine/core'
-import { IconGripVertical, IconPencilPlus, IconPlaylistAdd, IconX } from '@tabler/icons-react'
+import { IconDownload, IconGripVertical, IconPencilPlus, IconPlaylistAdd, IconUpload, IconX } from '@tabler/icons-react'
 import {
   DndContext,
   closestCenter,
@@ -28,10 +28,20 @@ type RouteStep =
   | { type: 'custom'; id: string; text: string }
   | { type: 'task';   id: string; taskId: string }
 
+interface RouteSlot {
+  name: string
+  steps: RouteStep[]
+}
+
+const MAX_ROUTES = 5
 const DIFFICULTIES: Difficulty[] = ['Easy', 'Medium', 'Hard', 'Elite', 'Master']
 
 function makeId() {
   return Math.random().toString(36).slice(2, 9)
+}
+
+function defaultRoutes(): RouteSlot[] {
+  return [{ name: 'Route 1', steps: [] }]
 }
 
 // ─── Sortable step item ─────────────────────────────────────────────────────
@@ -136,24 +146,38 @@ interface Props {
 }
 
 export function RoutePage({ selectedRegions }: Props) {
-  const [steps, setSteps] = useLocalStorage<RouteStep[]>({
-    key: 'osrs-leagues-route',
-    defaultValue: [],
+  const [routes, setRoutes] = useLocalStorage<RouteSlot[]>({
+    key: 'osrs-leagues-routes',
+    defaultValue: defaultRoutes(),
+  })
+  const [activeIndex, setActiveIndex] = useLocalStorage<number>({
+    key: 'osrs-leagues-active-route',
+    defaultValue: 0,
   })
   const [modalOpen, setModalOpen] = useState(false)
   const [search, setSearch] = useState('')
   const [diffFilter, setDiffFilter] = useState<Difficulty[]>([])
   const [regionFilter, setRegionFilter] = useState('all')
+  const [editingTab, setEditingTab] = useState<number | null>(null)
+  const [importModalOpen, setImportModalOpen] = useState(false)
+  const [pendingImport, setPendingImport] = useState<RouteStep[] | null>(null)
+  const [exportModalOpen, setExportModalOpen] = useState(false)
+  const [deleteConfirmIndex, setDeleteConfirmIndex] = useState<number | null>(null)
+
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Ensure activeIndex is valid
+  const safeIndex = Math.min(activeIndex, routes.length - 1)
+  const currentRoute = routes[safeIndex] ?? { name: 'Route 1', steps: [] }
+  const steps = currentRoute.steps
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   )
 
-  // Tasks available to this character (start + auto + selected + global)
   const availableRegionIds = new Set(['varlamore', 'karamja', 'global', ...selectedRegions])
 
-  // Task IDs already in the route
   const addedTaskIds = new Set(
     steps
       .filter((s): s is Extract<RouteStep, { type: 'task' }> => s.type === 'task')
@@ -165,12 +189,9 @@ export function RoutePage({ selectedRegions }: Props) {
   )
 
   const filteredTasks = searchableTasks.filter(t => {
-    const matchesSearch =
-      search === '' || t.name.toLowerCase().includes(search.toLowerCase())
-    const matchesDiff =
-      diffFilter.length === 0 || diffFilter.includes(t.difficulty)
-    const matchesRegion =
-      regionFilter === 'all' || t.region === regionFilter
+    const matchesSearch = search === '' || t.name.toLowerCase().includes(search.toLowerCase())
+    const matchesDiff = diffFilter.length === 0 || diffFilter.includes(t.difficulty)
+    const matchesRegion = regionFilter === 'all' || t.region === regionFilter
     return matchesSearch && matchesDiff && matchesRegion
   })
 
@@ -191,28 +212,32 @@ export function RoutePage({ selectedRegions }: Props) {
     return sum + (t ? DIFFICULTY_POINTS[t.difficulty] : 0)
   }, 0)
 
+  // ─── Route slot helpers ─────────────────────────────────────────────
+
+  function updateSteps(fn: (prev: RouteStep[]) => RouteStep[]) {
+    setRoutes(prev => prev.map((r, i) => i === safeIndex ? { ...r, steps: fn(r.steps) } : r))
+  }
+
   function addCustomStep() {
-    setSteps(prev => [...prev, { type: 'custom', id: makeId(), text: '' }])
+    updateSteps(prev => [...prev, { type: 'custom', id: makeId(), text: '' }])
   }
 
   function addTaskStep(taskId: string) {
-    setSteps(prev => [...prev, { type: 'task', id: makeId(), taskId }])
+    updateSteps(prev => [...prev, { type: 'task', id: makeId(), taskId }])
   }
 
   function removeStep(id: string) {
-    setSteps(prev => prev.filter(s => s.id !== id))
+    updateSteps(prev => prev.filter(s => s.id !== id))
   }
 
   function updateCustomText(id: string, text: string) {
-    setSteps(prev =>
-      prev.map(s => s.id === id && s.type === 'custom' ? { ...s, text } : s)
-    )
+    updateSteps(prev => prev.map(s => s.id === id && s.type === 'custom' ? { ...s, text } : s))
   }
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event
     if (over && active.id !== over.id) {
-      setSteps(prev => {
+      updateSteps(prev => {
         const oldIndex = prev.findIndex(s => s.id === active.id)
         const newIndex = prev.findIndex(s => s.id === over.id)
         return arrayMove(prev, oldIndex, newIndex)
@@ -220,10 +245,66 @@ export function RoutePage({ selectedRegions }: Props) {
     }
   }
 
+  function addRoute() {
+    if (routes.length >= MAX_ROUTES) return
+    setRoutes(prev => [...prev, { name: `Route ${prev.length + 1}`, steps: [] }])
+    setActiveIndex(routes.length)
+  }
+
+  function removeRoute(index: number) {
+    if (routes.length <= 1) return
+    setRoutes(prev => prev.filter((_, i) => i !== index))
+    if (safeIndex >= routes.length - 1) setActiveIndex(Math.max(0, routes.length - 2))
+    else if (index < safeIndex) setActiveIndex(safeIndex - 1)
+  }
+
+  function renameRoute(index: number, name: string) {
+    setRoutes(prev => prev.map((r, i) => i === index ? { ...r, name } : r))
+  }
+
   function toggleDiff(d: Difficulty) {
-    setDiffFilter(prev =>
-      prev.includes(d) ? prev.filter(x => x !== d) : [...prev, d]
-    )
+    setDiffFilter(prev => prev.includes(d) ? prev.filter(x => x !== d) : [...prev, d])
+  }
+
+  // ─── Export / Import ────────────────────────────────────────────────
+
+  function exportRoute(index: number) {
+    const route = routes[index]
+    if (!route) return
+    const data = JSON.stringify(route.steps, null, 2)
+    const blob = new Blob([data], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `${route.name.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}.json`
+    a.click()
+    URL.revokeObjectURL(url)
+    setExportModalOpen(false)
+  }
+
+  function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = () => {
+      try {
+        const parsed = JSON.parse(reader.result as string)
+        if (Array.isArray(parsed) && parsed.every(s => s.id && s.type)) {
+          setPendingImport(parsed)
+          setImportModalOpen(true)
+        }
+      } catch { /* ignore malformed files */ }
+    }
+    reader.readAsText(file)
+    e.target.value = ''
+  }
+
+  function confirmImport(targetIndex: number) {
+    if (!pendingImport) return
+    setRoutes(prev => prev.map((r, i) => i === targetIndex ? { ...r, steps: pendingImport } : r))
+    setActiveIndex(targetIndex)
+    setPendingImport(null)
+    setImportModalOpen(false)
   }
 
   return (
@@ -252,6 +333,44 @@ export function RoutePage({ selectedRegions }: Props) {
           </div>
         </div>
         <hr className="divider" />
+
+        {/* Route tabs */}
+        <div className="route-tabs">
+          {routes.map((route, i) => (
+            <div key={i} className={`route-tab${i === safeIndex ? ' route-tab--active' : ''}`}>
+              {editingTab === i ? (
+                <input
+                  className="route-tab-input"
+                  value={route.name}
+                  onChange={e => renameRoute(i, e.target.value)}
+                  onBlur={() => setEditingTab(null)}
+                  onKeyDown={e => { if (e.key === 'Enter') setEditingTab(null) }}
+                  autoFocus
+                />
+              ) : (
+                <button
+                  className="route-tab-btn"
+                  onClick={() => setActiveIndex(i)}
+                  onDoubleClick={() => setEditingTab(i)}
+                >
+                  {route.name}
+                </button>
+              )}
+              {routes.length > 1 && (
+                <button
+                  className="route-tab-close"
+                  onClick={() => route.steps.length > 0 ? setDeleteConfirmIndex(i) : removeRoute(i)}
+                  aria-label="Remove route"
+                >
+                  <IconX size={10} />
+                </button>
+              )}
+            </div>
+          ))}
+          {routes.length < MAX_ROUTES && (
+            <button className="route-tab-add" onClick={addRoute} title="Add route">+</button>
+          )}
+        </div>
 
         {steps.length === 0 ? (
           <div className="panel-inset route-empty">
@@ -283,24 +402,26 @@ export function RoutePage({ selectedRegions }: Props) {
 
         <div className="route-footer">
           <div className="route-add-btns">
-            <button
-              className="route-add-btn"
-              onClick={addCustomStep}
-              title="Add custom step"
-            >
+            <button className="route-add-btn" onClick={() => setExportModalOpen(true)} title="Export route">
+              <IconDownload size={18} stroke={1.5} />
+            </button>
+            <button className="route-add-btn" onClick={() => fileInputRef.current?.click()} title="Import route">
+              <IconUpload size={18} stroke={1.5} />
+            </button>
+            <input ref={fileInputRef} type="file" accept=".json" onChange={handleFileSelect} hidden />
+          </div>
+          <div className="route-add-btns">
+            <button className="route-add-btn" onClick={addCustomStep} title="Add custom step">
               <IconPencilPlus size={18} stroke={1.5} />
             </button>
-            <button
-              className="route-add-btn"
-              onClick={() => setModalOpen(true)}
-              title="Add task"
-            >
+            <button className="route-add-btn" onClick={() => setModalOpen(true)} title="Add task">
               <IconPlaylistAdd size={18} stroke={1.5} />
             </button>
           </div>
         </div>
       </Stack>
 
+      {/* Task search modal */}
       <Modal
         opened={modalOpen}
         onClose={() => setModalOpen(false)}
@@ -309,8 +430,8 @@ export function RoutePage({ selectedRegions }: Props) {
         classNames={{
           content: 'osrs-modal',
           header: 'osrs-modal-header',
-          title:   'osrs-modal-title',
-          close:   'osrs-modal-close',
+          title: 'osrs-modal-title',
+          close: 'osrs-modal-close',
         }}
       >
         <Stack gap="sm">
@@ -355,6 +476,109 @@ export function RoutePage({ selectedRegions }: Props) {
               </div>
             )}
           </ScrollArea>
+        </Stack>
+      </Modal>
+
+      {/* Delete route confirmation modal */}
+      <Modal
+        opened={deleteConfirmIndex !== null}
+        onClose={() => setDeleteConfirmIndex(null)}
+        title="Delete Route"
+        size="sm"
+        classNames={{
+          content: 'osrs-modal',
+          header: 'osrs-modal-header',
+          title: 'osrs-modal-title',
+          close: 'osrs-modal-close',
+        }}
+      >
+        {deleteConfirmIndex !== null && (
+          <Stack gap="md">
+            <Text c="white" size="sm">
+              "{routes[deleteConfirmIndex]?.name}" has {routes[deleteConfirmIndex]?.steps.length} step{routes[deleteConfirmIndex]?.steps.length !== 1 ? 's' : ''}. Are you sure you want to delete it?
+            </Text>
+            <Text c="red.5" size="xs">This action cannot be undone.</Text>
+            <div className="config-confirm-btns">
+              <button
+                className="config-confirm-btn config-confirm-btn--danger"
+                onClick={() => { removeRoute(deleteConfirmIndex); setDeleteConfirmIndex(null) }}
+              >
+                Delete
+              </button>
+              <button className="config-confirm-btn" onClick={() => setDeleteConfirmIndex(null)}>
+                Cancel
+              </button>
+            </div>
+          </Stack>
+        )}
+      </Modal>
+
+      {/* Export route picker modal */}
+      <Modal
+        opened={exportModalOpen}
+        onClose={() => setExportModalOpen(false)}
+        title="Export Route"
+        size="sm"
+        classNames={{
+          content: 'osrs-modal',
+          header: 'osrs-modal-header',
+          title: 'osrs-modal-title',
+          close: 'osrs-modal-close',
+        }}
+      >
+        <Stack gap="sm">
+          <Text c="white" size="sm">Choose which route to export.</Text>
+          <div className="import-slot-list">
+            {routes.map((route, i) => (
+              <button
+                key={i}
+                className="import-slot-btn"
+                onClick={() => exportRoute(i)}
+              >
+                <span className="import-slot-name">{route.name}</span>
+                <span className="import-slot-info">
+                  {route.steps.length} step{route.steps.length !== 1 ? 's' : ''}
+                </span>
+              </button>
+            ))}
+          </div>
+        </Stack>
+      </Modal>
+
+      {/* Import target picker modal */}
+      <Modal
+        opened={importModalOpen}
+        onClose={() => { setImportModalOpen(false); setPendingImport(null) }}
+        title="Import Route"
+        size="sm"
+        classNames={{
+          content: 'osrs-modal',
+          header: 'osrs-modal-header',
+          title: 'osrs-modal-title',
+          close: 'osrs-modal-close',
+        }}
+      >
+        <Stack gap="sm">
+          <Text c="white" size="sm">
+            Choose which route slot to import into. The existing route will be overwritten.
+          </Text>
+          <Text c="red.5" size="xs">
+            This action cannot be undone.
+          </Text>
+          <div className="import-slot-list">
+            {routes.map((route, i) => (
+              <button
+                key={i}
+                className="import-slot-btn"
+                onClick={() => confirmImport(i)}
+              >
+                <span className="import-slot-name">{route.name}</span>
+                <span className="import-slot-info">
+                  {route.steps.length} step{route.steps.length !== 1 ? 's' : ''}
+                </span>
+              </button>
+            ))}
+          </div>
         </Stack>
       </Modal>
     </>
