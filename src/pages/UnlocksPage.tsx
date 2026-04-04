@@ -4,15 +4,17 @@ import { RegionSummary } from '../components/RegionSummary'
 import { RelicMenu } from '../components/RelicMenu'
 import { SkillGrid } from '../components/SkillGrid'
 import { LEAGUE_NAME } from '../data/regions'
+import type { SkillOverrides } from '../App'
 
 interface Props {
   selectedRegions: string[]
   onToggleRegion: (id: string) => void
   selectedRelics: Record<string, string>
   onToggleRelic: (tier: number, relicId: string) => void
+  skillOverrides: SkillOverrides
 }
 
-export function UnlocksPage({ selectedRegions, onToggleRegion, selectedRelics, onToggleRelic }: Props) {
+export function UnlocksPage({ selectedRegions, onToggleRegion, selectedRelics, onToggleRelic, skillOverrides }: Props) {
   return (
     <Stack gap="xl">
       <div>
@@ -41,7 +43,7 @@ export function UnlocksPage({ selectedRegions, onToggleRegion, selectedRelics, o
       <hr className="divider" />
       <Stack gap="md">
         <Title order={2}>Skills</Title>
-        <SkillGrid selectedRegions={selectedRegions} selectedRelics={selectedRelics} />
+        <SkillGrid selectedRegions={selectedRegions} selectedRelics={selectedRelics} skillOverrides={skillOverrides} />
       </Stack>
     </Stack>
   )

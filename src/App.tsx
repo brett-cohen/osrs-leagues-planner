@@ -6,6 +6,10 @@ import { RoutePage } from './pages/RoutePage'
 import { ConfigPage } from './pages/ConfigPage'
 import './App.css'
 
+/** Custom skill overrides keyed by region/relic id → skill id list.
+ *  Relics use separate keys for major/minor: `${id}:major` and `${id}:minor`. */
+export type SkillOverrides = Record<string, string[]>
+
 const MAX_REGIONS = 3
 
 function App() {
@@ -18,6 +22,11 @@ function App() {
 
   const [selectedRelics, setSelectedRelics] = useLocalStorage<Record<string, string>>({
     key: 'osrs-leagues-selected-relics',
+    defaultValue: {},
+  })
+
+  const [skillOverrides, setSkillOverrides] = useLocalStorage<SkillOverrides>({
+    key: 'osrs-leagues-skill-overrides',
     defaultValue: {},
   })
 
@@ -51,10 +60,13 @@ function App() {
             onToggleRegion={handleToggleRegion}
             selectedRelics={selectedRelics}
             onToggleRelic={handleToggleRelic}
+            skillOverrides={skillOverrides}
           />
         )}
         {page === 'route' && <RoutePage selectedRegions={selectedRegions} />}
-        {page === 'config' && <ConfigPage />}
+        {page === 'config' && (
+          <ConfigPage skillOverrides={skillOverrides} onChangeOverrides={setSkillOverrides} />
+        )}
       </div>
     </>
   )

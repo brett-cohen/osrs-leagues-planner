@@ -142,6 +142,176 @@ img {
 }
 
 /* ============================================================
+   Config Page
+   ============================================================ */
+
+.config-item-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.config-item-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background-color: var(--mantine-color-osrsBrown-8);
+  border: 2px solid;
+  border-color:
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-4);
+  cursor: pointer;
+  font-family: 'RuneScape', monospace;
+}
+
+.config-item-btn:hover {
+  border-color: var(--mantine-color-osrsYellow-5);
+}
+
+.config-item-btn--custom {
+  border-color: var(--mantine-color-osrsGold-5);
+}
+
+.config-item-icon {
+  width: 28px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.config-item-icon--relic {
+  width: 28px;
+  height: 28px;
+  image-rendering: auto;
+}
+
+.config-item-name {
+  color: var(--mantine-color-osrsYellow-5);
+  font-size: var(--mantine-font-size-sm);
+}
+
+.config-item-count {
+  color: var(--mantine-color-osrsGold-5);
+  font-size: var(--mantine-font-size-xs);
+  margin-left: auto;
+}
+
+.config-relic-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px 10px;
+  background-color: var(--mantine-color-osrsBrown-8);
+  border: 2px solid;
+  border-color:
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-4);
+}
+
+.config-relic-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.config-relic-placeholder {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'RuneScape', monospace;
+  font-size: 12px;
+  color: var(--mantine-color-osrsBrown-5);
+}
+
+.config-relic-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.config-tag-btn {
+  padding: 3px 10px;
+  background-color: var(--mantine-color-osrsBrown-7);
+  border: 1px solid var(--mantine-color-osrsBrown-5);
+  cursor: pointer;
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-xs);
+  color: var(--mantine-color-osrsGold-5);
+}
+
+.config-tag-btn:hover {
+  border-color: var(--mantine-color-osrsYellow-5);
+  color: var(--mantine-color-osrsYellow-5);
+}
+
+/* ─── Skill toggle grid (inside modal) ─────────────────────── */
+
+.config-skill-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.config-skill-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background-color: var(--mantine-color-osrsBrown-9);
+  border: 1px solid var(--mantine-color-osrsBrown-7);
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+.config-skill-btn--on {
+  opacity: 1;
+  background-color: var(--mantine-color-osrsBrown-7);
+  border-color: var(--mantine-color-osrsYellow-5);
+}
+
+.config-skill-btn:hover {
+  border-color: var(--mantine-color-osrsGold-5);
+  opacity: 0.8;
+}
+
+.config-skill-btn--on:hover {
+  opacity: 1;
+}
+
+.config-skill-img {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.config-skill-label {
+  color: var(--mantine-color-osrsYellow-5);
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-xs);
+}
+
+.config-reset-btn {
+  padding: 4px 12px;
+  background-color: var(--mantine-color-osrsBrown-8);
+  border: 1px solid var(--mantine-color-osrsBrown-5);
+  color: var(--mantine-color-osrsGold-5);
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-xs);
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.config-reset-btn:hover {
+  border-color: var(--mantine-color-osrsYellow-5);
+  color: var(--mantine-color-osrsYellow-5);
+}
+
+/* ============================================================
    OSRS Modal
    ============================================================ */
 
