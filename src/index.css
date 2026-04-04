@@ -1270,13 +1270,36 @@ img {
 }
 
 /* ============================================================
+   Skills & Equipment combined layout
+   ============================================================ */
+
+.skills-equip-layout {
+  display: flex;
+  gap: var(--mantine-spacing-xl);
+  align-items: flex-start;
+}
+
+.skills-equip-col {
+  flex-shrink: 0;
+}
+
+.skills-equip-right {
+  margin-left: auto;
+}
+
+.skills-equip-divider {
+  width: 1px;
+  align-self: stretch;
+  background-color: var(--mantine-color-osrsBrown-6);
+}
+
+/* ============================================================
    Equipment Loadout
    ============================================================ */
 
 .equip-grid-wrap {
   display: flex;
   gap: var(--mantine-spacing-xl);
-  flex-wrap: wrap;
 }
 
 .equip-section {

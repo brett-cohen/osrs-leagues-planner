@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Modal, ScrollArea, Stack, Text, TextInput, Title } from '@mantine/core'
+import { Modal, ScrollArea, Stack, Text, TextInput } from '@mantine/core'
 import { equipmentSlots, weaponSlots, gearItems, type EquipmentSlot, type GearItem } from '../data/equipment'
 import { regions } from '../data/regions'
 
@@ -124,13 +124,6 @@ export function EquipmentLoadout({ equipment, onChangeEquipment, selectedRegions
   return (
     <>
       <Stack gap="md">
-        <div>
-          <Title order={2}>Equipment</Title>
-          <Text c="osrsGold.5" size="sm">
-            Best-in-slot gear from your unlocked regions
-          </Text>
-        </div>
-
         <div className="equip-grid-wrap">
           <div className="equip-section">
             <Text c="osrsYellow.5" fw="bold" size="xs" mb={4}>Armour</Text>

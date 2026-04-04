@@ -44,12 +44,17 @@ export function UnlocksPage({ selectedRegions, onToggleRegion, selectedRelics, o
       <hr className="divider" />
       <RelicMenu selectedRelics={selectedRelics} onToggleRelic={onToggleRelic} />
       <hr className="divider" />
-      <Stack gap="md">
-        <Title order={2}>Skills</Title>
-        <SkillGrid selectedRegions={selectedRegions} selectedRelics={selectedRelics} skillOverrides={skillOverrides} />
-      </Stack>
-      <hr className="divider" />
-      <EquipmentLoadout equipment={equipment} onChangeEquipment={onChangeEquipment} selectedRegions={selectedRegions} />
+      <div className="skills-equip-layout">
+        <Stack gap="md">
+          <Title order={2}>Skills</Title>
+          <SkillGrid selectedRegions={selectedRegions} selectedRelics={selectedRelics} skillOverrides={skillOverrides} />
+        </Stack>
+        <div className="skills-equip-divider" />
+        <Stack gap="md" className="skills-equip-right">
+          <Title order={2}>Equipment</Title>
+          <EquipmentLoadout equipment={equipment} onChangeEquipment={onChangeEquipment} selectedRegions={selectedRegions} />
+        </Stack>
+      </div>
     </Stack>
   )
 }
