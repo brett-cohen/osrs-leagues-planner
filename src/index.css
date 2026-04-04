@@ -276,6 +276,19 @@ img {
   border-bottom: none;
 }
 
+.route-step-grip {
+  color: var(--mantine-color-osrsBrown-5);
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  touch-action: none;
+}
+
+.route-step-grip:active {
+  cursor: grabbing;
+}
+
 .route-step-num {
   color: var(--mantine-color-osrsGold-5);
   font-family: 'RuneScape', monospace;

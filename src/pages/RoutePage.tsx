@@ -1,7 +1,24 @@
 import { useState } from 'react'
 import { useLocalStorage } from '@mantine/hooks'
 import { Modal, ScrollArea, Stack, Text, TextInput, Title } from '@mantine/core'
-import { IconPencilPlus, IconPlaylistAdd, IconX } from '@tabler/icons-react'
+import { IconGripVertical, IconPencilPlus, IconPlaylistAdd, IconX } from '@tabler/icons-react'
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from '@dnd-kit/core'
+import {
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+  arrayMove,
+} from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 import { tasks, DIFFICULTY_POINTS, type Difficulty, type Task } from '../data/tasks'
 import { regions } from '../data/regions'
 
@@ -17,7 +34,7 @@ function makeId() {
   return Math.random().toString(36).slice(2, 9)
 }
 
-// ─── Step item ───────────────────────────────────────────────────────────────
+// ─── Sortable step item ─────────────────────────────────────────────────────
 
 interface StepItemProps {
   step: RouteStep
@@ -26,13 +43,31 @@ interface StepItemProps {
   onUpdateText: (text: string) => void
 }
 
-function RouteStepItem({ step, index, onRemove, onUpdateText }: StepItemProps) {
+function SortableStepItem({ step, index, onRemove, onUpdateText }: StepItemProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: step.id })
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  }
+
   if (step.type === 'task') {
     const task = tasks.find(t => t.id === step.taskId)
     if (!task) return null
     const region = regions.find(r => r.id === task.region)
     return (
-      <div className="route-step">
+      <div className="route-step" ref={setNodeRef} style={style}>
+        <span className="route-step-grip" {...attributes} {...listeners}>
+          <IconGripVertical size={14} />
+        </span>
         <span className="route-step-num">{index + 1}</span>
         <span className="route-step-body">
           <span className="route-step-name">{task.name}</span>
@@ -52,7 +87,10 @@ function RouteStepItem({ step, index, onRemove, onUpdateText }: StepItemProps) {
   }
 
   return (
-    <div className="route-step">
+    <div className="route-step" ref={setNodeRef} style={style}>
+      <span className="route-step-grip" {...attributes} {...listeners}>
+        <IconGripVertical size={14} />
+      </span>
       <span className="route-step-num">{index + 1}</span>
       <input
         className="route-step-input"
@@ -106,6 +144,11 @@ export function RoutePage({ selectedRegions }: Props) {
   const [search, setSearch] = useState('')
   const [diffFilter, setDiffFilter] = useState<Difficulty[]>([])
   const [regionFilter, setRegionFilter] = useState('all')
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
+  )
 
   // Tasks available to this character (start + auto + selected + global)
   const availableRegionIds = new Set(['varlamore', 'karamja', 'global', ...selectedRegions])
@@ -166,6 +209,17 @@ export function RoutePage({ selectedRegions }: Props) {
     )
   }
 
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event
+    if (over && active.id !== over.id) {
+      setSteps(prev => {
+        const oldIndex = prev.findIndex(s => s.id === active.id)
+        const newIndex = prev.findIndex(s => s.id === over.id)
+        return arrayMove(prev, oldIndex, newIndex)
+      })
+    }
+  }
+
   function toggleDiff(d: Difficulty) {
     setDiffFilter(prev =>
       prev.includes(d) ? prev.filter(x => x !== d) : [...prev, d]
@@ -207,15 +261,23 @@ export function RoutePage({ selectedRegions }: Props) {
           </div>
         ) : (
           <div className="panel-inset route-step-list">
-            {steps.map((step, i) => (
-              <RouteStepItem
-                key={step.id}
-                step={step}
-                index={i}
-                onRemove={() => removeStep(step.id)}
-                onUpdateText={text => updateCustomText(step.id, text)}
-              />
-            ))}
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext items={steps.map(s => s.id)} strategy={verticalListSortingStrategy}>
+                {steps.map((step, i) => (
+                  <SortableStepItem
+                    key={step.id}
+                    step={step}
+                    index={i}
+                    onRemove={() => removeStep(step.id)}
+                    onUpdateText={text => updateCustomText(step.id, text)}
+                  />
+                ))}
+              </SortableContext>
+            </DndContext>
           </div>
         )}
 
