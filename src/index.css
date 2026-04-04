@@ -311,6 +311,53 @@ img {
   color: var(--mantine-color-osrsYellow-5);
 }
 
+.config-reset-all-btn {
+  padding: 6px 16px;
+  background-color: var(--mantine-color-osrsBrown-8);
+  border: 2px solid var(--mantine-color-red-8);
+  color: var(--mantine-color-red-5);
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-sm);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.config-reset-all-btn:hover {
+  border-color: var(--mantine-color-red-5);
+  background-color: var(--mantine-color-red-9);
+}
+
+.config-confirm-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.config-confirm-btn {
+  padding: 6px 16px;
+  background-color: var(--mantine-color-osrsBrown-8);
+  border: 2px solid var(--mantine-color-osrsBrown-4);
+  color: var(--mantine-color-osrsGold-5);
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-sm);
+  cursor: pointer;
+}
+
+.config-confirm-btn:hover {
+  border-color: var(--mantine-color-osrsYellow-5);
+  color: var(--mantine-color-osrsYellow-5);
+}
+
+.config-confirm-btn--danger {
+  border-color: var(--mantine-color-red-8);
+  color: var(--mantine-color-red-5);
+}
+
+.config-confirm-btn--danger:hover {
+  border-color: var(--mantine-color-red-5);
+  background-color: var(--mantine-color-red-9);
+  color: var(--mantine-color-red-4);
+}
+
 /* ============================================================
    OSRS Modal
    ============================================================ */
@@ -824,6 +871,142 @@ img {
   right: 1px;
   display: flex;
   line-height: 0;
+}
+
+/* ============================================================
+   Equipment Loadout
+   ============================================================ */
+
+.equip-grid-wrap {
+  display: flex;
+  gap: var(--mantine-spacing-xl);
+  flex-wrap: wrap;
+}
+
+.equip-section {
+  flex-shrink: 0;
+}
+
+.equip-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 140px);
+  gap: 4px;
+}
+
+.equip-weapons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 160px;
+}
+
+.equip-slot {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  background-color: var(--mantine-color-osrsBrown-8);
+  border: 2px solid;
+  border-color:
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-4);
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.equip-slot:hover {
+  border-color: var(--mantine-color-osrsYellow-5);
+}
+
+.equip-slot-icon-wrap {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: var(--mantine-color-osrsBrown-9);
+  border: 1px solid var(--mantine-color-osrsBrown-7);
+}
+
+.equip-slot-icon {
+  width: 24px;
+  height: 24px;
+  opacity: 0.4;
+  image-rendering: auto;
+}
+
+.equip-slot-icon--filled {
+  opacity: 1;
+}
+
+.equip-slot-label {
+  color: var(--mantine-color-osrsBrown-5);
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-xs);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.equip-slot-label--filled {
+  color: #fff;
+}
+
+/* ─── Gear picker list ─────────────────────────────────────── */
+
+.gear-pick-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.gear-pick-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--mantine-color-osrsBrown-8);
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.gear-pick-row:hover {
+  background-color: var(--mantine-color-osrsBrown-8);
+}
+
+.gear-pick-row--selected {
+  background-color: var(--mantine-color-osrsBrown-7);
+  border-left: 3px solid var(--mantine-color-osrsYellow-5);
+}
+
+.gear-pick-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+  image-rendering: auto;
+}
+
+.gear-pick-name {
+  color: #fff;
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-sm);
+  flex: 1;
+  min-width: 0;
+}
+
+.gear-pick-region {
+  color: var(--mantine-color-osrsGold-5);
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-xs);
+  flex-shrink: 0;
 }
 
 /* ============================================================

@@ -10,6 +10,9 @@ import './App.css'
  *  Relics use separate keys for major/minor: `${id}:major` and `${id}:minor`. */
 export type SkillOverrides = Record<string, string[]>
 
+/** Equipment text entries keyed by slot id */
+export type EquipmentSelections = Record<string, string>
+
 const MAX_REGIONS = 3
 
 function App() {
@@ -27,6 +30,11 @@ function App() {
 
   const [skillOverrides, setSkillOverrides] = useLocalStorage<SkillOverrides>({
     key: 'osrs-leagues-skill-overrides',
+    defaultValue: {},
+  })
+
+  const [equipment, setEquipment] = useLocalStorage<EquipmentSelections>({
+    key: 'osrs-leagues-equipment',
     defaultValue: {},
   })
 
@@ -61,6 +69,8 @@ function App() {
             selectedRelics={selectedRelics}
             onToggleRelic={handleToggleRelic}
             skillOverrides={skillOverrides}
+            equipment={equipment}
+            onChangeEquipment={setEquipment}
           />
         )}
         {page === 'route' && <RoutePage selectedRegions={selectedRegions} />}

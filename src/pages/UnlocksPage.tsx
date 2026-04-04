@@ -3,8 +3,9 @@ import { RegionMap } from '../components/RegionMap'
 import { RegionSummary } from '../components/RegionSummary'
 import { RelicMenu } from '../components/RelicMenu'
 import { SkillGrid } from '../components/SkillGrid'
+import { EquipmentLoadout } from '../components/EquipmentLoadout'
 import { LEAGUE_NAME } from '../data/regions'
-import type { SkillOverrides } from '../App'
+import type { EquipmentSelections, SkillOverrides } from '../App'
 
 interface Props {
   selectedRegions: string[]
@@ -12,9 +13,11 @@ interface Props {
   selectedRelics: Record<string, string>
   onToggleRelic: (tier: number, relicId: string) => void
   skillOverrides: SkillOverrides
+  equipment: EquipmentSelections
+  onChangeEquipment: (fn: (prev: EquipmentSelections) => EquipmentSelections) => void
 }
 
-export function UnlocksPage({ selectedRegions, onToggleRegion, selectedRelics, onToggleRelic, skillOverrides }: Props) {
+export function UnlocksPage({ selectedRegions, onToggleRegion, selectedRelics, onToggleRelic, skillOverrides, equipment, onChangeEquipment }: Props) {
   return (
     <Stack gap="xl">
       <div>
@@ -45,6 +48,8 @@ export function UnlocksPage({ selectedRegions, onToggleRegion, selectedRelics, o
         <Title order={2}>Skills</Title>
         <SkillGrid selectedRegions={selectedRegions} selectedRelics={selectedRelics} skillOverrides={skillOverrides} />
       </Stack>
+      <hr className="divider" />
+      <EquipmentLoadout equipment={equipment} onChangeEquipment={onChangeEquipment} selectedRegions={selectedRegions} />
     </Stack>
   )
 }
