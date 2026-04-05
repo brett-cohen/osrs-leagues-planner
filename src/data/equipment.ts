@@ -53,7 +53,10 @@ export const gearItems: GearItem[] = [
   item("Tonalztics of ralos",    'spec-weapon',  'varlamore'),
   item("Dual macuahuitl",        'melee-weapon',  'varlamore'),
   item("Eclipse atlatl",         'ranged-weapon', 'varlamore'),
-  item("Blood moon helm",        'melee-weapon',  'varlamore'),
+  item("Avernic treads",           'feet',          'varlamore'),
+  item("Eye of ayak",              'neck',          'varlamore'),
+  item("Confliction gauntlets",          'hands',          'varlamore'),
+  item("Ultor ring",               'ring',          'varlamore'),
 
   // ─── Karamja ───────────────────────────────────────────────────────────────
   item("Fire cape",              'cape',          'karamja'),
@@ -87,6 +90,9 @@ export const gearItems: GearItem[] = [
   item("Seers ring",             'ring',          'fremennik'),
   item("Warrior ring",           'ring',          'fremennik'),
   item("Dragonfire ward",        'shield',        'fremennik'),
+  item("Venator bow",             'ranged-weapon', 'fremennik'),
+  item("Ancient sceptre",         'magic-weapon',  'fremennik'),
+  item("Magus ring",               'ring',          'fremennik'),
 
   // ─── Wilderness ────────────────────────────────────────────────────────────
   item("Voidwaker",              'spec-weapon',  'wilderness'),
@@ -101,7 +107,9 @@ export const gearItems: GearItem[] = [
   item("Tyrannical ring",        'ring',          'wilderness'),
   item("Malediction ward",       'shield',        'wilderness'),
   item("Odium ward",             'shield',        'wilderness'),
-  item("God cape (i)",           'cape',          'wilderness'),
+  item("Imbued zamorak cape",           'cape',          'wilderness'),
+  item("Imbued saradomin cape",           'cape',          'wilderness'),
+  item("Imbued guthix cape",           'cape',          'wilderness'),
   item("Spectral spirit shield", 'shield',        'wildereness'),
   item("Arcane spirit shield",   'shield',        'wildereness'),
   item("Elysian spirit shield",  'shield',        'wildereness'),
@@ -121,15 +129,18 @@ export const gearItems: GearItem[] = [
   item("Bandos godsword",        'spec-weapon',   'asgarnia'),
   item("Saradomin godsword",        'spec-weapon',   'asgarnia'),
   item("Zamorak godsword",        'spec-weapon',   'asgarnia'),
+  item("Zamorakian hasta",        'melee-weapon',   'asgarnia'),
   item("Ancient godsword",        'spec-weapon',   'asgarnia'),
   item("Torva full helm",        'head',          'asgarnia'),
   item("Torva platebody",        'body',          'asgarnia'),
   item("Torva platelegs",        'legs',          'asgarnia'),
-  item("Ancient hilt",           'melee-weapon',  'asgarnia'),
   item("Dragon defender",        'shield',        'asgarnia'),
   item("Pegasian boots",         'feet',          'asgarnia'),
   item("Primordial boots",       'feet',          'asgarnia'),
   item("Eternal boots",          'feet',          'asgarnia'),
+  item("Bellator ring",           'ring',          'asgarnia'),
+    item("Dragon boots",           'feet',          'asgarnia'),
+
 
   // ─── Tirannwn ──────────────────────────────────────────────────────────────
   item("Crystal helm",           'head',          'tirannwn'),
@@ -163,6 +174,10 @@ export const gearItems: GearItem[] = [
   item("Sanguinesti staff",      'magic-weapon',  'morytania'),
   item("Slayer helmet (i)",      'head',          'morytania'),
   item("Salve amulet (e)",      'neck',          'morytania'),
+  item("Inquisitor's great helm", 'head',        'morytania'),
+  item("Inquisitor's hauberk",   'body',         'morytania'),
+  item("Inquisitor's plateskirt",'legs',          'morytania'),
+  item("Inquisitor's mace",      'melee-weapon', 'morytania'),
 
   // ─── Kharidian Desert ──────────────────────────────────────────────────────
   item("Masori mask",            'head',          'desert'),
@@ -171,9 +186,13 @@ export const gearItems: GearItem[] = [
   item("Lightbearer",            'ring',          'desert'),
   item("Keris partisan",         'melee-weapon',  'desert'),
   item("Elidinis' ward",         'shield',        'desert'),
+  item("Venator ring",            'ring',          'desert'),
 
   // ─── Global (always available) ─────────────────────────────────────────────
-  item("Dragon boots",           'feet',          'global'),
+  item("Virtus mask",             'head',          'global'),
+  item("Virtus robe top",          'body',          'global'),
+  item("Virtus robe bottom",       'legs',          'global'),
+  item("Soulreaper axe",           'melee-weapon',  'varlamore'),
   item("Amulet of power",        'neck',          'global'),
   item("Dragonfire shield",      'shield',        'global'),
   item("Twisted bow",            'ranged-weapon', 'global'),
