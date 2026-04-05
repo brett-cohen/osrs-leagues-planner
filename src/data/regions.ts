@@ -33,7 +33,7 @@ export const regions: Region[] = [
     mapX: 19.7,
     mapY: 33.7,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Great_Kourend',
-    skills: ['farming', 'runecraft', 'woodcutting', 'mining', 'slayer', 'prayer', 'construction', 'fishing'],
+    skills: ['farming', 'runecraft', 'woodcutting', 'slayer', 'prayer', 'fishing', 'firemaking', 'magic'],
   },
   {
     id: 'fremennik',
@@ -44,7 +44,7 @@ export const regions: Region[] = [
     mapX: 52.7,
     mapY: 29.2,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Fremennik_Province',
-    skills: ['crafting', 'slayer', 'fishing', 'mining', 'agility', 'construction'],
+    skills: ['mining', 'agility', 'construction', 'magic', 'smithing'],
   },
   {
     id: 'wilderness',
@@ -55,7 +55,7 @@ export const regions: Region[] = [
     mapX: 73.6,
     mapY: 23.4,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Wilderness',
-    skills: ['prayer', 'mining', 'slayer', 'agility', 'thieving'],
+    skills: ['prayer', 'mining', 'slayer', 'agility', 'thieving', 'fishing', 'hunter'],
   },
   {
     id: 'varlamore',
@@ -66,7 +66,7 @@ export const regions: Region[] = [
     mapX: 19.7,
     mapY: 68.5,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Varlamore',
-    skills: ['hunter', 'agility', 'prayer', 'mining', 'crafting'],
+    skills: ['hunter', 'prayer', 'mining', 'herblore', 'farming'],
   },
   {
     id: 'asgarnia',
@@ -77,7 +77,7 @@ export const regions: Region[] = [
     mapX: 63.8,
     mapY: 43.7,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Asgarnia',
-    skills: ['smithing', 'mining', 'prayer', 'construction', 'crafting', 'farming', 'agility'],
+    skills: ['construction', 'agility', 'mining'],
   },
   {
     id: 'tirannwn',
@@ -88,7 +88,7 @@ export const regions: Region[] = [
     mapX: 39.9,
     mapY: 58.5,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Tirannwn',
-    skills: ['agility', 'mining', 'crafting', 'herblore', 'thieving', 'fletching', 'farming', 'hunter'],
+    skills: ['agility', 'mining', 'crafting', 'smithing', 'thieving', 'hunter', 'woodcutting'],
   },
   {
     id: 'kandarin',
@@ -99,7 +99,7 @@ export const regions: Region[] = [
     mapX: 50.4,
     mapY: 56.3,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Kandarin',
-    skills: ['fishing', 'thieving', 'farming', 'herblore', 'agility', 'cooking', 'fletching', 'crafting'],
+    skills: ['fishing', 'thieving', 'agility'],
   },
   {
     id: 'morytania',
@@ -110,7 +110,7 @@ export const regions: Region[] = [
     mapX: 85.4,
     mapY: 50.4,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Morytania',
-    skills: ['prayer', 'agility', 'slayer', 'farming', 'crafting', 'firemaking'],
+    skills: ['prayer', 'agility', 'slayer', 'firemaking', 'thieving'],
   },
   {
     id: 'karamja',
@@ -121,7 +121,7 @@ export const regions: Region[] = [
     mapX: 61.0,
     mapY: 74.7,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Karamja',
-    skills: ['firemaking', 'mining', 'fishing', 'agility', 'woodcutting'],
+    skills: ['crafting', 'woodcutting', 'slayer', 'fishing', 'cooking', 'thieving', 'farming'],
   },
   {
     id: 'desert',
@@ -132,6 +132,6 @@ export const regions: Region[] = [
     mapX: 77.7,
     mapY: 78.3,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Kharidian_Desert',
-    skills: ['thieving', 'prayer', 'mining', 'crafting', 'agility', 'firemaking'],
+    skills: ['thieving', 'magic', 'mining', 'runecraft', 'smithing', 'fishing'],
   },
 ]

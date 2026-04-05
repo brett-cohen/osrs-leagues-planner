@@ -40,7 +40,7 @@ function item(name: string, slot: string, region: string): GearItem {
 
 export const gearItems: GearItem[] = [
   // ─── Varlamore ─────────────────────────────────────────────────────────────
-  item("Dizana's quiver",         'ammo',          'varlamore'),
+  item("Dizana's quiver",         'cape',          'varlamore'),
   item("Blood moon helm",        'head',          'varlamore'),
   item("Blue moon helm",         'head',          'varlamore'),
   item("Eclipse moon helm",      'head',          'varlamore'),
@@ -50,18 +50,17 @@ export const gearItems: GearItem[] = [
   item("Blood moon tassets",     'legs',          'varlamore'),
   item("Blue moon tassets",      'legs',          'varlamore'),
   item("Eclipse moon tassets",   'legs',          'varlamore'),
-  item("Tonalztics of ralos",    'melee-weapon',  'varlamore'),
+  item("Tonalztics of ralos",    'spec-weapon',  'varlamore'),
   item("Dual macuahuitl",        'melee-weapon',  'varlamore'),
-  item("Scorching bow",          'ranged-weapon', 'varlamore'),
   item("Eclipse atlatl",         'ranged-weapon', 'varlamore'),
   item("Blood moon helm",        'melee-weapon',  'varlamore'),
 
   // ─── Karamja ───────────────────────────────────────────────────────────────
   item("Fire cape",              'cape',          'karamja'),
   item("Infernal cape",          'cape',          'karamja'),
-  item("TzKal-Zuk's cape",      'cape',          'karamja'),
   item("Obsidian helmet",        'head',          'karamja'),
   item("Obsidian platebody",     'body',          'karamja'),
+  item("Amulet of fury",         'neck',          'karamja'),
   item("Obsidian platelegs",     'legs',          'karamja'),
   item("Toktz-xil-ak",           'melee-weapon',  'karamja'),
   item("Toktz-xil-ek",           'melee-weapon',  'karamja'),
@@ -71,14 +70,14 @@ export const gearItems: GearItem[] = [
   item("Ancestral robe top",     'body',          'zeah'),
   item("Ancestral robe bottom",  'legs',          'zeah'),
   item("Dragon hunter crossbow", 'ranged-weapon', 'zeah'),
-  item("Twisted bow",            'ranged-weapon', 'zeah'),
   item("Elder maul",             'melee-weapon',  'zeah'),
   item("Kodai wand",             'magic-weapon',  'zeah'),
   item("Dragon hunter lance",    'melee-weapon',  'zeah'),
   item("Ferocious gloves",       'hands',         'zeah'),
   item("Brimstone ring",         'ring',          'zeah'),
-  item("Xeric's talisman",       'neck',          'zeah'),
   item("Rada's blessing 4",      'ammo',          'zeah'),
+    item("Dragon warhammer",         'spec-weapon', 'zeah'),
+
 
   // ─── Fremennik Province ────────────────────────────────────────────────────
   item("Neitiznot faceguard",    'head',          'fremennik'),
@@ -87,13 +86,10 @@ export const gearItems: GearItem[] = [
   item("Archers ring",           'ring',          'fremennik'),
   item("Seers ring",             'ring',          'fremennik'),
   item("Warrior ring",           'ring',          'fremennik'),
-  item("Dragonfire shield",      'shield',        'fremennik'),
   item("Dragonfire ward",        'shield',        'fremennik'),
-  item("Fremennik sea boots 4",  'feet',          'fremennik'),
-  item("Basilisk jaw",           'head',          'fremennik'),
 
   // ─── Wilderness ────────────────────────────────────────────────────────────
-  item("Voidwaker",              'melee-weapon',  'wilderness'),
+  item("Voidwaker",              'spec-weapon',  'wilderness'),
   item("Craw's bow",             'ranged-weapon', 'wilderness'),
   item("Thammaron's sceptre",    'magic-weapon',  'wilderness'),
   item("Viggora's chainmace",    'melee-weapon',  'wilderness'),
@@ -106,6 +102,9 @@ export const gearItems: GearItem[] = [
   item("Malediction ward",       'shield',        'wilderness'),
   item("Odium ward",             'shield',        'wilderness'),
   item("God cape (i)",           'cape',          'wilderness'),
+  item("Spectral spirit shield", 'shield',        'wildereness'),
+  item("Arcane spirit shield",   'shield',        'wildereness'),
+  item("Elysian spirit shield",  'shield',        'wildereness'),
 
   // ─── Asgarnia ──────────────────────────────────────────────────────────────
   item("Bandos chestplate",      'body',          'asgarnia'),
@@ -119,13 +118,18 @@ export const gearItems: GearItem[] = [
   item("Staff of the dead",      'magic-weapon',  'asgarnia'),
   item("Zaryte crossbow",        'ranged-weapon', 'asgarnia'),
   item("Armadyl godsword",        'spec-weapon',   'asgarnia'),
+  item("Bandos godsword",        'spec-weapon',   'asgarnia'),
+  item("Saradomin godsword",        'spec-weapon',   'asgarnia'),
+  item("Zamorak godsword",        'spec-weapon',   'asgarnia'),
+  item("Ancient godsword",        'spec-weapon',   'asgarnia'),
   item("Torva full helm",        'head',          'asgarnia'),
   item("Torva platebody",        'body',          'asgarnia'),
   item("Torva platelegs",        'legs',          'asgarnia'),
   item("Ancient hilt",           'melee-weapon',  'asgarnia'),
-  item("Spectral spirit shield", 'shield',        'asgarnia'),
-  item("Arcane spirit shield",   'shield',        'asgarnia'),
-  item("Elysian spirit shield",  'shield',        'asgarnia'),
+  item("Dragon defender",        'shield',        'asgarnia'),
+  item("Pegasian boots",         'feet',          'asgarnia'),
+  item("Primordial boots",       'feet',          'asgarnia'),
+  item("Eternal boots",          'feet',          'asgarnia'),
 
   // ─── Tirannwn ──────────────────────────────────────────────────────────────
   item("Crystal helm",           'head',          'tirannwn'),
@@ -136,24 +140,19 @@ export const gearItems: GearItem[] = [
   item("Crystal shield",         'shield',        'tirannwn'),
   item("Tanzanite helm",         'head',          'tirannwn'),
   item("Serpentine helm",        'head',          'tirannwn'),
-  item("Magma helm",             'head',          'tirannwn'),
   item("Trident of the swamp",   'magic-weapon',  'tirannwn'),
   item("Toxic blowpipe",         'ranged-weapon', 'tirannwn'),
-  item("Magic fang",             'magic-weapon',  'tirannwn'),
+  item("Crystal halberd",         'spec-weapon', 'tirannwn'),
 
   // ─── Kandarin ──────────────────────────────────────────────────────────────
-  item("Amulet of fury",         'neck',          'kandarin'),
-  item("Amulet of glory",        'neck',          'kandarin'),
   item("Necklace of anguish",    'neck',          'kandarin'),
   item("Tormented bracelet",     'hands',         'kandarin'),
-  item("Zenyte bracelet",        'hands',         'kandarin'),
   item("Amulet of torture",      'neck',          'kandarin'),
   item("Occult necklace",        'neck',          'kandarin'),
-  item("Pegasian boots",         'feet',          'kandarin'),
-  item("Primordial boots",       'feet',          'kandarin'),
-  item("Eternal boots",          'feet',          'kandarin'),
+  item("Ring of suffering",      'ring',          'kandarin'),
   item("Fighter torso",          'body',          'kandarin'),
-  item("Ballista",               'ranged-weapon', 'kandarin'),
+  item("Heavy ballista",               'ranged-weapon', 'kandarin'),
+  item("Trident of the seas",     'magic-weapon',  'kandarin'),
 
   // ─── Morytania ─────────────────────────────────────────────────────────────
   item("Justiciar faceguard",    'head',          'morytania'),
@@ -162,11 +161,8 @@ export const gearItems: GearItem[] = [
   item("Avernic defender",       'shield',        'morytania'),
   item("Ghrazi rapier",          'melee-weapon',  'morytania'),
   item("Sanguinesti staff",      'magic-weapon',  'morytania'),
-  item("Scythe of vitur",        'melee-weapon',  'morytania'),
-  item("Black mask (i)",         'head',          'morytania'),
   item("Slayer helmet (i)",      'head',          'morytania'),
-  item("Salve amulet (ei)",      'neck',          'morytania'),
-  item("Barrows gloves",         'hands',         'morytania'),
+  item("Salve amulet (e)",      'neck',          'morytania'),
 
   // ─── Kharidian Desert ──────────────────────────────────────────────────────
   item("Masori mask",            'head',          'desert'),
@@ -174,13 +170,15 @@ export const gearItems: GearItem[] = [
   item("Masori chaps",           'legs',          'desert'),
   item("Lightbearer",            'ring',          'desert'),
   item("Keris partisan",         'melee-weapon',  'desert'),
-  item("Pharaoh's sceptre",      'magic-weapon',  'desert'),
   item("Elidinis' ward",         'shield',        'desert'),
 
   // ─── Global (always available) ─────────────────────────────────────────────
-  item("Dragon defender",        'shield',        'global'),
-  item("Rune gloves",            'hands',         'global'),
   item("Dragon boots",           'feet',          'global'),
   item("Amulet of power",        'neck',          'global'),
-  item("Ava's assembler",        'cape',          'global'),
+  item("Dragonfire shield",      'shield',        'global'),
+  item("Twisted bow",            'ranged-weapon', 'global'),
+  item("Scythe of vitur",        'melee-weapon',  'global'),
+  item("Tumeken's shadow",       'magic-weapon',  'global'),
+    item("Dragon dagger",         'spec-weapon', 'global'),
+
 ]
