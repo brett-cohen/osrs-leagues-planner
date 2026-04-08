@@ -110,16 +110,31 @@ export const CharacterSummary = forwardRef<CharacterSummaryHandle, Props>(functi
           {relicTiers.map(t => {
             const relicId = selectedRelics[String(t.tier)]
             const relic = relicId ? t.options.find(r => r.id === relicId) : undefined
+            // For tier 7 (Reloaded), look up the bonus relic
+            const bonusRelicId = relic?.id === 'reloaded' ? selectedRelics['reloaded-bonus'] : undefined
+            const bonusRelic = bonusRelicId
+              ? relicTiers.flatMap(tt => tt.options).find(r => r.id === bonusRelicId)
+              : undefined
             return (
               <div key={t.tier} className="summary-relic-col">
                 <span className="summary-relic-tier">{t.tier}</span>
                 {relic ? (
                   <>
-                    {relic.iconUrl
-                      ? <img src={relic.iconUrl} alt={relic.name} className="summary-relic-icon" />
-                      : <span className="summary-relic-placeholder">{relic.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}</span>
-                    }
-                    <span className="summary-relic-name">{relic.name}</span>
+                    <div className="summary-relic-icon-wrap">
+                      {relic.iconUrl
+                        ? <img src={relic.iconUrl} alt={relic.name} className="summary-relic-icon" />
+                        : <span className="summary-relic-placeholder">{relic.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}</span>
+                      }
+                      {bonusRelic && (
+                        <span className="summary-relic-bonus">
+                          {bonusRelic.iconUrl
+                            ? <img src={bonusRelic.iconUrl} alt={bonusRelic.name} className="summary-relic-bonus-img" />
+                            : <span className="summary-relic-bonus-placeholder">?</span>
+                          }
+                        </span>
+                      )}
+                    </div>
+                    <span className="summary-relic-name">{bonusRelic ? `${relic.name} + ${bonusRelic.name}` : relic.name}</span>
                   </>
                 ) : (
                   <span className="summary-relic-empty">—</span>

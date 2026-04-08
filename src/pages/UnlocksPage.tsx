@@ -12,12 +12,13 @@ interface Props {
   onToggleRegion: (id: string) => void
   selectedRelics: Record<string, string>
   onToggleRelic: (tier: number, relicId: string) => void
+  onSetReloadedBonus: (relicId: string | null) => void
   skillOverrides: SkillOverrides
   equipment: EquipmentSelections
   onChangeEquipment: (fn: (prev: EquipmentSelections) => EquipmentSelections) => void
 }
 
-export function UnlocksPage({ selectedRegions, onToggleRegion, selectedRelics, onToggleRelic, skillOverrides, equipment, onChangeEquipment }: Props) {
+export function UnlocksPage({ selectedRegions, onToggleRegion, selectedRelics, onToggleRelic, onSetReloadedBonus, skillOverrides, equipment, onChangeEquipment }: Props) {
   return (
     <Stack gap="xl">
       <div>
@@ -42,7 +43,7 @@ export function UnlocksPage({ selectedRegions, onToggleRegion, selectedRelics, o
         </div>
       </Stack>
       <hr className="divider" />
-      <RelicMenu selectedRelics={selectedRelics} onToggleRelic={onToggleRelic} />
+      <RelicMenu selectedRelics={selectedRelics} onToggleRelic={onToggleRelic} onSetReloadedBonus={onSetReloadedBonus} />
       <hr className="divider" />
       <div className="skills-equip-layout">
         <Stack gap="md">

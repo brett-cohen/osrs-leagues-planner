@@ -62,9 +62,23 @@ function App() {
       if (prev[key] === relicId) {
         const next = { ...prev }
         delete next[key]
+        // Clear reloaded bonus when deselecting Reloaded
+        if (relicId === 'reloaded') delete next['reloaded-bonus']
         return next
       }
       return { ...prev, [key]: relicId }
+    })
+  }
+
+  function handleSetReloadedBonus(relicId: string | null) {
+    setSelectedRelics(prev => {
+      const next = { ...prev }
+      if (relicId === null) {
+        delete next['reloaded-bonus']
+      } else {
+        next['reloaded-bonus'] = relicId
+      }
+      return next
     })
   }
 
@@ -85,6 +99,7 @@ function App() {
             onToggleRegion={handleToggleRegion}
             selectedRelics={selectedRelics}
             onToggleRelic={handleToggleRelic}
+            onSetReloadedBonus={handleSetReloadedBonus}
             skillOverrides={skillOverrides}
             equipment={equipment}
             onChangeEquipment={setEquipment}

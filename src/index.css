@@ -1102,11 +1102,44 @@ img {
   font-weight: bold;
 }
 
+.summary-relic-icon-wrap {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
 .summary-relic-icon {
   width: 32px;
   height: 32px;
   object-fit: contain;
   image-rendering: auto;
+}
+
+.summary-relic-bonus {
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+  width: 18px;
+  height: 18px;
+  background-color: var(--mantine-color-osrsBrown-9);
+  border: 1px solid var(--mantine-color-osrsYellow-5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1px;
+}
+
+.summary-relic-bonus-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: auto;
+}
+
+.summary-relic-bonus-placeholder {
+  font-family: 'RuneScape', monospace;
+  font-size: 8px;
+  color: var(--mantine-color-osrsBrown-5);
 }
 
 .summary-relic-placeholder {
@@ -1491,6 +1524,7 @@ img {
 
 /* Individual relic icon button — styled like an OSRS item slot */
 .relic-icon-btn {
+  position: relative;
   width: 54px;
   height: 54px;
   background-color: var(--mantine-color-osrsBrown-8);
@@ -1518,6 +1552,102 @@ img {
   height: 100%;
   object-fit: contain;
   image-rendering: auto;
+}
+
+.relic-bonus-overlay {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 24px;
+  height: 24px;
+  background-color: var(--mantine-color-osrsBrown-9);
+  border: 1px solid var(--mantine-color-osrsYellow-5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1px;
+}
+
+.relic-bonus-overlay-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: auto;
+}
+
+.relic-bonus-overlay-placeholder {
+  font-family: 'RuneScape', monospace;
+  font-size: 10px;
+  color: var(--mantine-color-osrsBrown-5);
+}
+
+.reloaded-pick-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.reloaded-pick-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background-color: var(--mantine-color-osrsBrown-8);
+  border: 2px solid;
+  border-color:
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-4);
+  cursor: pointer;
+  font-family: 'RuneScape', monospace;
+}
+
+.reloaded-pick-btn:hover {
+  border-color: var(--mantine-color-osrsYellow-5);
+}
+
+.reloaded-pick-btn--selected {
+  border-color: var(--mantine-color-osrsYellow-5);
+  background-color: var(--mantine-color-osrsBrown-7);
+  box-shadow: 0 0 6px rgba(255, 255, 0, 0.5);
+}
+
+.reloaded-pick-btn--disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.reloaded-pick-btn--disabled:hover {
+  border-color:
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-4);
+}
+
+.reloaded-pick-img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  image-rendering: auto;
+}
+
+.reloaded-pick-placeholder {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'RuneScape', monospace;
+  font-size: 11px;
+  color: var(--mantine-color-osrsBrown-5);
+}
+
+.reloaded-pick-name {
+  color: var(--mantine-color-osrsYellow-5);
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-xs);
 }
 
 .relic-icon-placeholder {
