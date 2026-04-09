@@ -212,8 +212,8 @@ export const relicTiers: RelicTier[] = [
         description: 'Forces a fixed 2-tick action rate on most gathering and production skills, including Mining, Woodcutting, Fishing, Cooking, Firemaking, Fletching, Smithing, Crafting, Farming, prayer bone offering, and alchemy spells.',
         iconUrl: '',
         wikiUrl: 'https://oldschool.runescape.wiki/w/Flow_State_(Demonic_Pacts_League)',
-        majorSkills: ['mining', 'woodcutting', 'fishing', 'cooking', 'firemaking', 'fletching', 'smithing', 'crafting', 'farming'],
-        minorSkills: ['prayer', 'magic'],
+        majorSkills: ['mining', 'woodcutting', 'fishing'],
+        minorSkills: ['prayer', 'magic', 'cooking', 'firemaking', 'fletching', 'smithing', 'crafting'],
       },
       {
         id: 'reloaded',

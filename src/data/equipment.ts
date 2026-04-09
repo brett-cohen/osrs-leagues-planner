@@ -178,6 +178,38 @@ export const gearItems: GearItem[] = [
   item("Inquisitor's hauberk",   'body',         'morytania'),
   item("Inquisitor's plateskirt",'legs',          'morytania'),
   item("Inquisitor's mace",      'melee-weapon', 'morytania'),
+  item("Noxious halberd",         'melee-weapon', 'morytania'),
+  item("Amulet of rancour",       'neck',         'morytania'),
+  // Barrows — Ahrim
+  item("Ahrim's hood",            'head',         'morytania'),
+  item("Ahrim's robetop",         'body',         'morytania'),
+  item("Ahrim's robeskirt",       'legs',         'morytania'),
+  item("Ahrim's staff",           'magic-weapon', 'morytania'),
+  // Barrows — Dharok
+  item("Dharok's helm",           'head',         'morytania'),
+  item("Dharok's platebody",      'body',         'morytania'),
+  item("Dharok's platelegs",      'legs',         'morytania'),
+  item("Dharok's greataxe",       'melee-weapon', 'morytania'),
+  // Barrows — Guthan
+  item("Guthan's helm",           'head',         'morytania'),
+  item("Guthan's platebody",      'body',         'morytania'),
+  item("Guthan's chainskirt",     'legs',         'morytania'),
+  item("Guthan's warspear",       'melee-weapon', 'morytania'),
+  // Barrows — Karil
+  item("Karil's coif",            'head',         'morytania'),
+  item("Karil's leathertop",      'body',         'morytania'),
+  item("Karil's leatherskirt",    'legs',         'morytania'),
+  item("Karil's crossbow",        'ranged-weapon','morytania'),
+  // Barrows — Torag
+  item("Torag's helm",            'head',         'morytania'),
+  item("Torag's platebody",       'body',         'morytania'),
+  item("Torag's platelegs",       'legs',         'morytania'),
+  item("Torag's hammers",         'melee-weapon', 'morytania'),
+  // Barrows — Verac
+  item("Verac's helm",            'head',         'morytania'),
+  item("Verac's brassard",        'body',         'morytania'),
+  item("Verac's plateskirt",      'legs',         'morytania'),
+  item("Verac's flail",           'melee-weapon', 'morytania'),
 
   // ─── Kharidian Desert ──────────────────────────────────────────────────────
   item("Masori mask",            'head',          'desert'),

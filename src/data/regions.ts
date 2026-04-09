@@ -66,7 +66,7 @@ export const regions: Region[] = [
     mapX: 19.7,
     mapY: 68.5,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Varlamore',
-    skills: ['hunter', 'prayer', 'mining', 'herblore', 'farming'],
+    skills: ['hunter', 'prayer', 'mining', 'herblore'],
   },
   {
     id: 'asgarnia',
@@ -121,7 +121,7 @@ export const regions: Region[] = [
     mapX: 61.0,
     mapY: 74.7,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Karamja',
-    skills: ['crafting', 'woodcutting', 'slayer', 'fishing', 'cooking', 'thieving', 'farming'],
+    skills: ['crafting', 'woodcutting', 'slayer', 'fishing', 'cooking', 'thieving'],
   },
   {
     id: 'desert',
