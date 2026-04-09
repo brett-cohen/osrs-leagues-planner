@@ -66,7 +66,7 @@ export const regions: Region[] = [
     mapX: 19.7,
     mapY: 68.5,
     wikiUrl: 'https://oldschool.runescape.wiki/w/Varlamore',
-    skills: ['hunter', 'prayer', 'mining', 'herblore'],
+    skills: ['hunter', 'prayer', 'mining', 'herblore', 'fletching'],
   },
   {
     id: 'asgarnia',

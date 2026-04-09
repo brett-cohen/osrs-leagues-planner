@@ -52,6 +52,7 @@ export const regionPatches: Record<string, Partial<Record<PatchType, number>>> =
     Tree: 1,
     'Fruit tree': 1,
     Bush: 1,
+    Calquat: 1,
   },
   karamja: {
     Bush: 1,        // Brimhaven
@@ -73,7 +74,6 @@ export const regionPatches: Record<string, Partial<Record<PatchType, number>>> =
     'Hardwood tree': 3, // Farming Guild
     Celastrus: 1,
     Redwood: 1,
-    Calquat: 1,
     Mushroom: 1,
   },
   fremennik: {

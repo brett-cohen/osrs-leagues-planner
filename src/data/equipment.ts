@@ -49,6 +49,7 @@ export const gearItems: GearItem[] = [
   item("Eclipse moon chestplate",'body',          'varlamore'),
   item("Blood moon tassets",     'legs',          'varlamore'),
   item("Blue moon tassets",      'legs',          'varlamore'),
+  item("Blue moon spear",         'magic-weapon',  'varlamore'),
   item("Eclipse moon tassets",   'legs',          'varlamore'),
   item("Tonalztics of ralos",    'spec-weapon',  'varlamore'),
   item("Dual macuahuitl",        'melee-weapon',  'varlamore'),
