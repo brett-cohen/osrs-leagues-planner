@@ -181,6 +181,7 @@ export const gearItems: GearItem[] = [
   item("Inquisitor's mace",      'melee-weapon', 'morytania'),
   item("Noxious halberd",         'melee-weapon', 'morytania'),
   item("Amulet of rancour",       'neck',         'morytania'),
+  item("Granite ring",            'ring',         'morytania'),
   // Barrows — Ahrim
   item("Ahrim's hood",            'head',         'morytania'),
   item("Ahrim's robetop",         'body',         'morytania'),
