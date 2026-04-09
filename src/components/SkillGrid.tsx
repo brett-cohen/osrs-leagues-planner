@@ -1,10 +1,10 @@
-import { IconCheck, IconStarFilled, IconX } from '@tabler/icons-react'
+import { IconCheck, IconWorld, IconStarFilled, IconX } from '@tabler/icons-react'
 import { skills } from '../data/skills'
 import { regions } from '../data/regions'
 import { relicTiers } from '../data/relics'
 import type { SkillOverrides } from '../App'
 
-type SolveStatus = 'none' | 'minor' | 'major' | 'star'
+type SolveStatus = 'none' | 'region' | 'minor' | 'major' | 'star'
 
 const allRelics = relicTiers.flatMap(t => t.options)
 
@@ -34,18 +34,23 @@ function getSolveStatus(
   if (relicMajor && (relicMinor || hasRegion)) return 'star'
   // Major only → green check
   if (relicMajor) return 'major'
-  // Minor or region → yellow check
-  if (relicMinor || hasRegion) return 'minor'
+  // Minor relic (with or without region) → yellow check
+  if (relicMinor) return 'minor'
+  // Region only → map pin
+  if (hasRegion) return 'region'
 
   return 'none'
 }
 
 const STATUS_ICON: Record<SolveStatus, React.ReactNode> = {
-  none:  <IconX size={12} stroke={2.5} color="#ff4444" />,
-  minor: <IconCheck size={12} stroke={2.5} color="#ffff00" />,
-  major: <IconCheck size={12} stroke={2.5} color="#00c800" />,
-  star:  <IconStarFilled size={12} color="#ff981f" />,
+  none:   <IconX size={12} stroke={2.5} color="#ff4444" />,
+  region: <IconWorld size={12} stroke={2.5} color="#ffff00" />,
+  minor:  <IconCheck size={12} stroke={2.5} color="#ffff00" />,
+  major:  <IconCheck size={12} stroke={2.5} color="#00c800" />,
+  star:   <IconStarFilled size={12} color="#ff981f" />,
 }
+
+const NO_STATUS_SKILLS = new Set(['attack', 'strength', 'defence', 'hitpoints', 'ranged'])
 
 interface Props {
   selectedRegions: string[]
@@ -61,10 +66,11 @@ export function SkillGrid({ selectedRegions, selectedRelics, skillOverrides }: P
     <div className="skill-grid">
       {skills.map(skill => {
         const status = getSolveStatus(skill.id, activeRegionIds, activeRelicIds, skillOverrides)
+        const showStatus = !NO_STATUS_SKILLS.has(skill.id)
         return (
           <div key={skill.id} className={`skill-cell skill-cell--${status}`} title={skill.name}>
             <img src={skill.iconUrl} alt={skill.name} className="skill-cell-icon" />
-            <span className="skill-cell-status">{STATUS_ICON[status]}</span>
+            {showStatus && <span className="skill-cell-status">{STATUS_ICON[status]}</span>}
           </div>
         )
       })}
