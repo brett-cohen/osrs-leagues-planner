@@ -1303,6 +1303,45 @@ img {
 }
 
 /* ============================================================
+   Farming Patches
+   ============================================================ */
+
+.patch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 6px;
+}
+
+.patch-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: var(--mantine-color-osrsBrown-8);
+  border: 2px solid;
+  border-color:
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-4);
+}
+
+.patch-count {
+  color: var(--mantine-color-osrsYellow-5);
+  font-family: 'RuneScape', monospace;
+  font-weight: bold;
+  font-size: var(--mantine-font-size-lg);
+  min-width: 20px;
+  text-align: right;
+}
+
+.patch-type {
+  color: #fff;
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-sm);
+}
+
+/* ============================================================
    Skills & Equipment combined layout
    ============================================================ */
 

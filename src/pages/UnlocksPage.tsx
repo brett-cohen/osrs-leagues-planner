@@ -4,6 +4,7 @@ import { RegionSummary } from '../components/RegionSummary'
 import { RelicMenu } from '../components/RelicMenu'
 import { SkillGrid } from '../components/SkillGrid'
 import { EquipmentLoadout } from '../components/EquipmentLoadout'
+import { FarmingPatches } from '../components/FarmingPatches'
 import { LEAGUE_NAME } from '../data/regions'
 import type { EquipmentSelections, SkillOverrides } from '../App'
 
@@ -56,6 +57,8 @@ export function UnlocksPage({ selectedRegions, onToggleRegion, selectedRelics, o
           <EquipmentLoadout equipment={equipment} onChangeEquipment={onChangeEquipment} selectedRegions={selectedRegions} />
         </Stack>
       </div>
+      <hr className="divider" />
+      <FarmingPatches selectedRegions={selectedRegions} />
     </Stack>
   )
 }
