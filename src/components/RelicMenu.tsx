@@ -57,7 +57,7 @@ function RelicIcon({ relic, isSelected, bonusRelic, onClick }: RelicIconProps) {
           )}
           {relic.majorSkills.length > 0 && (
             <div className="skill-solve-row">
-              <Text c="osrsYellow.5" size="xs">Major</Text>
+              <Text c="green.5" size="xs">Major</Text>
               <div className="skill-solve-icons">
                 {relic.majorSkills.map(id => {
                   const s = skillMap[id]
@@ -68,7 +68,7 @@ function RelicIcon({ relic, isSelected, bonusRelic, onClick }: RelicIconProps) {
           )}
           {relic.minorSkills.length > 0 && (
             <div className="skill-solve-row">
-              <Text c="osrsGold.5" size="xs">Minor</Text>
+              <Text c="osrsYellow.5" size="xs">Minor</Text>
               <div className="skill-solve-icons">
                 {relic.minorSkills.map(id => {
                   const s = skillMap[id]
