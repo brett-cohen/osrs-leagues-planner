@@ -86,7 +86,15 @@ export const relicTiers: RelicTier[] = [
   {
     tier: 3,
     options: [
-      { id: 'unrevealed-3a', name: '???', description: 'Not yet revealed.', iconUrl: '', wikiUrl: '', majorSkills: [], minorSkills: [] },
+      {
+        id: 'bank-heist',
+        name: 'Bank Heist',
+        description: "Grants a banker's briefcase that teleports to any bank, deposit box, or bank chest (including Wilderness) in your unlocked regions.",
+        iconUrl: '',
+        wikiUrl: 'https://oldschool.runescape.wiki/w/Bank_Heist_(Demonic_Pacts_League)',
+        majorSkills: [],
+        minorSkills: [],
+      },
       {
         id: 'evil-eye',
         name: 'Evil Eye',
@@ -199,6 +207,15 @@ export const relicTiers: RelicTier[] = [
     tier: 7,
     options: [
       {
+        id: 'flow-state',
+        name: 'Flow State',
+        description: 'Forces a fixed 2-tick action rate on most gathering and production skills, including Mining, Woodcutting, Fishing, Cooking, Firemaking, Fletching, Smithing, Crafting, Farming, prayer bone offering, and alchemy spells.',
+        iconUrl: '',
+        wikiUrl: 'https://oldschool.runescape.wiki/w/Flow_State_(Demonic_Pacts_League)',
+        majorSkills: ['mining', 'woodcutting', 'fishing', 'cooking', 'firemaking', 'fletching', 'smithing', 'crafting', 'farming'],
+        minorSkills: ['prayer', 'magic'],
+      },
+      {
         id: 'reloaded',
         name: 'Reloaded',
         description: 'Choose one additional relic from any previously available tier.',
@@ -207,7 +224,6 @@ export const relicTiers: RelicTier[] = [
         majorSkills: [],
         minorSkills: [],
       },
-      { id: 'unrevealed-7a', name: '???', description: 'Not yet revealed.', iconUrl: '', wikiUrl: '', majorSkills: [], minorSkills: [] },
     ],
   },
   {
