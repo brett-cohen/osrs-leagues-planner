@@ -3,12 +3,15 @@ import { Modal, ScrollArea, Stack, Text, TextInput } from '@mantine/core'
 import { equipmentSlots, weaponSlots, gearItems, type EquipmentSlot, type GearItem } from '../data/equipment'
 import { regions } from '../data/regions'
 
+const INVENTORY_SLOTS = 28
+const INVENTORY_ICON = 'https://oldschool.runescape.wiki/images/Inventory.png'
+
 export type EquipmentSelections = Record<string, string>
 
 // ─── Gear picker modal ──────────────────────────────────────────────────────
 
 interface PickerProps {
-  slotId: string
+  slotId: string | null
   slotName: string
   availableRegionIds: Set<string>
   onPick: (itemId: string) => void
@@ -20,7 +23,7 @@ function GearPicker({ slotId, slotName, availableRegionIds, onPick, onClear, cur
   const [search, setSearch] = useState('')
 
   const items = gearItems.filter(g =>
-    g.slot === slotId &&
+    (slotId === null || g.slot === slotId) &&
     availableRegionIds.has(g.region) &&
     (search === '' || g.name.toLowerCase().includes(search.toLowerCase()))
   )
@@ -96,9 +99,19 @@ interface Props {
   selectedRegions: string[]
 }
 
+type EditTarget = { type: 'equip'; slot: EquipmentSlot } | { type: 'inv'; index: number }
+
 export function EquipmentLoadout({ equipment, onChangeEquipment, selectedRegions }: Props) {
-  const [editingSlot, setEditingSlot] = useState<EquipmentSlot | null>(null)
+  const [editing, setEditing] = useState<EditTarget | null>(null)
   const availableRegionIds = new Set(['varlamore', 'karamja', 'global', ...selectedRegions])
+
+  const editingKey = editing
+    ? editing.type === 'equip' ? editing.slot.id : `inv-${editing.index}`
+    : null
+  const editingName = editing
+    ? editing.type === 'equip' ? editing.slot.name : `Inventory Slot ${editing.index + 1}`
+    : ''
+  const editingSlotFilter = editing?.type === 'equip' ? editing.slot.id : null
 
   function getSelectedItem(slotId: string): GearItem | undefined {
     const itemId = equipment[slotId]
@@ -106,19 +119,19 @@ export function EquipmentLoadout({ equipment, onChangeEquipment, selectedRegions
   }
 
   function handlePick(itemId: string) {
-    if (!editingSlot) return
-    onChangeEquipment(prev => ({ ...prev, [editingSlot.id]: itemId }))
-    setEditingSlot(null)
+    if (!editingKey) return
+    onChangeEquipment(prev => ({ ...prev, [editingKey]: itemId }))
+    setEditing(null)
   }
 
   function handleClear() {
-    if (!editingSlot) return
+    if (!editingKey) return
     onChangeEquipment(prev => {
       const next = { ...prev }
-      delete next[editingSlot.id]
+      delete next[editingKey]
       return next
     })
-    setEditingSlot(null)
+    setEditing(null)
   }
 
   return (
@@ -128,17 +141,17 @@ export function EquipmentLoadout({ equipment, onChangeEquipment, selectedRegions
           <div className="equip-section">
             <Text c="osrsYellow.5" fw="bold" size="xs" mb={4}>Armour</Text>
             <div className="equip-grid">
-              <div /><SlotButton slot={equipmentSlots[0]} selectedItem={getSelectedItem('head')} onClick={() => setEditingSlot(equipmentSlots[0])} /><div />
-              <SlotButton slot={equipmentSlots[1]} selectedItem={getSelectedItem('cape')} onClick={() => setEditingSlot(equipmentSlots[1])} />
-              <SlotButton slot={equipmentSlots[2]} selectedItem={getSelectedItem('neck')} onClick={() => setEditingSlot(equipmentSlots[2])} />
-              <SlotButton slot={equipmentSlots[3]} selectedItem={getSelectedItem('ammo')} onClick={() => setEditingSlot(equipmentSlots[3])} />
+              <div /><SlotButton slot={equipmentSlots[0]} selectedItem={getSelectedItem('head')} onClick={() => setEditing({ type: 'equip', slot: equipmentSlots[0] })} /><div />
+              <SlotButton slot={equipmentSlots[1]} selectedItem={getSelectedItem('cape')} onClick={() => setEditing({ type: 'equip', slot: equipmentSlots[1] })} />
+              <SlotButton slot={equipmentSlots[2]} selectedItem={getSelectedItem('neck')} onClick={() => setEditing({ type: 'equip', slot: equipmentSlots[2] })} />
+              <SlotButton slot={equipmentSlots[3]} selectedItem={getSelectedItem('ammo')} onClick={() => setEditing({ type: 'equip', slot: equipmentSlots[3] })} />
               <div />
-              <SlotButton slot={equipmentSlots[4]} selectedItem={getSelectedItem('body')} onClick={() => setEditingSlot(equipmentSlots[4])} />
-              <SlotButton slot={equipmentSlots[5]} selectedItem={getSelectedItem('shield')} onClick={() => setEditingSlot(equipmentSlots[5])} />
-              <div /><SlotButton slot={equipmentSlots[6]} selectedItem={getSelectedItem('legs')} onClick={() => setEditingSlot(equipmentSlots[6])} /><div />
-              <SlotButton slot={equipmentSlots[7]} selectedItem={getSelectedItem('hands')} onClick={() => setEditingSlot(equipmentSlots[7])} />
-              <SlotButton slot={equipmentSlots[8]} selectedItem={getSelectedItem('feet')} onClick={() => setEditingSlot(equipmentSlots[8])} />
-              <SlotButton slot={equipmentSlots[9]} selectedItem={getSelectedItem('ring')} onClick={() => setEditingSlot(equipmentSlots[9])} />
+              <SlotButton slot={equipmentSlots[4]} selectedItem={getSelectedItem('body')} onClick={() => setEditing({ type: 'equip', slot: equipmentSlots[4] })} />
+              <SlotButton slot={equipmentSlots[5]} selectedItem={getSelectedItem('shield')} onClick={() => setEditing({ type: 'equip', slot: equipmentSlots[5] })} />
+              <div /><SlotButton slot={equipmentSlots[6]} selectedItem={getSelectedItem('legs')} onClick={() => setEditing({ type: 'equip', slot: equipmentSlots[6] })} /><div />
+              <SlotButton slot={equipmentSlots[7]} selectedItem={getSelectedItem('hands')} onClick={() => setEditing({ type: 'equip', slot: equipmentSlots[7] })} />
+              <SlotButton slot={equipmentSlots[8]} selectedItem={getSelectedItem('feet')} onClick={() => setEditing({ type: 'equip', slot: equipmentSlots[8] })} />
+              <SlotButton slot={equipmentSlots[9]} selectedItem={getSelectedItem('ring')} onClick={() => setEditing({ type: 'equip', slot: equipmentSlots[9] })} />
             </div>
           </div>
 
@@ -146,17 +159,40 @@ export function EquipmentLoadout({ equipment, onChangeEquipment, selectedRegions
             <Text c="osrsYellow.5" fw="bold" size="xs" mb={4}>Weapons</Text>
             <div className="equip-weapons">
               {weaponSlots.map(slot => (
-                <SlotButton key={slot.id} slot={slot} selectedItem={getSelectedItem(slot.id)} onClick={() => setEditingSlot(slot)} />
+                <SlotButton key={slot.id} slot={slot} selectedItem={getSelectedItem(slot.id)} onClick={() => setEditing({ type: 'equip', slot })} />
               ))}
+            </div>
+          </div>
+
+          <div className="equip-section">
+            <Text c="osrsYellow.5" fw="bold" size="xs" mb={4}>Inventory</Text>
+            <div className="equip-inventory">
+              {Array.from({ length: INVENTORY_SLOTS }, (_, i) => {
+                const key = `inv-${i}`
+                const item = getSelectedItem(key)
+                return (
+                  <button
+                    key={i}
+                    className="equip-inv-slot"
+                    onClick={() => setEditing({ type: 'inv', index: i })}
+                    title={item?.name ?? `Slot ${i + 1}`}
+                  >
+                    {item
+                      ? <img src={item.iconUrl} alt={item.name} className="equip-slot-icon equip-slot-icon--filled" />
+                      : <img src={INVENTORY_ICON} alt="" className="equip-slot-icon" />
+                    }
+                  </button>
+                )
+              })}
             </div>
           </div>
         </div>
       </Stack>
 
       <Modal
-        opened={editingSlot !== null}
-        onClose={() => setEditingSlot(null)}
-        title={editingSlot?.name ?? ''}
+        opened={editing !== null}
+        onClose={() => setEditing(null)}
+        title={editingName}
         size="md"
         classNames={{
           content: 'osrs-modal',
@@ -165,14 +201,14 @@ export function EquipmentLoadout({ equipment, onChangeEquipment, selectedRegions
           close: 'osrs-modal-close',
         }}
       >
-        {editingSlot && (
+        {editing && editingKey && (
           <GearPicker
-            slotId={editingSlot.id}
-            slotName={editingSlot.name}
+            slotId={editingSlotFilter}
+            slotName={editingName}
             availableRegionIds={availableRegionIds}
             onPick={handlePick}
             onClear={handleClear}
-            currentItemId={equipment[editingSlot.id] ?? ''}
+            currentItemId={equipment[editingKey] ?? ''}
           />
         )}
       </Modal>

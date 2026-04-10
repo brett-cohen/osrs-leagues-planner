@@ -1474,6 +1474,33 @@ img {
   width: 160px;
 }
 
+.equip-inventory {
+  display: grid;
+  grid-template-columns: repeat(4, 44px);
+  gap: 3px;
+}
+
+.equip-inv-slot {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--mantine-color-osrsBrown-8);
+  border: 2px solid;
+  border-color:
+    var(--mantine-color-osrsBrown-4)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-9)
+    var(--mantine-color-osrsBrown-4);
+  cursor: pointer;
+  padding: 3px;
+}
+
+.equip-inv-slot:hover {
+  border-color: var(--mantine-color-osrsYellow-5);
+}
+
 .equip-slot {
   display: flex;
   align-items: center;
