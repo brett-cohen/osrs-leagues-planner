@@ -124,6 +124,26 @@
   color: #fff;
 }
 
+/* ============================================================
+   Footer
+   ============================================================ */
+
+.app-footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--mantine-spacing-xl) var(--mantine-spacing-xl) var(--mantine-spacing-md);
+  border-top: 1px solid var(--mantine-color-osrsBrown-8);
+}
+
+.app-footer p {
+  color: var(--mantine-color-osrsBrown-5);
+  font-family: 'RuneScape', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+  margin: 0;
+}
+
 /* Global overrides that live outside the Mantine theme */
 
 body {

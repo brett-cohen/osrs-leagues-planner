@@ -102,6 +102,14 @@ function App() {
           <ConfigPage skillOverrides={skillOverrides} onChangeOverrides={setSkillOverrides} />
         )}
       </div>
+      <footer className="app-footer">
+        <p>
+          This is a fan-made tool and is not affiliated with, endorsed by, or associated with Jagex Ltd.
+          Old School RuneScape is a registered trademark of Jagex Ltd.
+          All game assets, names, and related content are the property of Jagex Ltd.
+          Use of these materials is done under the belief of fair use for non-commercial, community purposes.
+        </p>
+      </footer>
     </>
   )
 }
