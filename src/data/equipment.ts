@@ -100,7 +100,7 @@ export const gearItems: GearItem[] = [
   item("Dinh's bulwark",           'shield',       'zeah'),
   item("Brimstone ring",           'ring',         'zeah'),
   item("Brimstone boots",          'feet',         'zeah'),
-  item("Holy sandals",             'feet',         'zeah'),
+  item("Holy sandals",             'feet',         'global'),
   item("Sarachnis cudgel",         'melee-weapon', 'zeah'),
   item("Bonecrusher necklace",     'neck',         'zeah'),
   item("Twisted buckler",          'shield',       'zeah'),
@@ -204,6 +204,7 @@ export const gearItems: GearItem[] = [
   item("Warped sceptre",          'magic-weapon',  'kandarin'),
   item("Dragon scimitar",         'melee-weapon',  'kandarin'),
   item("Mythical cape",           'cape',          'kandarin'),
+  item("Ardougne cloak 4",        'cape',          'kandarin'),
 
   // ─── Morytania ─────────────────────────────────────────────────────────────
   item("Justiciar faceguard",    'head',          'morytania'),
