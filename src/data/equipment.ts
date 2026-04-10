@@ -32,10 +32,10 @@ export const weaponSlots: EquipmentSlot[] = [
   { id: 'spec-weapon',   name: 'Spec Weapon',   iconUrl: 'https://oldschool.runescape.wiki/images/2h_slot.png' },
 ]
 
-function item(name: string, slot: string, region: string): GearItem {
+function item(name: string, slot: string, region: string, iconOverride?: string): GearItem {
   const id = name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
   const wikiName = name.replace(/ /g, '_').replace(/'/g, '%27')
-  return { id, name, slot, region, iconUrl: `https://oldschool.runescape.wiki/images/${wikiName}.png` }
+  return { id, name, slot, region, iconUrl: iconOverride ?? `https://oldschool.runescape.wiki/images/${wikiName}.png` }
 }
 
 export const gearItems: GearItem[] = [
@@ -295,4 +295,24 @@ export const gearItems: GearItem[] = [
   item("Abyssal bludgeon",         'melee-weapon', 'global'),
   item("Max cape",                  'cape',         'global'),
 
+  // ─── Echo Boss Rewards ─────────────────────────────────────────────────────
+  // Echo Amoxliatl (Varlamore)
+  item("Infernal tecpatl",          'melee-weapon', 'varlamore', 'https://oldschool.runescape.wiki/images/Infernal_tecpatl.png?97e56'),
+  // Echo Cerberus (Asgarnia)
+  item("Fang of the hound",         'melee-weapon', 'asgarnia', 'https://oldschool.runescape.wiki/images/Fang_of_the_hound.png?3d789'),
+  // Echo Kalphite Queen (Desert)
+  item("Drygore blowpipe",          'ranged-weapon','desert'),
+  // Echo Dagannoth Kings (Fremennik)
+  item("V's helm",                   'head',         'fremennik'),
+  // Echo Thermonuclear Smoke Devil (Kandarin)
+  item("Shadowflame quadrant",       'magic-weapon', 'kandarin', 'https://oldschool.runescape.wiki/images/Shadowflame_quadrant.png?e708f'),
+  item("Devil's element",            'shield',       'kandarin'),
+  // Echo Hespori (Zeah)
+  item("Nature's recurve",           'ranged-weapon','zeah'),
+  // Echo Grotesque Guardians (Morytania)
+  item("Lithic sceptre",             'magic-weapon', 'morytania', 'https://oldschool.runescape.wiki/images/Lithic_sceptre.png?9a18f'),
+  // Echo Corrupted Hunllef (Tirannwn)
+  item("Crystal blessing",           'ammo',         'tirannwn'),
+  // Echo King Black Dragon (Wilderness)
+  item("King's barrage",             'ranged-weapon','wilderness'),
 ]
