@@ -72,7 +72,10 @@ function App() {
         if (relicId === 'reloaded') delete next['reloaded-bonus']
         return next
       }
-      return { ...prev, [key]: relicId }
+      const next = { ...prev, [key]: relicId }
+      // Clear reloaded bonus when switching tier 7 away from Reloaded
+      if (tier === 7 && relicId !== 'reloaded') delete next['reloaded-bonus']
+      return next
     })
   }
 
