@@ -19,14 +19,6 @@ const MAX_REGIONS = 3
 function App() {
   const [page, setPage] = useState<Page>('unlocks')
   const summaryRef = useRef<CharacterSummaryHandle>(null)
-  const [exporting, setExporting] = useState(false)
-
-  async function handleExport() {
-    if (!summaryRef.current || exporting) return
-    setExporting(true)
-    await summaryRef.current.exportPng()
-    setExporting(false)
-  }
 
   const [selectedRegions, setSelectedRegions] = useLocalStorage<string[]>({
     key: 'osrs-leagues-selected-regions',
@@ -84,7 +76,7 @@ function App() {
 
   return (
     <>
-      <NavBar current={page} onChange={setPage} onExport={handleExport} exporting={exporting} />
+      <NavBar current={page} onChange={setPage} onExport={() => summaryRef.current?.openModal()} />
       <CharacterSummary
         ref={summaryRef}
         selectedRegions={selectedRegions}

@@ -1,4 +1,5 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react'
+import { Modal, Stack, TextInput } from '@mantine/core'
 import html2canvas from 'html2canvas'
 import { IconCheck, IconWorld, IconStarFilled, IconX } from '@tabler/icons-react'
 import { regions } from '../data/regions'
@@ -61,16 +62,17 @@ interface Props {
 }
 
 export interface CharacterSummaryHandle {
-  exportPng: () => Promise<void>
-  exporting: boolean
+  openModal: () => void
 }
 
 export const CharacterSummary = forwardRef<CharacterSummaryHandle, Props>(function CharacterSummary({ selectedRegions, selectedRelics, equipment, skillOverrides }, ref) {
   const cardRef = useRef<HTMLDivElement>(null)
+  const [modalOpen, setModalOpen] = useState(false)
+  const [planName, setPlanName] = useState('')
+  const [exporting, setExporting] = useState(false)
 
   const activeRegionIds = new Set(['varlamore', 'karamja', ...selectedRegions])
   const activeRelicIds = new Set(Object.values(selectedRelics))
-  // Only show user-selected regions (exclude start/auto)
   const chosenRegions = regions.filter(r => selectedRegions.includes(r.id))
 
   function getItem(slotId: string) {
@@ -78,22 +80,31 @@ export const CharacterSummary = forwardRef<CharacterSummaryHandle, Props>(functi
     return id ? gearItems.find(g => g.id === id) : undefined
   }
 
-  const [exporting, setExporting] = useState(false)
-
-  async function exportPng() {
+  async function downloadPng() {
     if (!cardRef.current || exporting) return
     setExporting(true)
     try {
-      const canvas = await html2canvas(cardRef.current, {
+      const el = cardRef.current
+      const rect = el.getBoundingClientRect()
+      const canvas = await html2canvas(el, {
         scale: 2,
-        backgroundColor: '#000',
+        backgroundColor: null,
         useCORS: true,
         allowTaint: true,
         logging: false,
+        width: rect.width,
+        height: rect.height,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: rect.width,
+        windowHeight: rect.height,
       })
       const a = document.createElement('a')
       a.href = canvas.toDataURL('image/png')
-      a.download = 'leagues-character.png'
+      const filename = planName.trim()
+        ? `${planName.trim().replace(/[^a-z0-9]+/gi, '-').toLowerCase()}-leagues-plan.png`
+        : 'leagues-plan.png'
+      a.download = filename
       a.click()
     } catch (err) {
       console.error('PNG export failed:', err)
@@ -101,13 +112,34 @@ export const CharacterSummary = forwardRef<CharacterSummaryHandle, Props>(functi
     setExporting(false)
   }
 
-  useImperativeHandle(ref, () => ({ exportPng, exporting }))
+  useImperativeHandle(ref, () => ({ openModal: () => setModalOpen(true) }))
+
+  const subtitle = planName.trim() || 'Character Plan'
 
   return (
-    <div className="summary-card summary-card--offscreen" ref={cardRef}>
-        {/* Header */}
-        <div className="summary-title">{LEAGUE_NAME}</div>
-        <div className="summary-subtitle">Character Plan</div>
+    <Modal
+      opened={modalOpen}
+      onClose={() => setModalOpen(false)}
+      title="Export Summary"
+      size="auto"
+      classNames={{
+        content: 'osrs-modal',
+        header: 'osrs-modal-header',
+        title: 'osrs-modal-title',
+        close: 'osrs-modal-close',
+      }}
+    >
+      <Stack gap="md">
+        <TextInput
+          placeholder="Plan name (optional)"
+          value={planName}
+          onChange={e => setPlanName(e.currentTarget.value)}
+          classNames={{ input: 'osrs-input' }}
+        />
+
+          <div className="summary-card" ref={cardRef}>
+            <div className="summary-title">{LEAGUE_NAME}</div>
+            <div className="summary-subtitle">{subtitle}</div>
 
         {/* Relics — horizontal tier row */}
         <div className="summary-relic-row">
@@ -211,7 +243,17 @@ export const CharacterSummary = forwardRef<CharacterSummaryHandle, Props>(functi
         </div>
 
         <div className="summary-watermark">osrs-leagues-planner</div>
-      </div>
+          </div>
+
+        <button
+          className="summary-download-btn"
+          onClick={downloadPng}
+          disabled={exporting}
+        >
+          {exporting ? 'Exporting…' : 'Download PNG'}
+        </button>
+      </Stack>
+    </Modal>
   )
 })
 
