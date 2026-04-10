@@ -1069,6 +1069,8 @@ img {
 }
 
 .summary-card {
+  position: relative;
+  overflow: hidden;
   width: 760px;
   padding: 22px;
   background:
@@ -1337,12 +1339,23 @@ img {
   line-height: 0;
 }
 
+/* ─── Ember particles (canvas-rendered) ────────────────────── */
+
+.summary-embers-canvas {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+}
+
 .summary-watermark {
   color: #6b3020;
   font-size: 11px;
   text-align: right;
   margin-top: 10px;
   text-shadow: 0 1px 0 #000;
+  position: relative;
+  z-index: 1;
 }
 
 /* ============================================================

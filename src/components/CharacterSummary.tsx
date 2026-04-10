@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useRef, useState } from 'react'
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { Modal, Stack, TextInput } from '@mantine/core'
 import html2canvas from 'html2canvas'
 import { IconCheck, IconWorld, IconStarFilled, IconX } from '@tabler/icons-react'
@@ -242,6 +242,9 @@ export const CharacterSummary = forwardRef<CharacterSummaryHandle, Props>(functi
           </div>
         </div>
 
+        {/* Decorative embers — drawn on canvas for reliable export */}
+        <EmberCanvas />
+
         <div className="summary-watermark">osrs-leagues-planner</div>
           </div>
 
@@ -266,5 +269,66 @@ function EquipSlot({ item, fallback }: { item: ReturnType<typeof gearItems.find>
         className={`summary-equip-cell-icon${item ? '' : ' summary-equip-cell-icon--empty'}`}
       />
     </div>
+  )
+}
+
+const EMBERS = [
+  { x: 25, y: 180, r: 3,   color: [255,106,0], glow: 12 },
+  { x: 55, y: 150, r: 2,   color: [255,170,0], glow: 9 },
+  { x: 15, y: 135, r: 4,   color: [255,68,0],  glow: 16 },
+  { x: 80, y: 170, r: 1.5, color: [255,204,0], glow: 7 },
+  { x: 45, y: 100, r: 2.5, color: [255,85,0],  glow: 12 },
+  { x: 12, y: 202, r: 5,   color: [255,51,0],  glow: 20 },
+  { x: 100,y: 125, r: 1.5, color: [255,221,68], glow: 6 },
+  { x: 65, y: 195, r: 3.5, color: [255,85,0],  glow: 14 },
+  { x: 120,y: 160, r: 2,   color: [255,136,0], glow: 9 },
+  { x: 35, y: 70,  r: 2.5, color: [255,51,0],  glow: 12 },
+  { x: 145,y: 185, r: 1.5, color: [255,187,0], glow: 7 },
+  { x: 90, y: 80,  r: 3,   color: [255,68,0],  glow: 14 },
+  { x: 150,y: 175, r: 2,   color: [255,170,0], glow: 10 },
+  { x: 55, y: 60,  r: 3.5, color: [255,51,0],  glow: 16 },
+  { x: 175,y: 190, r: 1.5, color: [255,221,68], glow: 7 },
+  { x: 110,y: 75,  r: 2.5, color: [255,102,0], glow: 12 },
+]
+
+const EMBER_W = 240
+const EMBER_H = 220
+const EMBER_SCALE = 2
+
+function EmberCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  const draw = useCallback(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    ctx.setTransform(EMBER_SCALE, 0, 0, EMBER_SCALE, 0, 0)
+    ctx.clearRect(0, 0, EMBER_W, EMBER_H)
+
+    for (const e of EMBERS) {
+      const grad = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, e.glow)
+      grad.addColorStop(0, `rgba(${e.color.join(',')}, 0.95)`)
+      grad.addColorStop(e.r / e.glow, `rgba(${e.color.join(',')}, 0.7)`)
+      grad.addColorStop(0.5, `rgba(${e.color[0]}, ${Math.floor(e.color[1]*0.6)}, 0, 0.25)`)
+      grad.addColorStop(1, 'transparent')
+      ctx.beginPath()
+      ctx.arc(e.x, e.y, e.glow, 0, Math.PI * 2)
+      ctx.fillStyle = grad
+      ctx.fill()
+    }
+  }, [])
+
+  useEffect(() => { draw() }, [draw])
+
+  return (
+    <canvas
+      ref={canvasRef}
+      width={EMBER_W * EMBER_SCALE}
+      height={EMBER_H * EMBER_SCALE}
+      className="summary-embers-canvas"
+      style={{ width: EMBER_W, height: EMBER_H }}
+    />
   )
 }
