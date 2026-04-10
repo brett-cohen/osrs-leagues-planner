@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLocalStorage } from '@mantine/hooks'
 import { NavBar, type Page } from './components/NavBar'
 import { CharacterSummary, type CharacterSummaryHandle } from './components/CharacterSummary'
@@ -19,6 +19,20 @@ const MAX_REGIONS = 3
 function App() {
   const [page, setPage] = useState<Page>('unlocks')
   const summaryRef = useRef<CharacterSummaryHandle>(null)
+
+  // Easter egg: type "yama" to toggle demonic mode
+  const [yamaMode, setYamaMode] = useState(false)
+  useEffect(() => {
+    const seq = 'yama'
+    let buf = ''
+    function onKey(e: KeyboardEvent) {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return
+      buf = (buf + e.key.toLowerCase()).slice(-seq.length)
+      if (buf === seq) setYamaMode(prev => !prev)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
 
   const [selectedRegions, setSelectedRegions] = useLocalStorage<string[]>({
     key: 'osrs-leagues-selected-regions',
@@ -83,6 +97,7 @@ function App() {
         selectedRelics={selectedRelics}
         equipment={equipment}
         skillOverrides={skillOverrides}
+        yamaMode={yamaMode}
       />
       <div className="app-content">
         {page === 'unlocks' && (

@@ -59,13 +59,14 @@ interface Props {
   selectedRelics: Record<string, string>
   equipment: EquipmentSelections
   skillOverrides: SkillOverrides
+  yamaMode: boolean
 }
 
 export interface CharacterSummaryHandle {
   openModal: () => void
 }
 
-export const CharacterSummary = forwardRef<CharacterSummaryHandle, Props>(function CharacterSummary({ selectedRegions, selectedRelics, equipment, skillOverrides }, ref) {
+export const CharacterSummary = forwardRef<CharacterSummaryHandle, Props>(function CharacterSummary({ selectedRegions, selectedRelics, equipment, skillOverrides, yamaMode }, ref) {
   const cardRef = useRef<HTMLDivElement>(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [planName, setPlanName] = useState('')
@@ -242,8 +243,8 @@ export const CharacterSummary = forwardRef<CharacterSummaryHandle, Props>(functi
           </div>
         </div>
 
-        {/* Decorative embers — drawn on canvas for reliable export */}
-        <EmberCanvas />
+        {/* Decorative embers or Yama easter egg */}
+        {yamaMode ? <YamaOverlay /> : <EmberCanvas />}
 
         <div className="summary-watermark">osrs-leagues-planner</div>
           </div>
@@ -307,6 +308,29 @@ function EmberCanvas() {
     ctx.setTransform(EMBER_SCALE, 0, 0, EMBER_SCALE, 0, 0)
     ctx.clearRect(0, 0, EMBER_W, EMBER_H)
 
+    // Flame wisps behind embers — large, overlapping to simulate off-screen fire
+    const wisps = [
+      { x: -10, y: 220, r: 80, color: 'rgba(255, 60, 0, 0.4)' },
+      { x: 30,  y: 210, r: 70, color: 'rgba(255, 80, 0, 0.35)' },
+      { x: 70,  y: 200, r: 60, color: 'rgba(255, 50, 0, 0.3)' },
+      { x: -5,  y: 180, r: 65, color: 'rgba(200, 30, 0, 0.3)' },
+      { x: 50,  y: 185, r: 55, color: 'rgba(255, 100, 20, 0.25)' },
+      { x: 110, y: 195, r: 50, color: 'rgba(255, 60, 0, 0.2)' },
+      { x: 20,  y: 160, r: 50, color: 'rgba(200, 40, 0, 0.2)' },
+      { x: 140, y: 205, r: 40, color: 'rgba(255, 80, 0, 0.15)' },
+      { x: 80,  y: 170, r: 45, color: 'rgba(255, 50, 0, 0.18)' },
+    ]
+    for (const w of wisps) {
+      const g = ctx.createRadialGradient(w.x, w.y, 0, w.x, w.y, w.r)
+      g.addColorStop(0, w.color)
+      g.addColorStop(1, 'transparent')
+      ctx.beginPath()
+      ctx.arc(w.x, w.y, w.r, 0, Math.PI * 2)
+      ctx.fillStyle = g
+      ctx.fill()
+    }
+
+    // Ember particles
     for (const e of EMBERS) {
       const grad = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, e.glow)
       grad.addColorStop(0, `rgba(${e.color.join(',')}, 0.95)`)
@@ -329,6 +353,101 @@ function EmberCanvas() {
       height={EMBER_H * EMBER_SCALE}
       className="summary-embers-canvas"
       style={{ width: EMBER_W, height: EMBER_H }}
+    />
+  )
+}
+
+const YAMA_W = 120
+const YAMA_H = 140
+const YAMA_SCALE = 1
+const YAMA_IMG_URL = 'https://oldschool.runescape.wiki/images/Yama.png'
+
+function YamaOverlay() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  const draw = useCallback(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    ctx.setTransform(YAMA_SCALE, 0, 0, YAMA_SCALE, 0, 0)
+    ctx.clearRect(0, 0, YAMA_W, YAMA_H)
+
+    // Fiery background glow
+    const bgGlow = ctx.createRadialGradient(YAMA_W / 2, YAMA_H * 0.6, 3, YAMA_W / 2, YAMA_H * 0.6, 70)
+    bgGlow.addColorStop(0, 'rgba(255, 60, 0, 0.45)')
+    bgGlow.addColorStop(0.3, 'rgba(200, 20, 0, 0.25)')
+    bgGlow.addColorStop(0.6, 'rgba(120, 10, 0, 0.12)')
+    bgGlow.addColorStop(1, 'transparent')
+    ctx.fillStyle = bgGlow
+    ctx.fillRect(0, 0, YAMA_W, YAMA_H)
+
+    // Flame wisps behind yama
+    const flames = [
+      { x: 35, y: 95,  r: 22, color: 'rgba(255, 80, 0, 0.4)' },
+      { x: 75, y: 100, r: 20, color: 'rgba(255, 50, 0, 0.35)' },
+      { x: 55, y: 85,  r: 28, color: 'rgba(200, 30, 0, 0.3)' },
+      { x: 45, y: 115, r: 18, color: 'rgba(255, 100, 20, 0.4)' },
+      { x: 68, y: 120, r: 16, color: 'rgba(255, 60, 0, 0.35)' },
+    ]
+    for (const f of flames) {
+      const g = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.r)
+      g.addColorStop(0, f.color)
+      g.addColorStop(1, 'transparent')
+      ctx.beginPath()
+      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2)
+      ctx.fillStyle = g
+      ctx.fill()
+    }
+
+    // Draw embers around the face
+    for (const e of EMBERS.slice(0, 10)) {
+      const grad = ctx.createRadialGradient(e.x + 20, e.y + 30, 0, e.x + 20, e.y + 30, e.glow)
+      grad.addColorStop(0, `rgba(${e.color.join(',')}, 0.95)`)
+      grad.addColorStop(e.r / e.glow, `rgba(${e.color.join(',')}, 0.7)`)
+      grad.addColorStop(0.5, `rgba(${e.color[0]}, ${Math.floor(e.color[1] * 0.6)}, 0, 0.25)`)
+      grad.addColorStop(1, 'transparent')
+      ctx.beginPath()
+      ctx.arc(e.x + 20, e.y + 30, e.glow, 0, Math.PI * 2)
+      ctx.fillStyle = grad
+      ctx.fill()
+    }
+
+    // Load and draw Yama
+    const img = new Image()
+    img.crossOrigin = 'anonymous'
+    img.onload = () => {
+      // Draw just the upper portion (head/face) of Yama
+      const cropH = img.height * 0.45
+      const drawW = YAMA_W * 1.15
+      const drawH = (cropH / img.width) * drawW
+      const dx = (YAMA_W - drawW) / 2
+      const dy = YAMA_H - drawH - 5
+
+      // Red underglow behind face
+      const faceGlow = ctx.createRadialGradient(YAMA_W / 2, dy + drawH * 0.5, 5, YAMA_W / 2, dy + drawH * 0.5, drawW * 0.6)
+      faceGlow.addColorStop(0, 'rgba(255, 40, 0, 0.5)')
+      faceGlow.addColorStop(0.5, 'rgba(180, 20, 0, 0.2)')
+      faceGlow.addColorStop(1, 'transparent')
+      ctx.fillStyle = faceGlow
+      ctx.fillRect(0, 0, YAMA_W, YAMA_H)
+
+      // Source: full width, top 45% of image
+      ctx.drawImage(img, 0, 0, img.width, cropH, dx, dy, drawW, drawH)
+    }
+    img.src = YAMA_IMG_URL
+  }, [])
+
+  useEffect(() => { draw() }, [draw])
+
+  return (
+    <canvas
+      ref={canvasRef}
+      width={YAMA_W * YAMA_SCALE}
+      height={YAMA_H * YAMA_SCALE}
+      className="summary-yama-canvas"
+      style={{ width: YAMA_W, height: YAMA_H }}
     />
   )
 }
