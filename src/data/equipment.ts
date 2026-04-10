@@ -67,7 +67,7 @@ export const gearItems: GearItem[] = [
   item("Hueycoatl hide chaps",     'legs',          'varlamore'),
   item("Arkan blade",              'melee-weapon',  'varlamore'),
   item("Echo boots",               'feet',          'varlamore'),
-  item("Sunlight hunters' crossbow", 'ranged-weapon','varlamore'),
+  item("Hunters' sunlight crossbow", 'ranged-weapon','varlamore'),
 
   // ─── Karamja ───────────────────────────────────────────────────────────────
   item("Fire cape",              'cape',          'karamja'),
@@ -135,9 +135,9 @@ export const gearItems: GearItem[] = [
   item("Tyrannical ring",        'ring',          'wilderness'),
   item("Malediction ward",       'shield',        'wilderness'),
   item("Odium ward",             'shield',        'wilderness'),
-  item("Dagonhai hat",             'head',         'wilderness'),
-  item("Dagonhai robe top",        'body',         'wilderness'),
-  item("Dagonhai robe bottom",     'legs',         'wilderness'),
+  item("Dagon'hai hat",             'head',         'wilderness'),
+  item("Dagon'hai robe top",        'body',         'wilderness'),
+  item("Dagon'hai robe bottom",     'legs',         'wilderness'),
   item("Dragon boots",             'feet',         'wilderness'),
   item("Imbued zamorak cape",           'cape',          'wilderness'),
   item("Imbued saradomin cape",           'cape',          'wilderness'),
@@ -294,6 +294,13 @@ export const gearItems: GearItem[] = [
   item("Abyssal dagger",           'spec-weapon',  'global'),
   item("Abyssal bludgeon",         'melee-weapon', 'global'),
   item("Max cape",                  'cape',         'global'),
+  // Clue scroll prayer gear (Guthix variants as representative)
+  item("Guthix mitre",              'head',         'global'),
+  item("Guthix stole",              'neck',         'global'),
+  item("Guthix crozier",            'melee-weapon', 'global'),
+  item("Guthix robe top",           'body',         'global'),
+  item("Guthix robe legs",          'legs',         'global'),
+  item("Guthix cloak",              'cape',         'global'),
 
   // ─── Echo Boss Rewards ─────────────────────────────────────────────────────
   // Echo Amoxliatl (Varlamore)
