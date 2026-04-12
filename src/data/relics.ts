@@ -241,7 +241,7 @@ export const relicTiers: RelicTier[] = [
         id: 'executioner',
         name: 'Executioner',
         description: "Grants the Sage's axe, which instantly kills targets below 20% health from up to 5 tiles away.",
-        iconUrl: 'https://oldschool.runescape.wiki/images/Executioner_detail.png?ed5b7',
+        iconUrl: 'https://oldschool.runescape.wiki/images/Executioners_axe.png',
         wikiUrl: 'https://oldschool.runescape.wiki/w/Executioner',
         majorSkills: [],
         minorSkills: [],
