@@ -191,7 +191,15 @@ export const relicTiers: RelicTier[] = [
         majorSkills: ['magic'],
         minorSkills: ['prayer'],
       },
-      { id: 'unrevealed-6a', name: '???', description: 'Not yet revealed.', iconUrl: '', wikiUrl: '', majorSkills: [], minorSkills: [] },
+      {
+        id: 'eternal-sustenance',
+        name: 'Eternal Sustenance',
+        description: 'Food is no longer consumed when eaten, providing unlimited healing from a single piece of food.',
+        iconUrl: 'https://oldschool.runescape.wiki/images/Eternal_Sustenance_%28Demonic_Pacts_League%29_detail.png',
+        wikiUrl: 'https://oldschool.runescape.wiki/w/Eternal_Sustenance_(Demonic_Pacts_League)',
+        majorSkills: [],
+        minorSkills: ['cooking'],
+      },
       {
         id: 'culling-spree',
         name: 'Culling Spree',
@@ -229,7 +237,15 @@ export const relicTiers: RelicTier[] = [
   {
     tier: 8,
     options: [
-      { id: 'unrevealed-8a', name: '???', description: 'Not yet revealed.', iconUrl: '', wikiUrl: '', majorSkills: [], minorSkills: [] },
+      {
+        id: 'executioner',
+        name: 'Executioner',
+        description: "Grants the Sage's axe, which instantly kills targets below 20% health from up to 5 tiles away.",
+        iconUrl: 'https://oldschool.runescape.wiki/images/Executioner_detail.png?ed5b7',
+        wikiUrl: 'https://oldschool.runescape.wiki/w/Executioner',
+        majorSkills: [],
+        minorSkills: [],
+      },
       {
         id: 'minion',
         name: 'Minion',
