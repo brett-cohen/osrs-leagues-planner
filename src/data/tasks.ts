@@ -14,11 +14,13 @@ export interface Task {
   region: string
   difficulty: Difficulty
   name: string
+  /** Whether this task awards a demonic pact point */
+  pactPoint: boolean
 }
 
 function pact(name: string, difficulty: Difficulty, region: string): Task {
   const id = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '')
-  return { id, region, difficulty, name }
+  return { id, region, difficulty, name, pactPoint: true }
 }
 
 export const tasks: Task[] = [

@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { useLocalStorage } from '@mantine/hooks'
 import { Modal, ScrollArea, Stack, Text, TextInput, Title } from '@mantine/core'
-import { IconDownload, IconGripVertical, IconPencilPlus, IconPlaylistAdd, IconUpload, IconX } from '@tabler/icons-react'
+import { IconDownload, IconFlameFilled, IconGripVertical, IconPencilPlus, IconPlaylistAdd, IconUpload, IconX } from '@tabler/icons-react'
 import {
   DndContext,
   closestCenter,
@@ -87,6 +87,7 @@ function SortableStepItem({ step, index, onRemove, onUpdateText }: StepItemProps
               {task.difficulty}
             </span>
             <span className="step-tag step-tag--pts">+{DIFFICULTY_POINTS[task.difficulty]}</span>
+            {task.pactPoint && <span className="step-tag step-tag--pact" title="Demonic Pact point"><IconFlameFilled size={14} /></span>}
           </span>
         </span>
         <button className="route-step-remove" onClick={onRemove} aria-label="Remove step">
@@ -130,6 +131,7 @@ function TaskRow({ task, onAdd }: TaskRowProps) {
     <button className="task-search-row" onClick={onAdd}>
       <span className="task-search-name">{task.name}</span>
       <span className="task-search-meta">
+        {task.pactPoint && <span className="step-tag step-tag--pact" title="Demonic Pact point"><IconFlameFilled size={14} /></span>}
         <span className="step-tag step-tag--region">{region?.name ?? 'Global'}</span>
         <span className={`step-tag step-tag--diff step-tag--${task.difficulty.toLowerCase()}`}>
           {task.difficulty}

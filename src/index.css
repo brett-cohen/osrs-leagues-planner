@@ -803,6 +803,8 @@ img {
 .step-tag--region { color: var(--mantine-color-osrsGold-5); }
 .step-tag--pts    { color: var(--mantine-color-osrsYellow-5); }
 
+.step-tag--pact { color: #cc2200; display: flex; align-items: center; }
+
 .step-tag--diff.step-tag--easy   { color: #00c800; }
 .step-tag--diff.step-tag--medium { color: #6688ff; }
 .step-tag--diff.step-tag--hard   { color: #ff4444; }
