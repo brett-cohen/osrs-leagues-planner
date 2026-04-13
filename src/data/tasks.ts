@@ -18,9 +18,8 @@ export interface Task {
   pactPoint: boolean
 }
 
-let _counter = 0
 function task(name: string, difficulty: Difficulty, region: string, pactPoint = false): Task {
-  const id = `t${++_counter}-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '')}`
+  const id = `${region}-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '')}`
   return { id, region, difficulty, name, pactPoint }
 }
 

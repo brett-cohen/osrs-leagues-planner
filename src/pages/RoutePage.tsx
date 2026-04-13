@@ -36,6 +36,19 @@ interface RouteSlot {
 const MAX_ROUTES = 5
 const DIFFICULTIES: Difficulty[] = ['Easy', 'Medium', 'Hard', 'Elite', 'Master']
 
+/** Lookup that supports both new IDs (region-name) and legacy IDs (name only) */
+const taskById = new Map<string, Task>()
+for (const t of tasks) {
+  taskById.set(t.id, t)
+  // Legacy ID: just the name slug without region prefix
+  const legacyId = t.id.replace(/^[^-]+-/, '')
+  if (!taskById.has(legacyId)) taskById.set(legacyId, t)
+}
+
+function findTask(taskId: string): Task | undefined {
+  return taskById.get(taskId)
+}
+
 function makeId() {
   return Math.random().toString(36).slice(2, 9)
 }
@@ -72,7 +85,7 @@ function SortableStepItem({ step, index, onRemove, onUpdateText, onAddBelow, onT
   }
 
   if (step.type === 'task') {
-    const task = tasks.find(t => t.id === step.taskId)
+    const task = findTask(step.taskId)
     if (!task) return null
     const region = regions.find(r => r.id === task.region)
     return (
@@ -215,7 +228,7 @@ export function RoutePage({ selectedRegions }: Props) {
   )
 
   const totalPoints = taskSteps.reduce((sum, s) => {
-    const t = tasks.find(x => x.id === s.taskId)
+    const t = findTask(s.taskId)
     return sum + (t ? DIFFICULTY_POINTS[t.difficulty] : 0)
   }, 0)
 
