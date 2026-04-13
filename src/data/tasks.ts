@@ -2,10 +2,10 @@ export type Difficulty = 'Easy' | 'Medium' | 'Hard' | 'Elite' | 'Master'
 
 export const DIFFICULTY_POINTS: Record<Difficulty, number> = {
   Easy:   10,
-  Medium: 50,
-  Hard:   100,
-  Elite:  250,
-  Master: 500,
+  Medium: 30,
+  Hard:   80,
+  Elite:  200,
+  Master: 400,
 }
 
 export interface Task {
