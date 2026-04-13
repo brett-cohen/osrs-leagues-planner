@@ -66,9 +66,10 @@ interface StepItemProps {
   onUpdateText: (text: string) => void
   onAddBelow: () => void
   onToggleDone: () => void
+  keyboardEnabled: boolean
 }
 
-function SortableStepItem({ step, index, onRemove, onUpdateText, onAddBelow, onToggleDone }: StepItemProps) {
+function SortableStepItem({ step, index, onRemove, onUpdateText, onAddBelow, onToggleDone, keyboardEnabled }: StepItemProps) {
   const {
     attributes,
     listeners,
@@ -124,7 +125,7 @@ function SortableStepItem({ step, index, onRemove, onUpdateText, onAddBelow, onT
         className="route-step-input"
         value={step.text}
         onChange={e => onUpdateText(e.target.value)}
-        onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); onAddBelow() } }}
+        onKeyDown={e => { if (keyboardEnabled && e.key === 'Enter') { e.preventDefault(); onAddBelow() } }}
         placeholder="Custom step…"
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
@@ -166,6 +167,10 @@ interface Props {
 }
 
 export function RoutePage({ selectedRegions }: Props) {
+  const [keyboardEnabled, setKeyboardEnabled] = useLocalStorage<boolean>({
+    key: 'osrs-leagues-route-keyboard',
+    defaultValue: true,
+  })
   const [routes, setRoutes] = useLocalStorage<RouteSlot[]>({
     key: 'osrs-leagues-routes',
     defaultValue: defaultRoutes(),
@@ -377,6 +382,14 @@ export function RoutePage({ selectedRegions }: Props) {
             </button>
             <input ref={fileInputRef} type="file" accept=".json" onChange={handleFileSelect} hidden />
           </div>
+          <label className="route-keyboard-toggle">
+            <input
+              type="checkbox"
+              checked={keyboardEnabled}
+              onChange={e => setKeyboardEnabled(e.target.checked)}
+            />
+            <span>Enter adds new step</span>
+          </label>
         </div>
 
         {/* Route tabs + add step buttons */}
@@ -449,6 +462,7 @@ export function RoutePage({ selectedRegions }: Props) {
                     onUpdateText={text => updateCustomText(step.id, text)}
                     onAddBelow={() => addCustomStepAfter(i)}
                     onToggleDone={() => toggleDone(step.id)}
+                    keyboardEnabled={keyboardEnabled}
                   />
                 ))}
               </SortableContext>

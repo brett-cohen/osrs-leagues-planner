@@ -501,6 +501,23 @@ img {
   align-items: center;
   justify-content: space-between;
   flex-shrink: 0;
+  gap: var(--mantine-spacing-md);
+}
+
+.route-keyboard-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--mantine-color-osrsGold-5);
+  font-family: 'RuneScape', monospace;
+  font-size: var(--mantine-font-size-sm);
+  cursor: pointer;
+  user-select: none;
+}
+
+.route-keyboard-toggle input {
+  accent-color: var(--mantine-color-osrsGold-5);
+  cursor: pointer;
 }
 
 .route-stats {
