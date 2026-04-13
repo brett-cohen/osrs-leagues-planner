@@ -481,11 +481,26 @@ img {
    Route Page
    ============================================================ */
 
+.route-page {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--app-nav-height) - var(--mantine-spacing-xl) - var(--mantine-spacing-xl));
+  gap: var(--mantine-spacing-md);
+}
+
 .route-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--mantine-spacing-xl);
+  flex-shrink: 0;
+}
+
+.route-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
 }
 
 .route-stats {
@@ -529,6 +544,12 @@ img {
   display: flex;
   gap: 2px;
   align-items: stretch;
+  flex-shrink: 0;
+}
+
+.route-tab-actions {
+  margin-left: auto;
+  align-self: center;
 }
 
 .route-tab {
@@ -659,11 +680,15 @@ img {
   padding: var(--mantine-spacing-md);
 }
 
+.route-step-area {
+  flex: 1;
+  min-height: 0;
+}
+
 .route-step-list {
   padding: var(--mantine-spacing-xs);
   display: flex;
   flex-direction: column;
-  max-height: 60vh;
   overflow-y: auto;
 }
 
@@ -677,6 +702,24 @@ img {
 
 .route-step:last-child {
   border-bottom: none;
+}
+
+.route-step--done .route-step-name,
+.route-step--done .route-step-input {
+  text-decoration: line-through;
+  opacity: 0.45;
+}
+
+.route-step--done .route-step-tags {
+  opacity: 0.45;
+}
+
+.route-step-check {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  accent-color: var(--mantine-color-osrsGold-5);
+  cursor: pointer;
 }
 
 .route-step-grip {
@@ -755,11 +798,7 @@ img {
   opacity: 1;
 }
 
-.route-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+/* route-tabs flex-shrink */
 
 .route-add-btns {
   display: flex;

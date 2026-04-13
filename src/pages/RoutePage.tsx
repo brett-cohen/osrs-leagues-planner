@@ -25,8 +25,8 @@ import { regions } from '../data/regions'
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 type RouteStep =
-  | { type: 'custom'; id: string; text: string }
-  | { type: 'task';   id: string; taskId: string }
+  | { type: 'custom'; id: string; text: string; done?: boolean }
+  | { type: 'task';   id: string; taskId: string; done?: boolean }
 
 interface RouteSlot {
   name: string
@@ -51,9 +51,11 @@ interface StepItemProps {
   index: number
   onRemove: () => void
   onUpdateText: (text: string) => void
+  onAddBelow: () => void
+  onToggleDone: () => void
 }
 
-function SortableStepItem({ step, index, onRemove, onUpdateText }: StepItemProps) {
+function SortableStepItem({ step, index, onRemove, onUpdateText, onAddBelow, onToggleDone }: StepItemProps) {
   const {
     attributes,
     listeners,
@@ -74,10 +76,11 @@ function SortableStepItem({ step, index, onRemove, onUpdateText }: StepItemProps
     if (!task) return null
     const region = regions.find(r => r.id === task.region)
     return (
-      <div className="route-step" ref={setNodeRef} style={style}>
+      <div className={`route-step${step.done ? ' route-step--done' : ''}`} ref={setNodeRef} style={style}>
         <span className="route-step-grip" {...attributes} {...listeners}>
           <IconGripVertical size={14} />
         </span>
+        <input type="checkbox" className="route-step-check" checked={!!step.done} onChange={onToggleDone} />
         <span className="route-step-num">{index + 1}</span>
         <span className="route-step-body">
           <span className="route-step-name">{task.name}</span>
@@ -98,15 +101,17 @@ function SortableStepItem({ step, index, onRemove, onUpdateText }: StepItemProps
   }
 
   return (
-    <div className="route-step" ref={setNodeRef} style={style}>
+    <div className={`route-step${step.done ? ' route-step--done' : ''}`} ref={setNodeRef} style={style}>
       <span className="route-step-grip" {...attributes} {...listeners}>
         <IconGripVertical size={14} />
       </span>
+      <input type="checkbox" className="route-step-check" checked={!!step.done} onChange={onToggleDone} />
       <span className="route-step-num">{index + 1}</span>
       <input
         className="route-step-input"
         value={step.text}
         onChange={e => onUpdateText(e.target.value)}
+        onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); onAddBelow() } }}
         placeholder="Custom step…"
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
@@ -224,6 +229,14 @@ export function RoutePage({ selectedRegions }: Props) {
     updateSteps(prev => [...prev, { type: 'custom', id: makeId(), text: '' }])
   }
 
+  function addCustomStepAfter(afterIndex: number) {
+    updateSteps(prev => {
+      const next = [...prev]
+      next.splice(afterIndex + 1, 0, { type: 'custom', id: makeId(), text: '' })
+      return next
+    })
+  }
+
   function addTaskStep(taskId: string) {
     updateSteps(prev => [...prev, { type: 'task', id: makeId(), taskId }])
   }
@@ -234,6 +247,10 @@ export function RoutePage({ selectedRegions }: Props) {
 
   function updateCustomText(id: string, text: string) {
     updateSteps(prev => prev.map(s => s.id === id && s.type === 'custom' ? { ...s, text } : s))
+  }
+
+  function toggleDone(id: string) {
+    updateSteps(prev => prev.map(s => s.id === id ? { ...s, done: !s.done } : s))
   }
 
   function handleDragEnd(event: DragEndEvent) {
@@ -311,7 +328,7 @@ export function RoutePage({ selectedRegions }: Props) {
 
   return (
     <>
-      <Stack gap="xl">
+      <div className="route-page">
         <div className="route-header">
           <div>
             <Title order={1}>Route</Title>
@@ -336,7 +353,20 @@ export function RoutePage({ selectedRegions }: Props) {
         </div>
         <hr className="divider" />
 
-        {/* Route tabs */}
+        {/* Export/import buttons */}
+        <div className="route-toolbar">
+          <div className="route-add-btns">
+            <button className="route-add-btn" onClick={() => setExportModalOpen(true)} title="Export route">
+              <IconDownload size={18} stroke={1.5} />
+            </button>
+            <button className="route-add-btn" onClick={() => fileInputRef.current?.click()} title="Import route">
+              <IconUpload size={18} stroke={1.5} />
+            </button>
+            <input ref={fileInputRef} type="file" accept=".json" onChange={handleFileSelect} hidden />
+          </div>
+        </div>
+
+        {/* Route tabs + add step buttons */}
         <div className="route-tabs">
           {routes.map((route, i) => (
             <div key={i} className={`route-tab${i === safeIndex ? ' route-tab--active' : ''}`}>
@@ -372,16 +402,25 @@ export function RoutePage({ selectedRegions }: Props) {
           {routes.length < MAX_ROUTES && (
             <button className="route-tab-add" onClick={addRoute} title="Add route">+</button>
           )}
+          <div className="route-add-btns route-tab-actions">
+            <button className="route-add-btn" onClick={addCustomStep} title="Add custom step">
+              <IconPencilPlus size={18} stroke={1.5} />
+            </button>
+            <button className="route-add-btn" onClick={() => setModalOpen(true)} title="Add task">
+              <IconPlaylistAdd size={18} stroke={1.5} />
+            </button>
+          </div>
         </div>
 
+        {/* Step list — fills remaining vertical space */}
         {steps.length === 0 ? (
-          <div className="panel-inset route-empty">
+          <div className="panel-inset route-empty route-step-area">
             <Text c="osrsGold.5" size="sm">
-              No steps yet — add a task or a custom step below.
+              No steps yet — add a task or a custom step above.
             </Text>
           </div>
         ) : (
-          <div className="panel-inset route-step-list">
+          <div className="panel-inset route-step-list route-step-area">
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter}
@@ -395,33 +434,15 @@ export function RoutePage({ selectedRegions }: Props) {
                     index={i}
                     onRemove={() => removeStep(step.id)}
                     onUpdateText={text => updateCustomText(step.id, text)}
+                    onAddBelow={() => addCustomStepAfter(i)}
+                    onToggleDone={() => toggleDone(step.id)}
                   />
                 ))}
               </SortableContext>
             </DndContext>
           </div>
         )}
-
-        <div className="route-footer">
-          <div className="route-add-btns">
-            <button className="route-add-btn" onClick={() => setExportModalOpen(true)} title="Export route">
-              <IconDownload size={18} stroke={1.5} />
-            </button>
-            <button className="route-add-btn" onClick={() => fileInputRef.current?.click()} title="Import route">
-              <IconUpload size={18} stroke={1.5} />
-            </button>
-            <input ref={fileInputRef} type="file" accept=".json" onChange={handleFileSelect} hidden />
-          </div>
-          <div className="route-add-btns">
-            <button className="route-add-btn" onClick={addCustomStep} title="Add custom step">
-              <IconPencilPlus size={18} stroke={1.5} />
-            </button>
-            <button className="route-add-btn" onClick={() => setModalOpen(true)} title="Add task">
-              <IconPlaylistAdd size={18} stroke={1.5} />
-            </button>
-          </div>
-        </div>
-      </Stack>
+      </div>
 
       {/* Task search modal */}
       <Modal
