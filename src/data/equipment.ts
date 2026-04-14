@@ -55,7 +55,7 @@ export const gearItems: GearItem[] = [
   item("Dual macuahuitl",        'melee-weapon',  'varlamore'),
   item("Eclipse atlatl",         'ranged-weapon', 'varlamore'),
   item("Avernic treads",           'feet',          'varlamore'),
-  item("Eye of ayak",              'neck',          'varlamore'),
+  item("Eye of ayak",              'magic-weapon',          'varlamore'),
   item("Confliction gauntlets",          'hands',          'varlamore'),
   item("Ultor ring",               'ring',          'varlamore'),
   item("Sunfire fanatic helm",     'head',          'varlamore'),

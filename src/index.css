@@ -586,6 +586,12 @@ img {
   background-color: var(--mantine-color-osrsBrown-7);
 }
 
+.route-tab--drop-target {
+  border-color: var(--mantine-color-osrsGold-5);
+  background-color: var(--mantine-color-osrsBrown-6);
+  box-shadow: 0 0 8px rgba(255, 152, 31, 0.6);
+}
+
 .route-tab-btn {
   background: none;
   border: none;

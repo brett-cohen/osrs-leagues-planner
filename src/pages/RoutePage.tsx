@@ -5,10 +5,13 @@ import { IconDownload, IconFlameFilled, IconGripVertical, IconPencilPlus, IconPl
 import {
   DndContext,
   closestCenter,
+  pointerWithin,
   KeyboardSensor,
   PointerSensor,
+  useDroppable,
   useSensor,
   useSensors,
+  type CollisionDetection,
   type DragEndEvent,
 } from '@dnd-kit/core'
 import {
@@ -34,6 +37,43 @@ interface RouteSlot {
 }
 
 const MAX_ROUTES = 5
+
+/** Custom collision detection: prioritise route tabs based on pointer, fall back to sortable items */
+const routeCollisionDetection: CollisionDetection = (args) => {
+  // Only match tabs if the pointer is literally inside one
+  const pointerHits = pointerWithin(args).filter(c => String(c.id).startsWith('route-tab-'))
+  if (pointerHits.length > 0) {
+    // If multiple tabs overlap at the pointer, pick the one whose centre is closest
+    const pointer = args.pointerCoordinates
+    if (pointer && pointerHits.length > 1) {
+      pointerHits.sort((a, b) => {
+        const ar = args.droppableRects.get(a.id)
+        const br = args.droppableRects.get(b.id)
+        if (!ar || !br) return 0
+        const da = Math.hypot(pointer.x - (ar.left + ar.width / 2), pointer.y - (ar.top + ar.height / 2))
+        const db = Math.hypot(pointer.x - (br.left + br.width / 2), pointer.y - (br.top + br.height / 2))
+        return da - db
+      })
+    }
+    return [pointerHits[0]]
+  }
+
+  // Fall back to closestCenter for sortable list items only
+  return closestCenter(args)
+}
+
+// Droppable wrapper for route tabs — accepts step drops to move them between routes
+function DroppableTab({ index, isActive, children }: { index: number; isActive: boolean; children: React.ReactNode }) {
+  const { setNodeRef, isOver } = useDroppable({ id: `route-tab-${index}` })
+  return (
+    <div
+      ref={setNodeRef}
+      className={`route-tab${isActive ? ' route-tab--active' : ''}${isOver ? ' route-tab--drop-target' : ''}`}
+    >
+      {children}
+    </div>
+  )
+}
 const DIFFICULTIES: Difficulty[] = ['Easy', 'Medium', 'Hard', 'Elite', 'Master']
 
 /** Lookup that supports both new IDs (region-name) and legacy IDs (name only) */
@@ -183,6 +223,7 @@ export function RoutePage({ selectedRegions }: Props) {
   const [search, setSearch] = useState('')
   const [diffFilter, setDiffFilter] = useState<Difficulty[]>([])
   const [regionFilter, setRegionFilter] = useState('all')
+  const [pactFilter, setPactFilter] = useState<'all' | 'pact' | 'non-pact'>('all')
   const [editingTab, setEditingTab] = useState<number | null>(null)
   const [importModalOpen, setImportModalOpen] = useState(false)
   const [pendingImport, setPendingImport] = useState<RouteStep[] | null>(null)
@@ -217,7 +258,10 @@ export function RoutePage({ selectedRegions }: Props) {
     const matchesSearch = search === '' || t.name.toLowerCase().includes(search.toLowerCase())
     const matchesDiff = diffFilter.length === 0 || diffFilter.includes(t.difficulty)
     const matchesRegion = regionFilter === 'all' || t.region === regionFilter
-    return matchesSearch && matchesDiff && matchesRegion
+    const matchesPact = pactFilter === 'all'
+      || (pactFilter === 'pact' && t.pactPoint)
+      || (pactFilter === 'non-pact' && !t.pactPoint)
+    return matchesSearch && matchesDiff && matchesRegion && matchesPact
   })
 
   const regionSelectOptions = [
@@ -273,13 +317,33 @@ export function RoutePage({ selectedRegions }: Props) {
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event
-    if (over && active.id !== over.id) {
-      updateSteps(prev => {
-        const oldIndex = prev.findIndex(s => s.id === active.id)
-        const newIndex = prev.findIndex(s => s.id === over.id)
-        return arrayMove(prev, oldIndex, newIndex)
+    if (!over || active.id === over.id) return
+
+    // Check if dropped on a route tab (id format: route-tab-<index>)
+    const overId = String(over.id)
+    if (overId.startsWith('route-tab-')) {
+      const targetIndex = parseInt(overId.slice('route-tab-'.length), 10)
+      if (targetIndex === safeIndex || Number.isNaN(targetIndex)) return
+      // Move the step from current route to target route
+      setRoutes(prev => {
+        const step = prev[safeIndex]?.steps.find(s => s.id === active.id)
+        if (!step) return prev
+        return prev.map((r, i) => {
+          if (i === safeIndex) return { ...r, steps: r.steps.filter(s => s.id !== active.id) }
+          if (i === targetIndex) return { ...r, steps: [...r.steps, step] }
+          return r
+        })
       })
+      return
     }
+
+    // Otherwise, reorder within current route
+    updateSteps(prev => {
+      const oldIndex = prev.findIndex(s => s.id === active.id)
+      const newIndex = prev.findIndex(s => s.id === over.id)
+      if (oldIndex === -1 || newIndex === -1) return prev
+      return arrayMove(prev, oldIndex, newIndex)
+    })
   }
 
   function addRoute() {
@@ -392,10 +456,15 @@ export function RoutePage({ selectedRegions }: Props) {
           </label>
         </div>
 
+        <DndContext
+          sensors={sensors}
+          collisionDetection={routeCollisionDetection}
+          onDragEnd={handleDragEnd}
+        >
         {/* Route tabs + add step buttons */}
         <div className="route-tabs">
           {routes.map((route, i) => (
-            <div key={i} className={`route-tab${i === safeIndex ? ' route-tab--active' : ''}`}>
+            <DroppableTab key={i} index={i} isActive={i === safeIndex}>
               {editingTab === i ? (
                 <input
                   className="route-tab-input"
@@ -423,7 +492,7 @@ export function RoutePage({ selectedRegions }: Props) {
                   <IconX size={10} />
                 </button>
               )}
-            </div>
+            </DroppableTab>
           ))}
           {routes.length < MAX_ROUTES && (
             <button className="route-tab-add" onClick={addRoute} title="Add route">+</button>
@@ -447,28 +516,23 @@ export function RoutePage({ selectedRegions }: Props) {
           </div>
         ) : (
           <div className="panel-inset route-step-list route-step-area">
-            <DndContext
-              sensors={sensors}
-              collisionDetection={closestCenter}
-              onDragEnd={handleDragEnd}
-            >
-              <SortableContext items={steps.map(s => s.id)} strategy={verticalListSortingStrategy}>
-                {steps.map((step, i) => (
-                  <SortableStepItem
-                    key={step.id}
-                    step={step}
-                    index={i}
-                    onRemove={() => removeStep(step.id)}
-                    onUpdateText={text => updateCustomText(step.id, text)}
-                    onAddBelow={() => addCustomStepAfter(i)}
-                    onToggleDone={() => toggleDone(step.id)}
-                    keyboardEnabled={keyboardEnabled}
-                  />
-                ))}
-              </SortableContext>
-            </DndContext>
+            <SortableContext items={steps.map(s => s.id)} strategy={verticalListSortingStrategy}>
+              {steps.map((step, i) => (
+                <SortableStepItem
+                  key={step.id}
+                  step={step}
+                  index={i}
+                  onRemove={() => removeStep(step.id)}
+                  onUpdateText={text => updateCustomText(step.id, text)}
+                  onAddBelow={() => addCustomStepAfter(i)}
+                  onToggleDone={() => toggleDone(step.id)}
+                  keyboardEnabled={keyboardEnabled}
+                />
+              ))}
+            </SortableContext>
           </div>
         )}
+        </DndContext>
       </div>
 
       {/* Task search modal */}
@@ -510,6 +574,15 @@ export function RoutePage({ selectedRegions }: Props) {
               {regionSelectOptions.map(o => (
                 <option key={o.value} value={o.value}>{o.label}</option>
               ))}
+            </select>
+            <select
+              className="osrs-select"
+              value={pactFilter}
+              onChange={e => setPactFilter(e.target.value as 'all' | 'pact' | 'non-pact')}
+            >
+              <option value="all">All Tasks</option>
+              <option value="pact">Pact Tasks Only</option>
+              <option value="non-pact">Non-Pact Only</option>
             </select>
           </div>
           <Text c="osrsGold.5" size="xs">
