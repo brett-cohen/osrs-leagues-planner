@@ -54,7 +54,6 @@ export const tasks: Task[] = [
   task('Drink a Strength Potion',                'Easy', 'global'),
   task('Make an Attack Potion',                  'Easy', 'global'),
   task('Create an Antipoison',                   'Easy', 'global'),
-  task('Create a Compost Potion',                'Easy', 'global'),
   task('Clean a Grimy Guam',                     'Easy', 'global'),
   task('Clean 25 Grimy Guam Leafs',              'Easy', 'global'),
   task('Clean 15 Grimy Tarromin',                'Easy', 'global'),
@@ -193,11 +192,9 @@ export const tasks: Task[] = [
   task('Fletch 1000 arrow shafts',               'Medium', 'global'),
   task('Craft a Sapphire Amulet',                'Medium', 'global'),
   task('Craft an Emerald Ring',                  'Medium', 'global'),
-  task("Create a Green d'hide shield",           'Medium', 'global'),
   task('Craft 20 Silver items',                  'Medium', 'global'),
   task('Craft Any Combination Rune',             'Medium', 'global'),
   task('Craft 200 Essence Into Runes',           'Medium', 'global'),
-  task('Create a Guthix Rest Tea',               'Medium', 'global'),
   task('Fill a Large Pouch',                     'Medium', 'global'),
   task('Fill a Medium STASH Unit',               'Medium', 'global'),
   task('Build a Room in Your Player Owned House','Medium', 'global'),
@@ -217,7 +214,6 @@ export const tasks: Task[] = [
   task('Bury Some Wyvern or Dragon Bones',       'Medium', 'global'),
   task('Fill a Bucket With Supercompost',        'Medium', 'global'),
   task('25 Elite Clue Scrolls',                  'Medium', 'global'),
-  task('25 Hard Clue Scrolls',                   'Medium', 'global'),
   task('Fletch 50 Willow longbow (u)',           'Medium', 'global'),
   task('Fletch a Willow Shortbow (u)',           'Medium', 'global'),
   task('Fletch some Broad Arrows or Bolts',      'Medium', 'global'),
@@ -267,7 +263,6 @@ export const tasks: Task[] = [
   task('Reach Total Level 666',                  'Medium', 'global'),
   task('Reach Total Level 750',                  'Medium', 'global'),
   task('Redecorate your player Owned house',     'Medium', 'global'),
-  task("Sacrifice something to Deaths coffer",   'Medium', 'global'),
   task('Scrape some Blue Dragonhide',            'Medium', 'global'),
   task('Slay 250 Creatures',                     'Medium', 'global'),
   task('Smelt a Steel Bar',                      'Medium', 'global'),
@@ -389,7 +384,6 @@ export const tasks: Task[] = [
   // GENERAL — Elite
   // ═══════════════════════════════════════════════════════════════════════════
   task('Defeat 4 unique Echo Bosses',            'Elite', 'global', true),
-  task('Build a Spirit tree & fairy ring',       'Elite', 'global'),
   task('Complete 200 Slayer Tasks',              'Elite', 'global'),
   task('Complete all tasks for 10 bosses',       'Elite', 'global'),
   task('Complete all tasks for 5 bosses',        'Elite', 'global'),
@@ -494,8 +488,6 @@ export const tasks: Task[] = [
   task('Activate an Imbued Heart',               'Elite', 'global'),
   task('Obtain a Boss Pet',                      'Elite', 'global'),
   task('Obtain a Skilling Pet',                  'Elite', 'global'),
-  task('100 Elite Clue Scrolls',                 'Elite', 'global'),
-  task('100 Master Clue Scrolls',                'Elite', 'global'),
   task('75 Master Clue Scrolls',                 'Elite', 'global'),
   task('Reach Total Level 2000',                 'Elite', 'global'),
   task('Reach Total Level 2100',                 'Elite', 'global'),
@@ -574,7 +566,6 @@ export const tasks: Task[] = [
   task('Defeat an Icefiend in Varlamore',                    'Easy', 'varlamore'),
   task('Defeat an Imp in a basement',                        'Easy', 'varlamore'),
   task('Milk a Buffalo',                                     'Easy', 'varlamore'),
-  task('Mine some coal from Stone cutter outpost',           'Easy', 'varlamore'),
   task('Pet a Caique',                                       'Easy', 'varlamore'),
   task('Pet Renu',                                           'Easy', 'varlamore'),
   task('Pet Xolo in Civitas',                                'Easy', 'varlamore'),
@@ -595,7 +586,7 @@ export const tasks: Task[] = [
   // VARLAMORE — Medium
   // ═══════════════════════════════════════════════════════════════════════════
   task('Defeat Amoxliatl 1 Time',                            'Medium', 'varlamore'),
-  task('Defeat Hueycoatl 1 Time',                            'Medium', 'varlamore'),
+  task('Defeat Hueycoatl 1 Time', 'Medium', 'varlamore', true),
   task('Activate all Statues of Ates',                       'Medium', 'varlamore'),
   task('Activate the Statue of Ates',                        'Medium', 'varlamore'),
   task('Break down 10 calcified deposits',                   'Medium', 'varlamore'),
@@ -634,7 +625,6 @@ export const tasks: Task[] = [
   task("Jump on Yama's stepping stones 666 times",           'Medium', 'varlamore'),
   task('Defeat 10 Frost Crabs',                              'Medium', 'varlamore'),
   task('Defeat a Dire Wolf',                                 'Medium', 'varlamore'),
-  task('Defeat a fully grown jaguar without taking any damage','Medium','varlamore'),
   task('Defeat a Oryx with melee',                           'Medium', 'varlamore'),
   task('Make a Greenman statue',                             'Medium', 'varlamore'),
   task('Mine 20 Mithril Ore in the Stonecutter Outpost',     'Medium', 'varlamore'),
@@ -657,7 +647,6 @@ export const tasks: Task[] = [
   // ═══════════════════════════════════════════════════════════════════════════
   // VARLAMORE — Pact tasks
   // ═══════════════════════════════════════════════════════════════════════════
-  task('1 Hueycoatl Kill',                       'Medium', 'varlamore', true),
   task('Complete Wave 12 of Fortis Colosseum',   'Elite',  'varlamore', true),
   task('Defeat Awakened Vardorvis',              'Elite',  'varlamore', true),
   task('Equip Avernic Treads',                   'Elite',  'varlamore', true),
@@ -707,8 +696,6 @@ export const tasks: Task[] = [
   // KEBOS & KOUREND (ZEAH)
   // ═══════════════════════════════════════════════════════════════════════════
   task('Open 1 Grubby Chest',                   'Easy',   'zeah', true),
-  task('150 Lizardmen Shaman Kills',             'Medium', 'zeah', true),
-  task('1 Skotizo Kill',                         'Hard',   'zeah', true),
   task('25 Chambers of Xeric',                   'Hard',   'zeah', true),
   task('Equip a Dragon Hunter Lance',            'Elite',  'zeah', true),
   task('Equip a piece of Radiant Oathplate',     'Elite',  'zeah', true),
@@ -718,7 +705,6 @@ export const tasks: Task[] = [
   // FREMENNIK PROVINCE
   // ═══════════════════════════════════════════════════════════════════════════
   task('Defeat a Cockatrice in the Fremennik Province','Easy','fremennik', true),
-  task('Kill 8 penguins within 5 seconds',       'Medium', 'fremennik', true),
   task('Defeat Phantom Muspah',                  'Hard',   'fremennik', true),
   task('Defeat a Basilisk Knight',               'Hard',   'fremennik', true),
   task('Defeat Awakened Duke Sucellus',          'Elite',  'fremennik', true),
@@ -750,7 +736,6 @@ export const tasks: Task[] = [
   // ═══════════════════════════════════════════════════════════════════════════
   // TIRANNWN
   // ═══════════════════════════════════════════════════════════════════════════
-  task('Kill a Black Dragon in Tirannwn',        'Medium', 'tirannwn', true),
   task('Complete the Corrupted Gauntlet',        'Hard',   'tirannwn', true),
   task('Defeat Zalcano',                         'Hard',   'tirannwn', true),
   task('Equip a Dark Bow in Tirannwn',           'Hard',   'tirannwn', true),
@@ -773,7 +758,6 @@ export const tasks: Task[] = [
   // MORYTANIA
   // ═══════════════════════════════════════════════════════════════════════════
   task('Defeat a Werewolf in Morytania',         'Easy',   'morytania', true),
-  task('1 Araxxor Kill',                         'Hard',   'morytania', true),
   task('Assemble a Slayer Helm',                 'Hard',   'morytania', true),
   task('Create an Amulet of Blood Fury',         'Hard',   'morytania', true),
   task('Equip any Full Barrows Armour Set',      'Hard',   'morytania', true),
@@ -789,7 +773,6 @@ export const tasks: Task[] = [
   task('Equip a Dragon Chainbody in the Kharidian Desert','Elite','desert', true),
   task('Equip a Piece of Masori Armour',         'Elite',  'desert', true),
   task('Equip the Venator Ring',                 'Elite',  'desert', true),
-  task("Equip Osmumten's Fang (or)",             'Master', 'desert', true),
   // ═══════════════════════════════════════════════════════════════════════════
   // NEWLY REVEALED TASKS (appended from wiki sync)
   // ═══════════════════════════════════════════════════════════════════════════
